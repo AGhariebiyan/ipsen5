@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { action } from "tns-core-modules/ui/dialogs";
+import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-news-add',
@@ -11,6 +11,7 @@ export class NewsAddComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {
   }
+
   displayActionDialog() {
     const options = {
       title: "Gebruiker",
@@ -24,6 +25,17 @@ export class NewsAddComponent implements OnInit {
       } else {
         this.userType = result;
       }
+    });
+  }
+
+  displayConfirmDialog() {
+    const options = {
+      title: "Weet u zeker dat u dit bericht wilt toevoegen?",
+      okButtonText: "Toevoegen",
+      cancelButtonText: "Annuleer"
+    };
+    confirm(options).then((result: boolean) => {
+      console.log(result);
     });
   }
 }
