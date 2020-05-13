@@ -6,10 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news-edit.component.css']
 })
 export class NewsEditComponent implements OnInit {
+  userType = " ";
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  displayActionDialog() {
+    // >> action-dialog-code
+    let options = {
+      title: "Race selection",
+      message: "Choose your race",
+      cancelButtonText: "Cancel",
+      actions: ["Human", "Elf", "Dwarf", "Orc", "Unicorn"]
+    };
+
+    action(options).then((result) => {
+      this.userType = result;
+    });
+    // << action-dialog-code
   }
 
 }

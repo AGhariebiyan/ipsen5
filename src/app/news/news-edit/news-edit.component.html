@@ -1,7 +1,29 @@
 <StackLayout>
+
     <TextField
-        hint=""
+        class="marginTopField"
+        hint="Titel"
+        [text]=""
     ></TextField>
+
+    <TextView
+            class="marginTopField"
+            id="textDescription"
+            hint="Bericht beschrijving"
+            [text]=""
+    ></TextView>
+
+    <Label
+        text="Plaatsen als"
+    ></Label>
+
+    <TextField
+            [text]="userType"
+            id="Bericht beschrijving"
+            hint="2"
+            editable="false"
+            (tap)="displayActionDialog()"
+    ></TextField>
+
 </StackLayout>
 
-<!--<Button text="news-edit works!" class="btn btn-primary"></Button>-->

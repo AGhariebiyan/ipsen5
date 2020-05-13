@@ -1,1 +1,35 @@
 /* Add mobile styles for the component here.  */
+StackLayout {
+    background-color: #EFEFEE;
+    border-color: green;
+    border-width: 5;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+TextField {
+    background-color: white;
+    width: auto;
+    padding: 10 5;
+}
+
+TextView {
+    background-color: white;
+    width: auto;
+    padding: 10 5;
+}
+
+#textDescription{
+    height: 350;
+}
+Label{
+    color: gray;
+    padding-top: 50;
+    margin-bottom: 3;
+}
+
+.marginTopField {
+    margin-top: 40;
+}
