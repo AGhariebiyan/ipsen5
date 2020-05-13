@@ -23,9 +23,13 @@ export class NewsEditComponent implements OnInit {
     };
 
     action(options).then((result) => {
-      this.userType = result;
+      if (result === 'Cancel') {
+        this.userType = "";
+      } else {
+        this.userType = result;
+      }
     });
-    // << action-dialog-code
+
   }
 
 }

@@ -2,7 +2,6 @@
 StackLayout {
     background-color: #EFEFEE;
     border-color: green;
-    border-width: 5;
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
@@ -22,14 +21,23 @@ TextView {
 }
 
 #textDescription{
-    height: 350;
+    height: 50%;
 }
 Label{
     color: gray;
     padding-top: 50;
-    margin-bottom: 3;
+    margin: 3 5;
 }
 
 .marginTopField {
     margin-top: 40;
+}
+
+Button{
+    margin-top: 3%;
+    width: 90%;
+    background-color: #F4382D;
+    color: white;
+    border-radius: 8;
+    height: 7,5%;
 }
