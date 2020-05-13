@@ -1,6 +1,28 @@
-<StackLayout orientation="vertical" width="100%" height="100%" backgroundColor="lightgray">
+<StackLayout>
+    <TextField
+            class="marginTopField"
+            hint="Titel"
+            [text]=""
+    ></TextField>
+
+    <TextView
+            class="marginTopField"
+            id="textDescription"
+            hint="Bericht beschrijving"
+            [text]=""
+    ></TextView>
+
+    <Label
+            text="Plaatsen als"
+    ></Label>
+
+    <TextField
+            id="Bericht beschrijving"
+            hint="Plaatsen als...."
+            editable="false"
+    ></TextField>
+
     <Button text="Verwijderen" class="btn btn-primary"></Button>
 </StackLayout>
-
 
 
