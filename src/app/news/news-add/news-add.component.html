@@ -8,7 +8,7 @@
     <TextView
             class="marginTopField"
             id="textDescription"
-            hint="Bericht beschrijving"
+            hint="Bericht"
             [text]=""
     ></TextView>
 
@@ -17,9 +17,10 @@
     ></Label>
 
     <TextField
-            id="Bericht beschrijving"
+            [text]="userType"
             hint="Plaatsen als...."
             editable="false"
+            (tap)="displayActionDialog()"
     ></TextField>
 
     <Button text="Verwijderen" class="btn btn-primary"></Button>
