@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { action, ActionOptions } from "tns-core-modules/ui/dialogs";
+import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+
 
 @Component({
   selector: 'ns-news-edit',
@@ -6,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news-edit.component.css']
 })
 export class NewsEditComponent implements OnInit {
-  userType = " ";
+  userType = "";
 
   constructor() { }
 
@@ -15,21 +18,34 @@ export class NewsEditComponent implements OnInit {
 
   displayActionDialog() {
     // >> action-dialog-code
-    let options = {
+    const options = {
       title: "Plaatsen als:",
       message: "Selecteer type",
-      cancelButtonText: "Cancel",
+      cancelButtonText: "Annuleer",
       actions: ["Human", "Elf", "Dwarf", "Orc", "Unicorn"]
     };
 
     action(options).then((result) => {
-      if (result === 'Cancel') {
+      if (result === 'Annuleer') {
         this.userType = "";
       } else {
         this.userType = result;
       }
     });
+  }
 
+  displayConfirmDialog() {
+    // >> confirm-dialog-code
+    const options = {
+      title: "Weet u zeker dat u de wijziging wilt aanbrengen?",
+      okButtonText: "Wijzig",
+      cancelButtonText: "Annuleer"
+    };
+
+    confirm(options).then((result: boolean) => {
+      console.log(result);
+    });
+    // << confirm-dialog-code
   }
 
 }

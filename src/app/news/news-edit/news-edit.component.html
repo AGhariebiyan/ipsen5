@@ -19,7 +19,6 @@
 
     <TextField
             [text]="userType"
-            id="Bericht beschrijving"
             hint="Plaatsen als...."
             editable="false"
             (tap)="displayActionDialog()"
@@ -28,6 +27,7 @@
     <Button
             text="Wijzigen"
             class="btn btn-primary"
+            (tap)="displayConfirmDialog()"
     ></Button>
 
 </StackLayout>
