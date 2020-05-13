@@ -16,8 +16,8 @@ export class NewsEditComponent implements OnInit {
   displayActionDialog() {
     // >> action-dialog-code
     let options = {
-      title: "Race selection",
-      message: "Choose your race",
+      title: "Plaatsen als:",
+      message: "Selecteer type",
       cancelButtonText: "Cancel",
       actions: ["Human", "Elf", "Dwarf", "Orc", "Unicorn"]
     };
