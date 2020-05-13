@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { action, ActionOptions } from "tns-core-modules/ui/dialogs";
-import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
-
+import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-news-edit',
@@ -16,8 +14,8 @@ export class NewsEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Dialoog venster voor het selecteren van type.
   displayActionDialog() {
-    // >> action-dialog-code
     const options = {
       title: "Plaatsen als:",
       message: "Selecteer type",
@@ -34,8 +32,8 @@ export class NewsEditComponent implements OnInit {
     });
   }
 
+  // Dialoog voor de controle van de gebruiker voor het wijzigen.
   displayConfirmDialog() {
-    // >> confirm-dialog-code
     const options = {
       title: "Weet u zeker dat u de wijziging wilt aanbrengen?",
       okButtonText: "Wijzig",
@@ -45,7 +43,6 @@ export class NewsEditComponent implements OnInit {
     confirm(options).then((result: boolean) => {
       console.log(result);
     });
-    // << confirm-dialog-code
   }
 
 }
