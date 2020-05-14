@@ -6,11 +6,14 @@ import { Component, OnInit } from "@angular/core";
 })
 export class AppComponent implements OnInit {
 
+    loggedIn = false;
+
     constructor() {
         // Use the component constructor to inject providers.
     }
 
     ngOnInit(): void {
+
         // Init your component properties here.
     }
 }
