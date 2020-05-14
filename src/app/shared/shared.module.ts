@@ -1,15 +1,16 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { CustomActionBarComponent } from './custom-action-bar/custom-action-bar.component';
+import { MainActionBar } from './main-action-bar/main-action-bar.component';
+import { CompactActionBarComponent } from './compact-action-bar/compact-action-bar.component';
 
 
 
 @NgModule({
-  declarations: [CustomActionBarComponent],
+  declarations: [MainActionBar, CompactActionBarComponent],
   imports: [
     NativeScriptCommonModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  exports: [CustomActionBarComponent]
+  exports: [MainActionBar, CompactActionBarComponent]
 })
 export class SharedModule { }
