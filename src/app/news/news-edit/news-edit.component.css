@@ -17,7 +17,6 @@ TextField {
 TextView {
     background-color: white;
     width: auto;
-    padding: 10 5;
 }
 
 #textDescription{
@@ -30,7 +29,7 @@ Label{
 }
 
 .marginTopField {
-    margin-top: 40;
+    margin-top: 35;
 }
 
 Button{

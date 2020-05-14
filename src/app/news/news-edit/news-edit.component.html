@@ -1,9 +1,10 @@
-<ns-custom-action-bar></ns-custom-action-bar>
+<ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
 <StackLayout>
 
     <TextField
-        hint="Titel"
-        [text]=""
+            class="marginTopField"
+            hint="Titel"
+            [text]=""
     ></TextField>
 
     <TextView
@@ -13,9 +14,7 @@
             [text]=""
     ></TextView>
 
-    <Label
-        text="Plaatsen als"
-    ></Label>
+    <Label text="Plaatsen als"></Label>
 
     <TextField
             [text]="userType"
