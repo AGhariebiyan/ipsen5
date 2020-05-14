@@ -35,8 +35,8 @@ export class NewsEditComponent implements OnInit {
   // Dialoog voor de controle van de gebruiker voor het wijzigen.
   displayConfirmDialog() {
     const options = {
-      title: "Weet u zeker dat u de wijziging wilt aanbrengen?",
-      okButtonText: "Wijzig",
+      title: "Weet u zeker dat u het nieuwsbericht wilt verwijderen?",
+      okButtonText: "Verwijder",
       cancelButtonText: "Annuleer"
     };
 
