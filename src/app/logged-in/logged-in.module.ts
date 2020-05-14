@@ -10,8 +10,7 @@ import {SharedModule} from "~/app/shared/shared.module";
   declarations: [LoggedInComponent],
   imports: [
       LoggedInRoutingModule,
-      NativeScriptCommonModule,
-      SharedModule
+      NativeScriptCommonModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

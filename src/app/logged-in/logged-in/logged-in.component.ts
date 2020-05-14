@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Page} from "@nativescript/core/ui/page";
 
 @Component({
   selector: 'ns-logged-in',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoggedInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private page: Page) {
+    page.actionBarHidden = true;
+  }
 
   ngOnInit(): void {
 

@@ -7,6 +7,7 @@ import { StartPaginaComponent } from './StartPagina/start-pagina/start-pagina.co
 import { LoginComponent } from './StartPagina/start-pagina/login/login.component';
 import { RegistrerenComponent } from './StartPagina/start-pagina/registreren/registreren.component';
 import {LoggedInModule} from "~/app/logged-in/logged-in.module";
+import { StartComponent } from './StartPagina/start-pagina/start/start.component';
 
 @NgModule({
     bootstrap: [
@@ -20,7 +21,9 @@ import {LoggedInModule} from "~/app/logged-in/logged-in.module";
     declarations: [
         AppComponent,
         StartPaginaComponent,
-        RegistrerenComponent
+        RegistrerenComponent,
+        LoginComponent,
+        StartComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

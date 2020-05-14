@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Page } from '@nativescript/core/ui/page/page';
 
 @Component({
   selector: 'ns-start-pagina',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartPaginaComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    console.log("start pagina created");
+
   }
 
 }
