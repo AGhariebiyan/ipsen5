@@ -12,11 +12,11 @@ export class NewsComponent implements OnInit {
   newsItems: Array<NewsItem> = [];
 
   constructor(
-      private newsService: NewsService,
-      private httpService: HttpService) { }
+      private newsService: NewsService) { }
 
   ngOnInit(): void {
     this.getNewsItems();
+    console.log('jghjghjg');
   }
 
   getNewsItems() {

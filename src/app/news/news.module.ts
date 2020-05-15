@@ -7,6 +7,7 @@ import { NewsAddComponent } from './news-add/news-add.component';
 import { NewsEditComponent } from './news-edit/news-edit.component';
 import { RouterModule } from "@angular/router";
 import { ActionBarNewsComponent } from './action-bar-news/action-bar-news.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [

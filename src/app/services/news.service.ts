@@ -13,7 +13,7 @@ export class NewsService {
     constructor(private http: HttpService) {}
 
     getNewsPostFromDatabase(): Observable<Array<NewsItem>> {
-        return this.http.getData("https://localhost:5001/api/newsposts");
+        return this.http.getData("https://localhost:50628/api/newsposts");
     }
 
 }

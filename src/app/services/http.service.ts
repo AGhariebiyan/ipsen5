@@ -21,7 +21,7 @@ export class HttpService {
   postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
