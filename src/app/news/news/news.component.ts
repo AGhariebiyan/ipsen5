@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from "~/app/services/http.service";
+import { NewsService } from "~/app/services/news.service";
+import { NewsItem } from "~/app/models/NewsItem.model";
 
 @Component({
   selector: 'ns-news',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
+  newsItems: Array<NewsItem> = [];
 
-  constructor() { }
+  constructor(
+      private newsService: NewsService,
+      private httpService: HttpService) { }
 
   ngOnInit(): void {
+    this.getNewsItems();
+  }
+
+  getNewsItems() {
+    this.newsService.getNewsPostFromDatabase().subscribe((newsItem) => this.newsItems = newsItem);
   }
 
 }

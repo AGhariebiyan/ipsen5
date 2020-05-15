@@ -1,6 +1,6 @@
 import { Company } from "~/app/models/Company.model";
 
-export class Newspost {
+export class NewsItem {
     private _id: number;
     private _title: string;
     private _content: string;
