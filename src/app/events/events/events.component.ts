@@ -11,8 +11,9 @@ import { Page } from 'tns-core-modules/ui/page';
 })
 export class EventsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private page: Page) { }
 
   ngOnInit(): void {
+    this.page.actionBarHidden = true;
   }
 }

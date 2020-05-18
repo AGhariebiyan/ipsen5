@@ -1,1 +1,29 @@
 /* Add mobile styles for the component here.  */
+.row {
+    padding: 20;
+}
+
+.dateLabel {
+    font-size: 42;
+    font-weight: 700;
+}
+
+.dateCol {
+    text-align: center;
+}
+
+.eventLabel {
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 20;
+}
+
+.icon{
+    font-size: 16;
+}
+
+.seg {
+    margin-top: 8;
+    margin-left: 20;
+    margin-right: 20;
+}
