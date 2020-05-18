@@ -1,0 +1,42 @@
+/* Add mobile styles for the component here.  */
+StackLayout {
+    background-color: #EFEFEE;
+    border-color: green;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+TextField {
+    background-color: white;
+    width: auto;
+    padding: 10 5;
+}
+
+TextView {
+    background-color: white;
+    width: auto;
+}
+
+#textDescription{
+    height: 50%;
+}
+Label{
+    color: gray;
+    padding-top: 50;
+    margin: 3 5;
+}
+
+.marginTopField {
+    margin-top: 35;
+}
+
+Button{
+    margin-top: 3%;
+    width: 90%;
+    background-color: #F4382D;
+    color: white;
+    border-radius: 8;
+    height: 7,5%;
+}
