@@ -8,15 +8,23 @@ import { LoginComponent } from './StartPagina/start-pagina/login/login.component
 import { RegistrerenComponent } from './StartPagina/start-pagina/registreren/registreren.component';
 import {LoggedInModule} from "~/app/logged-in/logged-in.module";
 import { StartComponent } from './StartPagina/start-pagina/start/start.component';
+import {HttpService} from "~/app/services/http.service";
+import { NativeScriptFormsModule } from "nativescript-angular/forms"
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
+    providers: [
+        HttpService
+    ],
     bootstrap: [
         AppComponent
     ],
     imports: [
+        HttpClientModule,
         NativeScriptModule,
         AppRoutingModule,
-        LoggedInModule
+        LoggedInModule,
+        NativeScriptFormsModule
     ],
     declarations: [
         AppComponent,

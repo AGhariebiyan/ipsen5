@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Page } from '@nativescript/core/ui/page/page';
 
 @Component({
   selector: 'ns-registreren',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrerenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private page: Page) {
+    page.actionBarHidden = true;
+  }
 
   ngOnInit(): void {
+
   }
 
 }

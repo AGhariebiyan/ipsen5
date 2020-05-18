@@ -1,1 +1,26 @@
 /* Add mobile styles for the component here.  */
+.root{
+    background-color: #2B388F;
+}
+
+.register{
+    margin-top: 30%;
+    background-color: white;
+    width: 90%;
+    height: 200px;
+    color: #2B388F;
+    font-size: 16em;
+    font-weight: 400;
+}
+
+.login{
+    margin-top: 200px;
+    color: white;
+    font-size: 13em;
+    cursor:pointer;
+    text-align: center;
+}
+
+.pressed{
+
+}

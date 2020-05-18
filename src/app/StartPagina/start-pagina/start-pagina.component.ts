@@ -8,11 +8,11 @@ import { Page } from '@nativescript/core/ui/page/page';
 })
 export class StartPaginaComponent implements OnInit {
 
-  constructor() {
+  constructor(private page: Page) {
+    page.actionBarHidden = true;
   }
 
   ngOnInit(): void {
-    console.log("start pagina created");
 
   }
 
