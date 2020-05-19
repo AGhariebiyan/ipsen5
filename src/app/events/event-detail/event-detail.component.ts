@@ -11,6 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 export class EventDetailComponent implements OnInit {
   items: ['Aanmeldingen', 'Gastenlijst', 'plaats'];
   event: Event;
+  options: any;
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
   }

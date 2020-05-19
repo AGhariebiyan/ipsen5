@@ -1,4 +1,6 @@
-<ns-custom-action-bar titleText="Evenement"></ns-custom-action-bar>
+<ActionBar title="Evenement">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
 
 <StackLayout>
 
@@ -15,10 +17,11 @@
     <Label text="Evenement informatie" class="event-information-label" textWrap="true"></Label>
     <hr>
 
-    <ListView height="20%" class="list-group event-information">
+    <ListView [items]="options" height="20%" class="list-group event-information">
         <Label textWrap="true" text="Aanmeldingen" class="list-group-item"></Label>
         <Label text="Gastenlijst" class="list-group-item"></Label>
         <Label text="Plaats" class="list-group-item"></Label>
+
     </ListView>
 
 </StackLayout>
