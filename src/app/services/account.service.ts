@@ -5,6 +5,7 @@ import {Name} from "~/app/models/name";
 import {Observable} from "rxjs";
 import {genSaltSync, hashSync} from "bcryptjs"
 import has = Reflect.has;
+import {HttpHeaders} from "@angular/common/http";
 
 
 @Injectable({
@@ -23,36 +24,33 @@ export class AccountService {
     };
   });
 
-
-
   constructor(private httpService: HttpService) {
 
   }
 
   login(email: string, password: string){
-    // const hashedPassword = this.hashPassword(password);
-    // this.httpService.getDataWithArgs("login", JSON.stringify({email: email, password: password}))
-    //     .subscribe(item => {
-    //       if(this.checkLoginResponse(item)){
-    //         this.setUser(item);
-    //       }
-    //       else{
-    //         var dialogs = require("tns-core-modules/ui/dialogs");
-    //         dialogs.alert({
-    //           title: "E-mail or password incorrect",
-    //           message: "Please try again",
-    //           okButtonText: "Close"
-    //         });
-    //       }
-    //     });
+    this.httpService.postData("https://192.168.1.140:5000/api/auth/login", JSON.stringify({email: email, password: password}), new HttpHeaders().append("auth", "false"))
+        .subscribe(item => {
+          this.setUser(item);
+          console.log(item)
+          // else{
+          //   var dialogs = require("tns-core-modules/ui/dialogs");
+          //   dialogs.alert({
+          //     title: "E-mail or password incorrect",
+          //     message: "Please try again",
+          //     okButtonText: "Close"
+          //   });
+          // }
+        });
+
+
     var dialogs = require("tns-core-modules/ui/dialogs");
     dialogs.alert({
       title: "E-mail or password incorrect",
       message: "Please try again",
       okButtonText: "Close"
     });
-    this.setUser({email: email, role: "role", firstName: "first", middleName: "middle", lastName: "last"})
-
+    // this.setUser({email: email, role: "role", firstName: "first", middleName: "middle", lastName: "last"})
   }
 
   logout(){
@@ -75,10 +73,4 @@ export class AccountService {
         new Name(user.firstName, user.middleName, user.lastName));
     this.updateObservable(newUser);
   }
-
-  // hashPassword(password: string):String{
-  //   // const salt = genSaltSync(12);
-  //   // const hashedPassword = hashSync(password, salt);
-  //   // return hashedPassword;
-  // }
 }

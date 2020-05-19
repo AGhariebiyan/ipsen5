@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Page} from "@nativescript/core/ui/page";
 import {AccountService} from "~/app/services/account.service";
-import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'ns-login',
