@@ -11,20 +11,11 @@ import { RouterExtensions } from "nativescript-angular";
   moduleId: module.id
 })
 export class EventsComponent implements OnInit {
-  
 
   constructor(private page: Page, private router: RouterExtensions) { }
 
   ngOnInit(): void {
-  }
-
-  onBarLoad($event) {
-    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
-    let navigationBar = bar.nativeView;
-
-    if (isIOS) {
-      navigationBar.prefersLargeTitles = true;
-    }
+    this.page.actionBarHidden = true;
   }
 
     navigate() {

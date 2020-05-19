@@ -1,0 +1,33 @@
+<ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
+<StackLayout>
+
+    <TextField
+            class="marginTopField"
+            hint="Titel"
+            [text]=""
+    ></TextField>
+
+    <TextView
+            class="marginTopField"
+            id="textDescription"
+            hint="Bericht beschrijving"
+            [text]=""
+    ></TextView>
+
+    <Label text="Plaatsen als"></Label>
+
+    <TextField
+            [text]="userType"
+            hint="Plaatsen als...."
+            editable="false"
+            (tap)="displayActionDialog()"
+    ></TextField>
+
+    <Button
+            text="Verwijderen"
+            class="btn btn-primary"
+            (tap)="displayConfirmDialog()"
+    ></Button>
+
+</StackLayout>
+
