@@ -34,17 +34,16 @@ export class EventsListComponent implements OnInit {
 
   }
 
-  selectionChanged() {
-
-  }
-
   doSomething(event: Event) {
+
     let navigateExtras: NavigationExtras = {
       relativeTo: this.activeRoute,
       queryParams: {
-        "event": event
+        event: JSON.stringify(event)
       }
     };
+
     this.routerExtensions.navigate(['../details'], navigateExtras);
   }
+
 }

@@ -13,11 +13,10 @@ export class EventDetailComponent implements OnInit {
   event: Event;
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
-    this.activeRoute.queryParams.subscribe(params => (this.event = params["event"]));
   }
 
   ngOnInit(): void {
-    console.log(this.event)
+    this.activeRoute.queryParams.subscribe(params => {this.event = JSON.parse(params["event"])});
   }
 
   goBack() {

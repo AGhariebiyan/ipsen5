@@ -5,6 +5,7 @@ import { EventsRoutingModule } from './events-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { EventsListComponent } from './events-list/events-list.component';
 import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -12,11 +13,12 @@ import { EventDetailComponent } from "~/app/events/event-detail/event-detail.com
     EventsListComponent,
     EventDetailComponent
   ],
-  imports: [
-    NativeScriptCommonModule,
-    EventsRoutingModule,
-    SharedModule
-  ],
+    imports: [
+        NativeScriptCommonModule,
+        EventsRoutingModule,
+        SharedModule,
+        CommonModule
+    ],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class EventsModule { }
