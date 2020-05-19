@@ -10,19 +10,10 @@ import { Page } from 'tns-core-modules/ui/page';
   moduleId: module.id
 })
 export class EventsComponent implements OnInit {
-  
 
   constructor(private page: Page) { }
 
   ngOnInit(): void {
-  }
-
-  onBarLoad($event) {
-    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
-    let navigationBar = bar.nativeView;
-
-    if (isIOS) {
-      navigationBar.prefersLargeTitles = true;
-    }
+    this.page.actionBarHidden = true;
   }
 }
