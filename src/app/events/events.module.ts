@@ -4,11 +4,13 @@ import { EventsComponent } from './events/events.component';
 import { EventsRoutingModule } from './events-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { EventsListComponent } from './events-list/events-list.component';
+import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
 
 @NgModule({
   declarations: [
     EventsComponent,
-    EventsListComponent
+    EventsListComponent,
+    EventDetailComponent
   ],
   imports: [
     NativeScriptCommonModule,

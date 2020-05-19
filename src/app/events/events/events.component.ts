@@ -18,7 +18,4 @@ export class EventsComponent implements OnInit {
     this.page.actionBarHidden = true;
   }
 
-    navigate() {
-        this.router.navigate(['details']);
-    }
 }

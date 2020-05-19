@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '~/app/shared/models/event.model';
 import { SegmentedBarItem } from 'tns-core-modules/ui'
+import { RouterExtensions } from 'nativescript-angular';
+import { error } from "@angular/compiler/src/util";
+import { ActivatedRoute, NavigationExtras } from "@angular/router";
 @Component({
   selector: 'ns-events-list',
   templateUrl: './events-list.component.html',
@@ -11,7 +14,7 @@ export class EventsListComponent implements OnInit {
   events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
 
-  constructor() {
+  constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
     const myEvents = new SegmentedBarItem()
@@ -35,4 +38,13 @@ export class EventsListComponent implements OnInit {
 
   }
 
+  doSomething(event: Event) {
+    let navigateExtras: NavigationExtras = {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        "event": event
+      }
+    };
+    this.routerExtensions.navigate(['../details'], navigateExtras);
+  }
 }

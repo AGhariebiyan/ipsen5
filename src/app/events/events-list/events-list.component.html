@@ -5,7 +5,7 @@
     <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg"></SegmentedBar>
     <ListView [items]="events" height="100%">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
-            <FlexBoxLayout justifyContent="space-between" class="row">
+            <FlexBoxLayout justifyContent="space-between" class="row" (tap)="doSomething(event)">
                 <StackLayout orientation="horizontal">
                     <StackLayout class="dateCol">
                         <Label class="dateLabel" [text]="event.date"></Label>
