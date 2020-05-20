@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 import { Event } from "~/app/shared/models/event.model";
 import { ActivatedRoute } from "@angular/router";
+import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-event-detail',
@@ -23,4 +24,18 @@ export class EventDetailComponent implements OnInit {
     this.routerExtensions.back();
   }
 
+  openActions() {
+
+  }
+
+  openPopup() {
+    dialogs.confirm({
+      title: "Inschrijven",
+      message: "Weet u zeker dat u zich wilt inschrijven voor dit evenement?",
+      okButtonText: "Ja",
+      cancelButtonText: "Nee"
+    }).then(result => {
+      console.log("Result: " + result);
+    });
+  }
 }

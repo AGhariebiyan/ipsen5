@@ -1,5 +1,6 @@
 <ActionBar title="Evenement">
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+    <ActionItem (tap)="openActions()" ios.systemIcon="10" android.systemIcon="ic_menu_more" ios.position="right"></ActionItem>
 </ActionBar>
 
 <StackLayout>
@@ -21,6 +22,8 @@
             <Label [text]="event"></Label>
         </ng-template>
     </ListView>
+
+    <Button text="Inschrijven" (tap)="openPopup()"></Button>
 
 </StackLayout>
 
