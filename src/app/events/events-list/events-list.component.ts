@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '~/app/shared/models/event.model';
 import { SegmentedBarItem } from 'tns-core-modules/ui'
+import { EventService } from '~/app/services/event.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'ns-events-list',
   templateUrl: './events-list.component.html',
@@ -10,8 +12,9 @@ export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
   events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
+  events$: Observable<Event[]>
 
-  constructor() {
+  constructor(private es: EventService) {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
     const myEvents = new SegmentedBarItem()
@@ -21,14 +24,11 @@ export class EventsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const e1 = new Event("16", "Test", "Test")
-    const e2 = new Event("20", "Test", "Test")
-    const e3 = new Event("24", "Test", "Test")
+    console.log("Ahoy")
+    this.events$ = this.es.getEvents();
 
-    this.events.push(e1)
-    this.events.push(e2)
-    this.events.push(e3)
-
+    // this.es.getEventsRawResponse().subscribe(result => console.log(result))
+    this.es.httpTest();
   }
 
   selectionChanged() {

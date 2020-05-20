@@ -1,11 +1,10 @@
-export class Event {
-    date: string
-    name: string
-    description: string
-    
-    constructor(date: string, name: string, description: string) {
-        this.date = date;
-        this.name = name;
-        this.description = description;
-    }
+export interface Event {
+    eventDate: Date;
+    eventName: string;
+    eventDescriptipn: string;
+    locationName: string;
+    locationStreet: string;
+    locationPostalCode: string;
+    locationRegion: string;
+    locatonCountry: string;
 }
