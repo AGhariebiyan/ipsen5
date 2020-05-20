@@ -5,17 +5,18 @@
 
 <StackLayout>
 
-    <Label height="10%" [text]="event.name" horizontalAlignment="center" class="event-title"></Label>
+    <Label [text]="event.name" class="event-title"></Label>
 
     <Label height="5%" [text]="event.date" horizontalAlignment="center"></Label>
 
-    <ScrollView height="50%" orientation="vertical" class="event-description-view">
+    <ScrollView class="event-description-view">
 
-        <Label [text]="event.description" class="event-description" textWrap="true"></Label>
+        <Label [text]="event.description" class="event-description"></Label>
 
     </ScrollView>
 
-    <Label text="Evenement informatie" class="event-information-label" textWrap="true"></Label>
+    <Label text="Evenement informatie" class="event-information-label"></Label>
+    <StackLayout class="divider"></StackLayout>
 
     <ListView [items]="options" height="20%" class="list-group event-information">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">

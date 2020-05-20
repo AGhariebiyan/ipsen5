@@ -1,7 +1,12 @@
 /* Add mobile styles for the component here.  */
 .event-title {
+    margin-top: 2%;
     font-size: 40em;
     color: #073b8f;
+    height: 20%;
+    text-align: center;
+    text-wrap: true;
+    horizontal-align: center;
 }
 
 .event-date {
@@ -10,12 +15,14 @@
 }
 
 .event-description-view {
-    height: 50%;
+    height: 40%;
+    orientation: vertical;
 }
 
 .event-description {
     width: 90%;
     padding: 5%;
+    text-wrap: true;
 }
 
 .event-information {
@@ -27,6 +34,15 @@
 
 .event-information-label {
     font-size: 15em;
+    width: 92%;
+    padding: 4%;
+    text-wrap: true;
+    /*text-decoration: underline;*/
+}
+
+.divider {
+    height: 1px;
+    background-color: #111111;
     width: 90%;
     padding: 5%;
 }

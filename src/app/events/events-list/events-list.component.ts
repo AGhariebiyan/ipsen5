@@ -27,22 +27,30 @@ export class EventsListComponent implements OnInit {
     const e1 = new Event("16", "Test", "Test")
     const e2 = new Event("20", "Test", "Test")
     const e3 = new Event("24", "Test", "Test")
+    const e4 = new Event("23 Mei", "Lugus Investors Lunch", "Lunchen enzo");
 
     this.events.push(e1)
     this.events.push(e2)
     this.events.push(e3)
+    this.events.push(e4);
 
   }
 
-  doSomething(event: Event) {
-
+  /**
+   * @author Valerie Timmerman
+   *
+   * @param event
+   * When the user clicks on a event in the listview, this event is passed to this method and the user is navigated
+   * towards the details page of that specific event. The event gets passed to this page in the queryparams as a JSON
+   * object, passing the event as an object causes problems.
+   */
+  openDetails(event: Event) {
     let navigateExtras: NavigationExtras = {
       relativeTo: this.activeRoute,
       queryParams: {
         event: JSON.stringify(event)
       }
     };
-
     this.routerExtensions.navigate(['../details'], navigateExtras);
   }
 
