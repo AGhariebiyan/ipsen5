@@ -24,38 +24,8 @@ export class AccountService {
     };
   });
 
-  constructor(private httpService: HttpService) {
+  constructor() {
 
-  }
-
-  login(email: string, password: string){
-    this.httpService.postData("https://192.168.1.140:5000/api/auth/login", JSON.stringify({email: email, password: password}), new HttpHeaders().append("auth", "false"))
-        .subscribe(item => {
-          this.setUser(item);
-          console.log(item)
-          // else{
-          //   var dialogs = require("tns-core-modules/ui/dialogs");
-          //   dialogs.alert({
-          //     title: "E-mail or password incorrect",
-          //     message: "Please try again",
-          //     okButtonText: "Close"
-          //   });
-          // }
-        });
-
-
-    var dialogs = require("tns-core-modules/ui/dialogs");
-    dialogs.alert({
-      title: "E-mail or password incorrect",
-      message: "Please try again",
-      okButtonText: "Close"
-    });
-    // this.setUser({email: email, role: "role", firstName: "first", middleName: "middle", lastName: "last"})
-  }
-
-  logout(){
-    this.user = null;
-    this.updateObservable(null);
   }
 
   subscriptionUser():Observable<User>{
@@ -72,5 +42,10 @@ export class AccountService {
         user.role,
         new Name(user.firstName, user.middleName, user.lastName));
     this.updateObservable(newUser);
+  }
+
+  resetUser() {
+    this.user = null;
+    this.updateObservable(null);
   }
 }

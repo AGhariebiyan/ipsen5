@@ -19,7 +19,6 @@ export class HttpService {
   }
 
   postData(endpoint: string, body: any, headers: HttpHeaders) {
-    console.log(body)
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
     )

@@ -11,10 +11,13 @@ import { StartComponent } from './StartPagina/start-pagina/start/start.component
 import {HttpService} from "~/app/services/http.service";
 import { NativeScriptFormsModule } from "nativescript-angular/forms"
 import {HttpClientModule} from "@angular/common/http";
+import {AccountService} from "~/app/services/account.service";
+import {JwtService} from "~/app/services/jwt.service";
 
 @NgModule({
     providers: [
-        HttpService
+        AccountService,
+        JwtService
     ],
     bootstrap: [
         AppComponent

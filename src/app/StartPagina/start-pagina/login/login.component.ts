@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Page} from "@nativescript/core/ui/page";
 import {AccountService} from "~/app/services/account.service";
+import {AuthenticationService} from "~/app/services/authentication.service";
 
 @Component({
   selector: 'ns-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private page: Page, private accountService: AccountService) {
+  constructor(private page: Page, private authService: AuthenticationService) {
     page.actionBarHidden = true;
   }
 
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    if(this.isValidEmail(this.email)) this.accountService.login(this.email, this.password);
+    if(this.isValidEmail(this.email)) this.authService.login(this.email, this.password);
     else{
       var dialogs = require("tns-core-modules/ui/dialogs");
       dialogs.alert({
