@@ -15,13 +15,11 @@
     </ScrollView>
 
     <Label text="Evenement informatie" class="event-information-label" textWrap="true"></Label>
-    <hr>
 
     <ListView [items]="options" height="20%" class="list-group event-information">
-        <Label textWrap="true" text="Aanmeldingen" class="list-group-item"></Label>
-        <Label text="Gastenlijst" class="list-group-item"></Label>
-        <Label text="Plaats" class="list-group-item"></Label>
-
+        <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
+            <Label [text]="event"></Label>
+        </ng-template>
     </ListView>
 
 </StackLayout>

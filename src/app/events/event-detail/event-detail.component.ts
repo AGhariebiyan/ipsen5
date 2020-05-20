@@ -9,9 +9,8 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit {
-  items: ['Aanmeldingen', 'Gastenlijst', 'plaats'];
   event: Event;
-  options: any;
+  options: Array<String> = ["Aanmeldingen", "Gastenlijst", "Locatie"];
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
   }
