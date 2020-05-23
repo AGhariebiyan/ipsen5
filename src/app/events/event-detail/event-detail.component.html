@@ -20,7 +20,10 @@
 
     <ListView [items]="options" height="20%" class="list-group event-information">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
-            <Label [text]="event"></Label>
+            <StackLayout orientation="horizontal">
+                <Label width="50%" [text]="event.firstArgument" horizontalAlignment="left"></Label>
+                <Label width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
+            </StackLayout>
         </ng-template>
     </ListView>
 

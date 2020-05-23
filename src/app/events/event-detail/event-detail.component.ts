@@ -19,8 +19,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 
 export class EventDetailComponent implements OnInit {
   event: Event;
-  options: Array<String> = ["Aanmeldingen", "Gastenlijst", "Locatie"];
-  register: string = "Inschrijven";
+  options = [];
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
   }
@@ -32,6 +31,10 @@ export class EventDetailComponent implements OnInit {
    */
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe(params => {this.event = JSON.parse(params["event"])});
+    let button1 = new InformationButton("Aanmeldingen", "32/50");
+    let button2 = new InformationButton("Gastenlijst", ">");
+    let button3 = new InformationButton("Plaats", "i");
+    this.options.push(button1, button2, button3);
   }
 
   goBack() {
@@ -40,6 +43,7 @@ export class EventDetailComponent implements OnInit {
 
   openActions() {
     dialogs.action({
+      title: "Opties",
       cancelButtonText: "Annuleer",
       actions: ["Aanpassen", "Delen"]
     }).then(result => {
@@ -66,6 +70,17 @@ export class EventDetailComponent implements OnInit {
         okButtonText: "Sluit"
       });
     }
+  }
+
+}
+
+class InformationButton {
+  private firstArgument: string;
+  private secondArgument: any;
+
+  constructor(firstArgument, secondArgument) {
+    this.firstArgument = firstArgument;
+    this.secondArgument = secondArgument;
   }
 
 }
