@@ -7,16 +7,17 @@ export class NewsItem {
     private _date: number;
     private _deleted: boolean;
     private _published: boolean;
-    private _account: Account;
-    private _company: Company;
+    private _account: number;
+    private _company: string;
     private _featured: boolean;
 
-    constructor(id: number, title: string, content: string, date: Date, deleted: boolean,
-                published: boolean, account: Account, company: Company, featured: boolean) {
+
+    constructor(id: number, title: string, content: string, date: number, deleted: boolean,
+                published: boolean, account: number, company: string, featured: boolean) {
         this._id = id;
         this._title = title;
         this._content = content;
-        this._date = new Date().getDate();
+        this._date = date;
         this._deleted = deleted;
         this._published = published;
         this._account = account;
@@ -72,19 +73,19 @@ export class NewsItem {
         this._published = value;
     }
 
-    get account(): Account {
+    get account(): number {
         return this._account;
     }
 
-    set account(value: Account) {
+    set account(value: number) {
         this._account = value;
     }
 
-    get company(): Company {
+    get company(): string {
         return this._company;
     }
 
-    set company(value: Company) {
+    set company(value: string) {
         this._company = value;
     }
 

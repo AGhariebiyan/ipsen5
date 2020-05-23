@@ -19,6 +19,12 @@ TextView {
     width: auto;
 }
 
+/*wordt niet gebruikt*/
+.input.ng-invalid.ng-touched {
+    border-bottom-color: red;
+    color: red;
+}
+
 #textDescription{
     height: 50%;
 }
