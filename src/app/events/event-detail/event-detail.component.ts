@@ -58,7 +58,9 @@ export class EventDetailComponent implements OnInit {
       okButtonText: "Ja",
       cancelButtonText: "Nee"
     }).then(result => {
-      this.showConfirmation(result);
+      if(result) {
+        this.registerForEvent();
+      }
     });
   }
 
@@ -72,6 +74,9 @@ export class EventDetailComponent implements OnInit {
     }
   }
 
+  private registerForEvent() {
+
+  }
 }
 
 class InformationButton {
