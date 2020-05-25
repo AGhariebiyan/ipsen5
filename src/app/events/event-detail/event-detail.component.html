@@ -1,0 +1,33 @@
+<ActionBar title="Evenement">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+    <ActionItem (tap)="openActions()" ios.systemIcon="10" android.systemIcon="ic_menu_more" ios.position="right"></ActionItem>
+</ActionBar>
+
+<StackLayout>
+
+    <Label [text]="event.eventName" class="event-title"></Label>
+
+    <Label height="5%" [text]="event.eventDate | date : 'longDate'" horizontalAlignment="center"></Label>
+
+    <ScrollView class="event-description-view">
+
+        <Label [text]="event.eventDescription" class="event-description"></Label>
+
+    </ScrollView>
+
+    <Label text="Evenement informatie" class="event-information-label"></Label>
+    <StackLayout class="divider"></StackLayout>
+
+    <ListView [items]="options" height="20%" class="list-group event-information">
+        <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
+            <StackLayout orientation="horizontal" (tap)="openInformation(event)">
+                <Label width="50%" [text]="event.firstArgument" horizontalAlignment="left"></Label>
+                <Label width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+
+    <Button text="Inschrijven" (tap)="openRegister()"></Button>
+
+</StackLayout>
+
