@@ -13,7 +13,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms"
 import {HttpClientModule} from "@angular/common/http";
 import {AccountService} from "~/app/services/account.service";
 import {JwtService} from "~/app/services/jwt.service";
-
+import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
 @NgModule({
     providers: [
         AccountService,
@@ -23,11 +23,11 @@ import {JwtService} from "~/app/services/jwt.service";
         AppComponent
     ],
     imports: [
-        HttpClientModule,
         NativeScriptModule,
         AppRoutingModule,
         LoggedInModule,
-        NativeScriptFormsModule
+        NativeScriptFormsModule,
+        NativeScriptHttpClientModule
     ],
     declarations: [
         AppComponent,
