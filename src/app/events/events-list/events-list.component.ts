@@ -3,6 +3,7 @@ import { Event } from '~/app/shared/models/event.model';
 import { SegmentedBarItem } from 'tns-core-modules/ui'
 import { EventService } from '~/app/services/event.service';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'ns-events-list',
   templateUrl: './events-list.component.html',
@@ -24,11 +25,7 @@ export class EventsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Ahoy")
     this.events$ = this.es.getEvents();
-
-    // this.es.getEventsRawResponse().subscribe(result => console.log(result))
-    this.es.httpTest();
   }
 
   selectionChanged() {
@@ -36,3 +33,5 @@ export class EventsListComponent implements OnInit {
   }
 
 }
+
+
