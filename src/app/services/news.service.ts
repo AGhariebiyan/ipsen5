@@ -26,7 +26,7 @@ export class NewsService {
     }
 
     updateItem(id: number, body: any) {
-        return this.http.putData(this.endpointItem, )
+        return this.http.putData(this.endpointItem, this.endpoint);
 
     }
 

@@ -3,6 +3,8 @@ import { RouterExtensions } from 'nativescript-angular';
 import { Event } from "~/app/shared/models/event.model";
 import { ActivatedRoute } from "@angular/router";
 import * as dialogs from "tns-core-modules/ui/dialogs";
+import { ParticipantService } from "~/app/services/participant.service";
+import { Participant } from "~/app/shared/models/participant";
 
 @Component({
   selector: 'ns-event-detail',
@@ -22,7 +24,8 @@ export class EventDetailComponent implements OnInit {
   options = [];
   location: string;
 
-  constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
+  constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
+              private service: ParticipantService) {
   }
 
   /**
@@ -81,7 +84,8 @@ export class EventDetailComponent implements OnInit {
   }
 
   private registerForEvent() {
-
+    let participant = new Participant(this.event.eventId, "1");
+    this.service.registerParticipant(participant);
   }
 
   openInformation(event) {

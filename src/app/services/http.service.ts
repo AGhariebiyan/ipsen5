@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators'
 })
 export class HttpService {
 
-  private apiLocation = "http://localhost:5000/api";
+  private apiLocation = "http://192.168.178.21:5000/api";
 
   constructor(private http: HttpClient) { }
 

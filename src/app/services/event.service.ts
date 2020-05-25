@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { map } from 'rxjs/operators';
 import { EventResponse } from '../shared/models/event-response.model';
-import { Event } from '../shared/models/event.model';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -17,4 +15,5 @@ export class EventService {
   getEvents(): Observable<EventResponse[]> {
     return this.http.getData<EventResponse[]>(this.endpoint);
   }
+
 }
