@@ -293,6 +293,14 @@ module.exports = env => {
             ],
         },
         plugins: [
+
+            new webpack.DefinePlugin({
+                "globals.TNS_WEBPACK": "true",
+                "process.env": {
+                    environment: (env && Object.prototype.hasOwnProperty.call(env, 'environment')) ? JSON.stringify(env.environment): undefined
+                }
+            }),
+
             // Define useful constants like TNS_WEBPACK
             new webpack.DefinePlugin({
                 "global.TNS_WEBPACK": "true",

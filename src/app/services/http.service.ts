@@ -20,7 +20,7 @@ export class HttpService {
     return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
-  postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
+  postData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
     );
@@ -33,7 +33,7 @@ export class HttpService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
+    if (error.error instanceof HttpErrorResponse) {
       console.log('An error occurred: ', error.error.message);
     } else {
       console.log(`API returned code :${error.status}`);

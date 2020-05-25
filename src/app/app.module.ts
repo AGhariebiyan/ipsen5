@@ -3,19 +3,41 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { HttpClientModule } from "@angular/common/http";
+import { StartPaginaComponent } from './StartPagina/start-pagina/start-pagina.component';
+import { LoginComponent } from './StartPagina/start-pagina/login/login.component';
+import { RegistrerenComponent } from './StartPagina/start-pagina/registreren/registreren.component';
+import {LoggedInModule} from "~/app/logged-in/logged-in.module";
+import { StartComponent } from './StartPagina/start-pagina/start/start.component';
+import {HttpService} from "~/app/services/http.service";
+import { NativeScriptFormsModule } from "nativescript-angular/forms"
+import {HttpClientModule} from "@angular/common/http";
+import {AccountService} from "~/app/services/account.service";
+import {JwtService} from "~/app/services/jwt.service";
+import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
+
 
 @NgModule({
+    providers: [
+        AccountService,
+        JwtService
+    ],
     bootstrap: [
         AppComponent
     ],
     imports: [
         NativeScriptModule,
         AppRoutingModule,
-        HttpClientModule
+        LoggedInModule,
+        NativeScriptFormsModule,
+        NativeScriptHttpClientModule
+
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        StartPaginaComponent,
+        RegistrerenComponent,
+        LoginComponent,
+        StartComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

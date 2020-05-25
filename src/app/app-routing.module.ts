@@ -1,43 +1,54 @@
 import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
+import {Router, Routes} from "@angular/router";
 import { NSEmptyOutletComponent } from "nativescript-angular";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
+import {StartPaginaComponent} from "~/app/StartPagina/start-pagina/start-pagina.component";
+import {LoggedInComponent} from "~/app/logged-in/logged-in/logged-in.component";
+import {LoginComponent} from "~/app/StartPagina/start-pagina/login/login.component";
+import {RegistrerenComponent} from "~/app/StartPagina/start-pagina/registreren/registreren.component";
+import {StartComponent} from "~/app/StartPagina/start-pagina/start/start.component";
+import {AccountService} from "~/app/services/account.service";
 
 const routes: Routes = [
+
     {
         path: "",
-        redirectTo: "/(newsTab:news/default//eventsTab:events/default//kbaseTab:kbase/default//searchTab:search/default)",
+        redirectTo: "/start",
         pathMatch: "full"
+    },
+    {
+        path: "start",
+        component: StartPaginaComponent,
+        children: [
+            { path: "", component: StartComponent},
+            { path: "login", component: LoginComponent },
+            { path: "register", component: RegistrerenComponent }
+        ]
     },
 
     {
-        path: "news",
-        component: NSEmptyOutletComponent,
-        loadChildren: () => import("~/app/news/news.module").then((m) => m.NewsModule),
-        outlet: "newsTab"
+        path: "loggedIn",
+        component: LoggedInComponent
     },
-    {
-        path: "events",
-        component: NSEmptyOutletComponent,
-        loadChildren: () => import("~/app/events/events.module").then((m) => m.EventsModule),
-        outlet: "eventsTab"
-    },
-    {
-        path: "kbase",
-        component: NSEmptyOutletComponent,
-        loadChildren: () => import("~/app/kbase/kbase.module").then((m) => m.KbaseModule),
-        outlet: "kbaseTab"
-    },
-    {
-        path: "search",
-        component: NSEmptyOutletComponent,
-        loadChildren: () => import("~/app/search/search.module").then((m) => m.SearchModule),
-        outlet: "searchTab"
-    }
 ];
+
+
 
 @NgModule({
     imports: [NativeScriptRouterModule.forRoot(routes)],
     exports: [NativeScriptRouterModule]
 })
-export class AppRoutingModule { }
+
+
+export class AppRoutingModule {
+
+    constructor(private accountService: AccountService, private router: Router) {
+        accountService.user$.subscribe((user) =>{
+            if(user==null) {
+                console.log("routing to start")
+                // this.router.navigateByUrl('/start');
+            }
+            else this.router.navigateByUrl('/loggedIn');
+        });
+    }
+}
