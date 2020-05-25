@@ -14,18 +14,7 @@ export class EventService {
 
   constructor(private http: HttpService) { }
 
-  getEvents(): Observable<Event[]> {
-    return this.http.getData<EventResponse[]>(this.endpoint).pipe(
-      map( result => result.map(eventRaw => new Event(
-        eventRaw.eventDate,
-        eventRaw.eventName,
-        eventRaw.eventDescription,
-        eventRaw.eventLocationName,
-        eventRaw.eventLocationStreet,
-        eventRaw.eventLocationPostalCode,
-        eventRaw.eventLocationRegion,
-        eventRaw.eventLocationCountry
-      )))
-    );
+  getEvents(): Observable<EventResponse[]> {
+    return this.http.getData<EventResponse[]>(this.endpoint);
   }
 }
