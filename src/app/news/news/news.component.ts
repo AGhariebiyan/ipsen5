@@ -19,8 +19,8 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log("--------------" + this.http.getData("http://localhost:5000/api/newsposts"));
-    // this.getNewsItems();
-    console.log(this.newsItems);
+    this.getNewsItems();
+    console.log(this.getNewsItems());
     console.log("--------------------------" + this.newsService.getItems());
 
     // console.log(this.newsService.getItems());
