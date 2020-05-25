@@ -1,17 +1,21 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
-<StackLayout>
+<StackLayout [formGroup]="form" [items]="newsItem$ | async">
 
     <TextField
             class="marginTopField"
             hint="Titel"
-            [text]=""
+            returnKeyType="next"
+            formControlName="newsTitle"
+            [text]="newsTitle"
     ></TextField>
 
     <TextView
             class="marginTopField"
             id="textDescription"
             hint="Bericht beschrijving"
-            [text]=""
+            returnKeyType="next"
+            formControlName="newsDescription"
+            [text]="newsDescription"
     ></TextView>
 
     <Label text="Plaatsen als"></Label>
@@ -21,12 +25,20 @@
             hint="Plaatsen als...."
             editable="false"
             (tap)="displayActionDialog()"
+            formControlName="userType"
     ></TextField>
 
     <Button
+            text="opslaan"
+            class="btn btn-primary"
+            (tap)="displayConfirmDialogSave()"
+    ></Button>
+
+    <Button
+            [disabled]="true"
             text="Verwijderen"
             class="btn btn-primary"
-            (tap)="displayConfirmDialog()"
+            (tap)="displayConfirmDialogDelete()"
     ></Button>
 
 </StackLayout>

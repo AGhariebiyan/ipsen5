@@ -14,6 +14,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {AccountService} from "~/app/services/account.service";
 import {JwtService} from "~/app/services/jwt.service";
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
+
+
 @NgModule({
     providers: [
         AccountService,
@@ -28,6 +30,7 @@ import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
         LoggedInModule,
         NativeScriptFormsModule,
         NativeScriptHttpClientModule
+
     ],
     declarations: [
         AppComponent,
