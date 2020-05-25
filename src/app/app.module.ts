@@ -4,7 +4,6 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
-import { NativeScriptHttpClientModule } from "nativescript-angular";
 
 @NgModule({
     bootstrap: [
@@ -13,7 +12,7 @@ import { NativeScriptHttpClientModule } from "nativescript-angular";
     imports: [
         NativeScriptModule,
         AppRoutingModule,
-        NativeScriptHttpClientModule
+        HttpClientModule
     ],
     declarations: [
         AppComponent
