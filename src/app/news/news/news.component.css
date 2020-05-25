@@ -16,3 +16,7 @@ StackLayout {
     border: 1px solid gray;
     background-color: red;
 }
+
+Label{
+    background-color: green;
+}

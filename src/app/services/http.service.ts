@@ -17,17 +17,19 @@ export class HttpService {
   }
 
   getDataWithArgs<T>(endpoint: string, args: string): Observable<T> {
-    return this.http.get<T>(endpoint + args);
+    return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
   postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
-  test() {
-    this.http.get("https://httpbin.org/get").subscribe(result => console.log(result))
+  putData(endpoint: string, body: any) {
+    return this.http.put(this.apiLocation, body).pipe(
+        catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
