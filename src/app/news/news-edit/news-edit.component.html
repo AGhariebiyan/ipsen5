@@ -1,5 +1,5 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
-<StackLayout [formGroup]="form">
+<StackLayout [formGroup]="form" [items]="newsItem$ | async">
 
     <TextField
             class="marginTopField"

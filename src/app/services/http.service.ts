@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators'
 })
 export class HttpService {
 
-  private apiLocation = "https://localhost:5001/api"
+  private apiLocation = "http://localhost:5000/api"
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +17,7 @@ export class HttpService {
   }
 
   getDataWithArgs<T>(endpoint: string, args: string): Observable<T> {
-    return this.http.get<T>(endpoint + args);
+    return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
   postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
@@ -26,8 +26,10 @@ export class HttpService {
     );
   }
 
-  test() {
-    this.http.get("https://httpbin.org/get").subscribe(result => console.log(result))
+  putData(endpoint: string, body: any) {
+    return this.http.put(this.apiLocation, body).pipe(
+        catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

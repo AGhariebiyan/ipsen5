@@ -3,6 +3,7 @@ import { HttpService } from "~/app/services/http.service";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'ns-news',
@@ -11,25 +12,12 @@ import { Observable } from "rxjs";
   providers: [NewsService]
 })
 export class NewsComponent implements OnInit {
-  newsItems: NewsItem[] = [];
+  newsItems: Observable<NewsItem[]>;
 
-  constructor(
-      private newsService: NewsService,
-      private http: HttpService) { }
+  constructor(private newsService: NewsService) { }
 
   ngOnInit(): void {
-    // console.log("--------------" + this.http.getData("http://localhost:5000/api/newsposts"));
-    this.getNewsItems();
-    console.log(this.getNewsItems());
-    console.log("--------------------------" + this.newsService.getItems());
-
-    // console.log(this.newsService.getItems());
-    // this.newsItems = this.newsService.getItems();
-
-  }
-
-  getNewsItems() {
-    this.newsService.getItems().subscribe((newsItems) => this.newsItems = newsItems);
+    this.newsItems = this.newsService.getItems();
   }
 
 }

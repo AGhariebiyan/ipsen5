@@ -12,7 +12,8 @@ import { map } from "rxjs/operators";
 })
 export class NewsService {
 
-    private endpoint = "/newsposts"
+    private endpoint = "/newsposts";
+    private endpointItem = "/newsposts/";
 
     constructor(private http: HttpService) {}
 
@@ -20,8 +21,13 @@ export class NewsService {
         return this.http.getData(this.endpoint);
     }
 
-    // getItem(id: number): Observable<NewsItem> {
-    //     return this.http.get<NewsItem>("https://localhost:5001/api/newsposts" + id);
-    // }
+    getItem(id: string): Observable<NewsItem> {
+        return this.http.getDataWithArgs(this.endpointItem, id);
+    }
+
+    updateItem(id: number, body: any) {
+        return this.http.putData(this.endpointItem, )
+
+    }
 
 }

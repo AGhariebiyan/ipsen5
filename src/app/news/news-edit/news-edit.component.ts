@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { NewsService } from "~/app/services/news.service";
+import { Observable } from "rxjs";
+import { NewsItem } from "~/app/models/NewsItem.model";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'ns-news-edit',
@@ -8,21 +12,32 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ['./news-edit.component.css']
 })
 export class NewsEditComponent implements OnInit {
+  newsId = this.activatedRoute.snapshot.params.newsId;
+  newsItem$: NewsItem;
+
   form: FormGroup;
 
   newsTitle = "";
   newsDescription = "";
   userType = "";
 
-  constructor() { }
+  constructor(private newsService: NewsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getNewsItem();
+    // console.log(this.activatedRoute.snapshot.params.newsId);
 
     this.form = new FormGroup({
-      newsTitle: new FormControl("test", { updateOn: 'change', validators: [Validators.required]}),
+      newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
       newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
       userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+    });
+  }
+
+  getNewsItem() {
+    this.newsService.getItem(this.newsId).subscribe((newsItem) => {
+      this.newsTitle = newsItem.title;
+      this.newsDescription = newsItem.content;
     });
   }
 
@@ -78,11 +93,6 @@ export class NewsEditComponent implements OnInit {
     const userType = this.userType;
 
     console.log(newsTitle, newsDescription, userType);
-  }
-
-  // Data ophalen en data laden in form.
-  getNewsItem() {
-    this.newsTitle = "test";
   }
 
 }
