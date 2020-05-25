@@ -20,6 +20,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 export class EventDetailComponent implements OnInit {
   event: Event;
   options = [];
+  location: string;
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute) {
   }
@@ -30,11 +31,16 @@ export class EventDetailComponent implements OnInit {
    * When the class is created the JSON object passed by the overview page gets parsed and put as a global variable.
    */
   ngOnInit(): void {
+
     this.activeRoute.queryParams.subscribe(params => {this.event = JSON.parse(params["event"])});
     let button1 = new InformationButton("Aanmeldingen", "32/50");
     let button2 = new InformationButton("Gastenlijst", ">");
     let button3 = new InformationButton("Plaats", "i");
     this.options.push(button1, button2, button3);
+
+    this.location = this.event.locationStreet + "\n" + this.event.locationPostalCode + "\n" +
+        this.event.locationName + "\n" + this.event.locationRegion + "\n" +
+        this.event.locationCountry;
   }
 
   goBack() {
@@ -51,7 +57,7 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
-  openPopup() {
+  openRegister() {
     dialogs.confirm({
       title: "Inschrijven",
       message: "Weet u zeker dat u zich wilt inschrijven voor dit evenement?",
@@ -77,6 +83,23 @@ export class EventDetailComponent implements OnInit {
   private registerForEvent() {
 
   }
+
+  openInformation(event) {
+    switch (event.firstArgument) {
+      case "Aanmeldingen":
+        break;
+      case "Gastenlijst":
+        break;
+      case "Plaats":
+        dialogs.alert({
+          title: "Plaats",
+          message: "Het evenement vindt plaats in: \n \n" + this.location,
+          okButtonText: "Sluit"
+        });
+        break;
+    }
+  }
+
 }
 
 class InformationButton {

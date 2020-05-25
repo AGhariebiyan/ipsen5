@@ -7,7 +7,7 @@
 
     <Label [text]="event.eventName" class="event-title"></Label>
 
-    <Label height="5%" [text]="event.eventDate" horizontalAlignment="center"></Label>
+    <Label height="5%" [text]="event.eventDate | date : 'longDate'" horizontalAlignment="center"></Label>
 
     <ScrollView class="event-description-view">
 
@@ -20,14 +20,14 @@
 
     <ListView [items]="options" height="20%" class="list-group event-information">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
-            <StackLayout orientation="horizontal">
+            <StackLayout orientation="horizontal" (tap)="openInformation(event)">
                 <Label width="50%" [text]="event.firstArgument" horizontalAlignment="left"></Label>
                 <Label width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
             </StackLayout>
         </ng-template>
     </ListView>
 
-    <Button text="Inschrijven" (tap)="openPopup()"></Button>
+    <Button text="Inschrijven" (tap)="openRegister()"></Button>
 
 </StackLayout>
 
