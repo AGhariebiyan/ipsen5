@@ -5,13 +5,13 @@
 
 <StackLayout>
 
-    <Label [text]="event.name" class="event-title"></Label>
+    <Label [text]="event.eventName" class="event-title"></Label>
 
-    <Label height="5%" [text]="event.date" horizontalAlignment="center"></Label>
+    <Label height="5%" [text]="event.eventDate" horizontalAlignment="center"></Label>
 
     <ScrollView class="event-description-view">
 
-        <Label [text]="event.description" class="event-description"></Label>
+        <Label [text]="event.eventDescription" class="event-description"></Label>
 
     </ScrollView>
 
