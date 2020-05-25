@@ -26,10 +26,8 @@ export class HttpService {
     );
   }
 
-  putData(endpoint: string, body: any) {
-    return this.http.put(this.apiLocation, body).pipe(
-        catchError(this.handleError)
-    );
+  putData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
+    return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
   }
 
   private handleError(error: HttpErrorResponse) {

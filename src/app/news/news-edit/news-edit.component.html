@@ -1,5 +1,5 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
-<StackLayout [formGroup]="form" [items]="newsItem$ | async">
+<StackLayout [formGroup]="form">
 
     <TextField
             class="marginTopField"
@@ -31,7 +31,7 @@
     <Button
             text="opslaan"
             class="btn btn-primary"
-            (tap)="displayConfirmDialogSave()"
+            (tap)="onSubmit()"
     ></Button>
 
     <Button

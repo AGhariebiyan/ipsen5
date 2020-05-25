@@ -4,16 +4,15 @@ export class NewsItem {
     private _id: number;
     private _title: string;
     private _content: string;
-    private _date: number;
+    private _date: Date;
     private _deleted: boolean;
     private _published: boolean;
     private _account: number;
-    private _company: string;
+    private _company: number;
     private _featured: boolean;
 
-
-    constructor(id: number, title: string, content: string, date: number, deleted: boolean,
-                published: boolean, account: number, company: string, featured: boolean) {
+    constructor(id: number, title: string, content: string, date: Date, deleted: boolean,
+                published: boolean, account: number, company: number, featured: boolean) {
         this._id = id;
         this._title = title;
         this._content = content;
@@ -49,11 +48,11 @@ export class NewsItem {
         this._content = value;
     }
 
-    get date(): number {
+    get date(): Date {
         return this._date;
     }
 
-    set date(value: number) {
+    set date(value: Date) {
         this._date = value;
     }
 
@@ -81,11 +80,11 @@ export class NewsItem {
         this._account = value;
     }
 
-    get company(): string {
+    get company(): number {
         return this._company;
     }
 
-    set company(value: string) {
+    set company(value: number) {
         this._company = value;
     }
 

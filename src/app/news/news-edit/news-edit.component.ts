@@ -5,6 +5,7 @@ import { NewsService } from "~/app/services/news.service";
 import { Observable } from "rxjs";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { ActivatedRoute } from "@angular/router";
+import { HttpParams } from "@angular/common/http";
 
 @Component({
   selector: 'ns-news-edit',
@@ -17,9 +18,15 @@ export class NewsEditComponent implements OnInit {
 
   form: FormGroup;
 
+  newsPostId: number;
   newsTitle = "";
   newsDescription = "";
-  userType = "";
+  date = new Date();
+  deleted: boolean;
+  published: boolean;
+  accountId: number;
+  companyId: number;
+  featured: boolean;
 
   constructor(private newsService: NewsService, private activatedRoute: ActivatedRoute) { }
 
@@ -36,8 +43,15 @@ export class NewsEditComponent implements OnInit {
 
   getNewsItem() {
     this.newsService.getItem(this.newsId).subscribe((newsItem) => {
+      this.newsPostId = newsItem.id;
       this.newsTitle = newsItem.title;
       this.newsDescription = newsItem.content;
+      this.deleted = newsItem.deleted;
+      this.published = newsItem.published;
+      this.accountId = newsItem.account;
+      this.companyId = newsItem.company;
+      this.featured = newsItem.featured;
+
     });
   }
 
@@ -56,22 +70,22 @@ export class NewsEditComponent implements OnInit {
   }
 
   // Dialoog venster voor het selecteren van type.
-  displayActionDialog() {
-    const options = {
-      title: "Plaatsen als:",
-      message: "Selecteer type",
-      cancelButtonText: "Annuleer",
-      actions: ["Human", "Elf", "Dwarf", "Orc", "Unicorn"]
-    };
-
-    action(options).then((result) => {
-      if (result === 'Annuleer') {
-        this.userType = "";
-      } else {
-        this.userType = result;
-      }
-    });
-  }
+  // displayActionDialog() {
+  //   const options = {
+  //     title: "Plaatsen als:",
+  //     message: "Selecteer type",
+  //     cancelButtonText: "Annuleer",
+  //     actions: ["Human", "Elf", "Dwarf", "Orc", "Unicorn"]
+  //   };
+  //
+  //   action(options).then((result) => {
+  //     if (result === 'Annuleer') {
+  //       this.accountType = 1;
+  //     } else {
+  //       this.accountId = result;
+  //     }
+  //   });
+  // }
 
   // Dialoog voor de controle van de gebruiker voor het verwijderen.
   displayConfirmDialogDelete() {
@@ -90,9 +104,25 @@ export class NewsEditComponent implements OnInit {
   onSubmit() {
     const newsTitle = this.form.get('newsTitle').value;
     const newsDescription = this.form.get('newsDescription').value;
-    const userType = this.userType;
+    const userType = this.accountId;
 
-    console.log(newsTitle, newsDescription, userType);
+    const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
+        this.published, this.accountId, this.companyId , this.featured);
+
+    const body = new HttpParams({
+      fromObject: {
+        Id: newsitem.id,
+        Title: newsitem.title,
+        Deleted: newsitem.deleted,
+        Published: newsitem.published,
+        AccountId: newsitem.account,
+        CompanyId: newsitem.company,
+        Featured: newsitem.featured
+      }
+    });
+
+    this.newsService.makePutRequest(this.newsId, body);
+    console.log("ik zit erin");
   }
 
 }
