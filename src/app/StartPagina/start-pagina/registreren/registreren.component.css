@@ -1,1 +1,33 @@
 /* Add mobile styles for the component here.  */
+/* Add mobile styles for the component here.  */
+.login{
+    margin-top: 200px;
+    background-color: white;
+    width: 90%;
+    height: 200px;
+    color: #2B388F;
+    font-size: 16em;
+    font-weight: 400;
+}
+
+.root{
+    background-color: #2B388F;
+}
+
+.input{
+    background-color: white;
+    border-bottom-width: 2px;
+    border-bottom-color: #2B388F;
+}
+
+.email{
+    margin-top: 3%;
+}
+
+.text-link{
+    margin-top: 100px;
+    color: white;
+    font-size: 15em;
+    cursor:pointer;
+    text-align: center;
+}
