@@ -26,9 +26,6 @@ export class EventsListComponent implements OnInit {
   ngOnInit(): void {
     console.log("Ahoy")
     this.events$ = this.es.getEvents();
-
-    // this.es.getEventsRawResponse().subscribe(result => console.log(result))
-    this.es.httpTest();
   }
 
   selectionChanged() {
