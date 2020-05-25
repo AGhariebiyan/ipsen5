@@ -16,9 +16,9 @@ export class ParticipantService {
         const httpParams = new HttpParams();
         httpParams.append('participant', JSON.stringify(participant));
         const httpHeaders = new HttpHeaders({
-            contentType: 'Json'
+            contentType: 'application/json'
         });
-        this.http.postData(this.endpoint, httpParams, httpHeaders);
+        return this.http.postData(this.endpoint, httpParams, httpHeaders);
     }
 
 }
