@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { NewsItem } from "~/app/models/NewsItem.model";
+import { NewsService } from "~/app/services/news.service";
 
 @Component({
   selector: 'ns-news-add',
@@ -8,8 +10,15 @@ import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules
 })
 export class NewsAddComponent implements OnInit {
   userType = " ";
-  constructor() { }
+  constructor(private newsService: NewsService) { }
   ngOnInit(): void {
+  }
+
+  postNewsItem() {
+    const newsitem = new NewsItem("Test1231", "dit is een test vanuit webstorm", new Date(), false,
+        false, 5, 5 , false);
+
+    this.newsService.postItem(newsitem);
   }
 
   displayActionDialog() {

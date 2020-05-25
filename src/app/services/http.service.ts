@@ -8,9 +8,13 @@ import { catchError } from 'rxjs/operators'
 })
 export class HttpService {
 
-  private apiLocation = "http://localhost:5000/api"
+  private apiLocation = "http://192.168.178.10:5000/api"
 
   constructor(private http: HttpClient) { }
+
+  makePostRequest(endpoint: string, body: any): Observable<any> {
+    return this.http.post(this.apiLocation + endpoint, body);
+  }
 
   getData<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(this.apiLocation + endpoint);
@@ -23,6 +27,7 @@ export class HttpService {
   postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
+
     );
   }
 

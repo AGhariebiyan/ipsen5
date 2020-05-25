@@ -1,5 +1,6 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
 <StackLayout>
+    <Button (tap)="postNewsItem()"></Button>
     <TextField
             class="marginTopField"
             hint="Titel"
@@ -23,6 +24,8 @@
             editable="false"
             (tap)="displayActionDialog()"
     ></TextField>
+
+
 
 <!--    <Button text="Verwijderen" class="btn btn-primary" (tap)="displayConfirmDialog()"></Button>-->
 </StackLayout>
