@@ -11,9 +11,8 @@ export class NewsItem {
     company: string;
     featured: boolean;
 
-    constructor(id: string, title: string, content: string, date: Date, deleted: boolean,
-                published: boolean, account: string, company: string, featured: boolean) {
-        this.id = id;
+    constructor(title: string, content: string, date: Date, deleted: boolean,
+                published: boolean, account: string, company: string, featured: boolean, id?: string) {
         this.title = title;
         this.content = content;
         this.date = date;
@@ -22,5 +21,6 @@ export class NewsItem {
         this.account = account;
         this.company = company;
         this.featured = featured;
+        this.id = id;
     }
 }

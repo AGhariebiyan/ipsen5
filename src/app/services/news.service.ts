@@ -26,13 +26,12 @@ export class NewsService {
     }
 
     makePostRequest(body: any) {
-        console.log(body);
 
         let headers = new HttpHeaders({
             'Content-Type': 'application/json'
         });
 
-        return this.http.postData(this.endpointItem, body, headers).subscribe();
+        return this.http.postData(this.endpoint, body, headers).subscribe();
     }
 
     makePutRequest(id: string, body: any) {

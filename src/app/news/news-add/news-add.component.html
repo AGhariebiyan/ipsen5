@@ -1,5 +1,6 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
-<StackLayout>
+<StackLayout [formGroup]="form">
+    <Button text="Toevoegen" class="btn btn-primary" (tap)="onSubmit()"></Button>
     <TextField
             formControlName="newsTitle"
             class="marginTopField"
@@ -27,7 +28,7 @@
             (tap)="displayActionDialog()"
     ></TextField>
 
-<!--    <Button text="Verwijderen" class="btn btn-primary" (tap)="displayConfirmDialog()"></Button>-->
+
 </StackLayout>
 
 
