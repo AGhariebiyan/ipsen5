@@ -7,6 +7,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ActionBar } from "tns-core-modules/ui/action-bar";
 import { isIOS } from "tns-core-modules/platform";
 import { Page } from "tns-core-modules/ui/page";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   selector: 'ns-news-edit',
@@ -30,7 +31,8 @@ export class NewsEditComponent implements OnInit {
   constructor(
       private newsService: NewsService,
       private activatedRoute: ActivatedRoute,
-      private page: Page) { }
+      private page: Page,
+      private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
 
@@ -76,6 +78,7 @@ export class NewsEditComponent implements OnInit {
     };
     confirm(options).then((result: boolean) => {
       this.onSubmit();
+      this.routerExtensions.back();
     });
   }
 
@@ -136,7 +139,7 @@ export class NewsEditComponent implements OnInit {
   }
 
   deleteNewsPost() {
-    console.log(this.newsId);
     this.newsService.deleteNewspost(this.newsId);
+    this.routerExtensions.back();
   }
 }

@@ -6,12 +6,7 @@ import { NewsAddComponent } from "~/app/news/news-add/news-add.component";
 import { NewsEditComponent } from "~/app/news/news-edit/news-edit.component";
 
 const routes: Routes = [
-    {
-        path: "default",
-        component: NewsComponent, children: [
-            {path: "news-edit/:itemID", component: NewsEditComponent}
-        ]
-    },
+    { path: "default", component: NewsComponent },
     { path: "news-add", component: NewsAddComponent},
     { path: "news-edit/:newsId", component: NewsEditComponent }
 ];
