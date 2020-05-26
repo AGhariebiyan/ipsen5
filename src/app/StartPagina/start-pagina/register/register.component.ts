@@ -10,13 +10,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-    firstName: string = "Oetze";
-    middleName: string = "van den";
-    lastName: string = "Broek";
-    email: string = "oetze@live.nl";
-    password: string = "12345678";
-    repeatEmail: string = "oetze@live.nl";
-    repeatPassword: string = "12345678";
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    repeatEmail: string;
+    repeatPassword: string;
     dialogs = require("tns-core-modules/ui/dialogs");
 
     constructor(private page: Page, private registerService: RegisterService, private router: Router) {
