@@ -25,6 +25,16 @@ export class NewsService {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
 
+    makePostRequest(body: any) {
+        console.log(body);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+
+        return this.http.postData(this.endpointItem, body, headers).subscribe();
+    }
+
     makePutRequest(id: string, body: any) {
         console.log(body);
 
