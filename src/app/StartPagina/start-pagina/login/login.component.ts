@@ -9,8 +9,8 @@ import {AuthenticationService} from "~/app/services/authentication.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email: string;
-  password: string;
+  email: string = "Yorandevos12@gmail.com";
+  password: string = "12345678";
 
   constructor(private page: Page, private authService: AuthenticationService) {
     page.actionBarHidden = true;

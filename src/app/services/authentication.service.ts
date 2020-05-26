@@ -16,12 +16,11 @@ export class AuthenticationService {
               private jwtService: JwtService) { }
 
   login(email: string, password: string){
-    this.http.post("https://80.112.188.42:5000/api/auth/login", JSON.stringify({email: email, password: password}),{headers: new HttpHeaders().append("auth", "false")}).pipe(
+    this.http.post("http://80.112.188.42:5000/api/auth/login", {email: email, password: password},{headers: new HttpHeaders().append("auth", "false")}).pipe(
         catchError(this.handleLoginError)
     )
         .subscribe(item => {
           this.logInUser(item);
-          console.log(item)
         });
   }
 
@@ -54,8 +53,8 @@ export class AuthenticationService {
         message: "Please try again",
         okButtonText: "Close"
       });
-    }
-    return throwError('Something bad happened; please try again later');
+      }
+      return throwError;
   }
 
   validateJWT(){
@@ -68,8 +67,5 @@ export class AuthenticationService {
 
   logInUser(item: any){
     this.jwtService.setNewJWT(item.token);
-
-    // testing
-    // this.jwtService.setNewJWT(item);
   }
 }

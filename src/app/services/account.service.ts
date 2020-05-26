@@ -36,7 +36,7 @@ export class AccountService {
     return response.correct;
   }
 
-  setUser(user: any){
+    setUser(user: any) {
     const newUser = new User(
         user.email,
         user.role,

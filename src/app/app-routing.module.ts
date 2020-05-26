@@ -8,6 +8,8 @@ import {LoginComponent} from "~/app/StartPagina/start-pagina/login/login.compone
 import {RegistrerenComponent} from "~/app/StartPagina/start-pagina/registreren/registreren.component";
 import {StartComponent} from "~/app/StartPagina/start-pagina/start/start.component";
 import {AccountService} from "~/app/services/account.service";
+import { routing } from "./services/routing.service";
+import { LoggedInModule } from "./logged-in/logged-in.module";
 
 const routes: Routes = [
 
@@ -28,8 +30,11 @@ const routes: Routes = [
 
     {
         path: "loggedIn",
-        component: LoggedInComponent
-    },
+        component: LoggedInComponent,
+        loadChildren: () => import("~/app/logged-in/logged-in.module").then((m) => m.LoggedInModule),
+    }
+
+
 ];
 
 
@@ -42,13 +47,6 @@ const routes: Routes = [
 
 export class AppRoutingModule {
 
-    constructor(private accountService: AccountService, private router: Router) {
-        accountService.user$.subscribe((user) =>{
-            if(user==null) {
-                console.log("routing to start")
-                // this.router.navigateByUrl('/start');
-            }
-            else this.router.navigateByUrl('/loggedIn');
-        });
+    constructor(private routing: routing) {
     }
 }

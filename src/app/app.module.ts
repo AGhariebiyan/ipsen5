@@ -13,11 +13,13 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms"
 import {HttpClientModule} from "@angular/common/http";
 import {AccountService} from "~/app/services/account.service";
 import {JwtService} from "~/app/services/jwt.service";
+import { routing } from "./services/routing.service";
 
 @NgModule({
     providers: [
         AccountService,
-        JwtService
+        JwtService,
+        routing
     ],
     bootstrap: [
         AppComponent
@@ -33,11 +35,12 @@ import {JwtService} from "~/app/services/jwt.service";
         AppComponent,
         StartPaginaComponent,
         RegistrerenComponent,
-        LoginComponent,
-        StartComponent
+        StartComponent,
+        LoginComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class AppModule { }
+export class AppModule {
+}

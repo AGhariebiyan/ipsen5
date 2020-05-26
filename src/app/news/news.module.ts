@@ -23,4 +23,5 @@ import { ActionBarNewsComponent } from './action-bar-news/action-bar-news.compon
     ],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class NewsModule { }
+export class NewsModule {
+}
