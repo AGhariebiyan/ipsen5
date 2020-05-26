@@ -5,17 +5,15 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { StartPaginaComponent } from './StartPagina/start-pagina/start-pagina.component';
 import { LoginComponent } from './StartPagina/start-pagina/login/login.component';
-import { RegistrerenComponent } from './StartPagina/start-pagina/registreren/registreren.component';
-import {LoggedInModule} from "~/app/logged-in/logged-in.module";
+import { RegisterComponent } from './StartPagina/start-pagina/register/register.component';
+import { LoggedInModule} from "~/app/logged-in/logged-in.module";
 import { StartComponent } from './StartPagina/start-pagina/start/start.component';
-import {HttpService} from "~/app/services/http.service";
+import { HttpService} from "~/app/services/http.service";
 import { NativeScriptFormsModule } from "nativescript-angular/forms"
-import {HttpClientModule} from "@angular/common/http";
-import {AccountService} from "~/app/services/account.service";
-import {JwtService} from "~/app/services/jwt.service";
+import { HttpClientModule} from "@angular/common/http";
+import { AccountService} from "~/app/services/account.service";
+import { JwtService} from "~/app/services/jwt.service";
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
-
-
 @NgModule({
     providers: [
         AccountService,
@@ -30,12 +28,11 @@ import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
         LoggedInModule,
         NativeScriptFormsModule,
         NativeScriptHttpClientModule
-
     ],
     declarations: [
         AppComponent,
         StartPaginaComponent,
-        RegistrerenComponent,
+        RegisterComponent,
         LoginComponent,
         StartComponent
     ],

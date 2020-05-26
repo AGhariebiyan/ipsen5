@@ -25,9 +25,10 @@ export class NewsService {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
 
-    updateItem(id: number, body: any) {
-        return this.http.putData(this.endpointItem, )
 
-    }
+    // updateItem(id: number, body: any) {
+    //     return this.http.putData(this.endpointItem, body)
+    //
+    // }
 
 }

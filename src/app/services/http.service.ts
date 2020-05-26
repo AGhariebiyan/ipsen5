@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators'
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class HttpService {
 
-  private apiLocation = "http://localhost:5000/api";
+  private apiLocation = environment.apiUrl + "/api";
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +22,7 @@ export class HttpService {
   }
 
   postData(endpoint: string, body: any, headers: HttpHeaders) {
-    return this.http.post(endpoint, body, {headers: headers}).pipe(
+    return this.http.post(endpoint, body, {headers}).pipe(
       catchError(this.handleError)
     );
   }
@@ -34,12 +35,12 @@ export class HttpService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof HttpErrorResponse) {
-      console.log('An error occurred: ', error.error.message);
+      console.log("An error occurred: ", error.error.message);
     } else {
       console.log(`API returned code :${error.status}`);
       console.log(`Body was: ${error.error}`);
     }
 
-    return throwError('Something bad happened; please try again later');
+    return throwError("Something bad happened; please try again later");
   }
 }
