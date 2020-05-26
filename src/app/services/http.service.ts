@@ -30,6 +30,12 @@ export class HttpService {
     return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
   }
 
+  deleteData(endpoint: string) {
+    console.log(this.apiLocation + endpoint);
+
+    return this.http.delete(this.apiLocation + endpoint);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.log('An error occurred: ', error.error.message);

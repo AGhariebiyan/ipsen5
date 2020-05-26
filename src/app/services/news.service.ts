@@ -35,4 +35,10 @@ export class NewsService {
         return this.http.putData(this.endpointItem + id, body, headers).subscribe();
     }
 
+    deleteNewspost(id: string) {
+        console.log(this.endpointItem + id);
+
+        return this.http.deleteData(this.endpointItem + id).subscribe();
+    }
+
 }

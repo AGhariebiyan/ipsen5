@@ -131,7 +131,12 @@ export class NewsEditComponent implements OnInit {
     };
 
     confirm(options).then((result: boolean) => {
-      console.log(result);
+      this.deleteNewsPost();
     });
+  }
+
+  deleteNewsPost() {
+    console.log(this.newsId);
+    this.newsService.deleteNewspost(this.newsId);
   }
 }
