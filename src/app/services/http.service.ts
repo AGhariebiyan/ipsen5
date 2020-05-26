@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators'
+import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  private apiLocation = "http://192.168.178.21:5000/api";
+  private apiLocation = "http://192.168.2.12:5000/api";
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class HttpService {
     return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
-  postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
+  postData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
     );
@@ -33,13 +34,19 @@ export class HttpService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
+    if (error.error instanceof HttpErrorResponse) {
       console.log('An error occurred: ', error.error.message);
     } else {
       console.log(`API returned code :${error.status}`);
       console.log(`Body was: ${error.error}`);
     }
 
+    dialogs.alert({
+      title: "Let op!",
+      message: "Er ging iets mis, probeer het later opnieuw of neem contact op met de systeembeheerder.",
+      okButtonText: "sluit"
+    });
     return throwError('Something bad happened; please try again later');
+
   }
 }

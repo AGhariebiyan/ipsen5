@@ -13,12 +13,11 @@ export class ParticipantService {
     constructor(private http: HttpService) { }
 
     registerParticipant(participant: Participant) {
-        const httpParams = new HttpParams();
-        httpParams.append('participant', JSON.stringify(participant));
         const httpHeaders = new HttpHeaders({
-            contentType: 'application/json'
+            ContentType: 'application/json'
         });
-        return this.http.postData(this.endpoint, httpParams, httpHeaders);
+
+        this.http.postData(this.endpoint, participant, httpHeaders).subscribe();
     }
 
 }

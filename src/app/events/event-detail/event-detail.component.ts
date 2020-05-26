@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/shared/models/participant";
+import { EventResponse } from "~/app/shared/models/event-response.model";
 
 @Component({
   selector: 'ns-event-detail',
@@ -20,7 +21,7 @@ import { Participant } from "~/app/shared/models/participant";
  */
 
 export class EventDetailComponent implements OnInit {
-  event: Event;
+  event: EventResponse;
   options = [];
   location: string;
 
@@ -34,16 +35,15 @@ export class EventDetailComponent implements OnInit {
    * When the class is created the JSON object passed by the overview page gets parsed and put as a global variable.
    */
   ngOnInit(): void {
-
     this.activeRoute.queryParams.subscribe(params => {this.event = JSON.parse(params["event"])});
     let button1 = new InformationButton("Aanmeldingen", "32/50");
     let button2 = new InformationButton("Gastenlijst", ">");
     let button3 = new InformationButton("Plaats", "i");
     this.options.push(button1, button2, button3);
 
-    this.location = this.event.locationStreet + "\n" + this.event.locationPostalCode + "\n" +
-        this.event.locationName + "\n" + this.event.locationRegion + "\n" +
-        this.event.locationCountry;
+    this.location = this.event.eventLocationStreet + "\n" + this.event.eventLocationPostalCode + "\n" +
+        this.event.eventLocationName + "\n" + this.event.eventLocationRegion + "\n" +
+        this.event.eventLocationCountry;
   }
 
   goBack() {
@@ -84,7 +84,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   private registerForEvent() {
-    let participant = new Participant(this.event.eventId, "1");
+    let participant = new Participant(this.event.id, "f5874b4d-8430-449e-9d20-41775385a892");
     this.service.registerParticipant(participant);
   }
 
