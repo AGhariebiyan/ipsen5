@@ -9,7 +9,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 })
 export class HttpService {
 
-  private apiLocation = "http://192.168.2.12:5000/api";
+  private apiLocation = "http://192.168.178.21:5000/api";
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class HttpService {
   }
 
   postData(endpoint: string, body: any, headers: HttpHeaders) {
-    return this.http.post(endpoint, body, {headers: headers}).pipe(
+    return this.http.post(this.apiLocation + endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
     );
   }

@@ -13,10 +13,9 @@ export class ParticipantService {
     constructor(private http: HttpService) { }
 
     registerParticipant(participant: Participant) {
-        const httpHeaders = new HttpHeaders({
-            ContentType: 'application/json'
+        let httpHeaders = new HttpHeaders({
+            'Content-Type': 'application/json'
         });
-
         this.http.postData(this.endpoint, participant, httpHeaders).subscribe();
     }
 
