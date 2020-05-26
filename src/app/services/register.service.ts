@@ -19,7 +19,7 @@ export class RegisterService {
             firstName,
             lastName,
             middleName: middleName ? middleName : ""
-        })
+        });
 
     }
 
