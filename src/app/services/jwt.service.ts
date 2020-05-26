@@ -18,16 +18,18 @@ export class JwtService {
   constructor(private accountService: AccountService, private http: HttpClient) {
     }
 
-    checkForJWT() {
-        if (this.appSettings.hasKey("JWTToken")) this.updateUserFromJWT();
-    }
+  checkForJWT() {
+        if (this.appSettings.hasKey("JWTToken")) {
+            this.updateUserFromJWT();
+        }
+  }
 
   setNewJWT(token: string) {
     this.appSettings.setString("JWTToken", token);
-    this.updateUserFromJWT()
+    this.updateUserFromJWT();
   }
 
-    updateUserFromJWT() {
+  updateUserFromJWT() {
         const token = this.appSettings.getString("JWTToken")
         this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
             headers: new HttpHeaders().append("auth", "false")

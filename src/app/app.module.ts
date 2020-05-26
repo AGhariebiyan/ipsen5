@@ -5,7 +5,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { StartPaginaComponent } from './StartPagina/start-pagina/start-pagina.component';
 import { LoginComponent } from './StartPagina/start-pagina/login/login.component';
-import { RegistrerenComponent } from './StartPagina/start-pagina/registreren/registreren.component';
+import { RegisterComponent } from './StartPagina/start-pagina/register/register.component';
 import {LoggedInModule} from "~/app/logged-in/logged-in.module";
 import { StartComponent } from './StartPagina/start-pagina/start/start.component';
 import {HttpService} from "~/app/services/http.service";
@@ -34,7 +34,7 @@ import { routing } from "./services/routing.service";
     declarations: [
         AppComponent,
         StartPaginaComponent,
-        RegistrerenComponent,
+        RegisterComponent,
         StartComponent,
         LoginComponent
     ],
