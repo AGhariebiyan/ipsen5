@@ -36,8 +36,8 @@ export class NewsEditComponent implements OnInit {
 
   getNewsItem() {
     this.newsService.getItem(this.newsId).subscribe((newsItem) => {
-      this.newsTitle = newsItem.title;
-      this.newsDescription = newsItem.content;
+      this.newsTitle = newsItem.Title;
+      this.newsDescription = newsItem.Content;
     });
   }
 

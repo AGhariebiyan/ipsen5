@@ -15,7 +15,7 @@ export class NewsAddComponent implements OnInit {
   }
 
   postNewsItem() {
-    const newsitem = new NewsItem("Test1231", "dit is een test vanuit webstorm", new Date(), false,
+    const newsitem = new NewsItem("Test11", "dit is een test vanuit webstorm", new Date(), false,
         false, 5, 5 , false);
 
     this.newsService.postItem(newsitem);
