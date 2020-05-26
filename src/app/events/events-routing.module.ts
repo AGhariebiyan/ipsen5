@@ -5,12 +5,37 @@ import { EventsComponent } from "./events/events.component";
 import { EventsListComponent } from "./events-list/events-list.component";
 import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
 
+// const routes: Routes = [
+//     {
+//         path: "",
+//         component:
+//         EventsComponent,
+//         children: [
+//             {
+//                 path: "",
+//                 component: EventsListComponent
+//             },
+//             {
+//                 path: "details",
+//                 component: EventDetailComponent
+//             }
+//     ]}
+// ];
 
 const routes: Routes = [
-    { path: "default", component: EventsComponent, children: [
-        { path: "", component: EventsListComponent },
-        { path: "details", component: EventDetailComponent }
-    ]}
+    {
+        path: "",
+        redirectTo: "events",
+        pathMatch: "full"
+    },
+    {
+        path: "events",
+        component: EventsListComponent
+    },
+    {
+        path: "details",
+        component: EventDetailComponent
+    }
 ];
 
 @NgModule({

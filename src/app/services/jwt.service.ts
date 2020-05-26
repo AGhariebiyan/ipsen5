@@ -17,22 +17,31 @@ export class JwtService {
 
   setNewJWT(token: string) {
     this.appSettings.setString("JWTToken", token);
-    this.updateUserFromJWT()
+    this.updateUserFromJWT();
   }
 
-  updateUserFromJWT(){
+  updateUserFromJWT() {
     const token = this.appSettings.getString("JWTToken")
     const decodedToken = this.getDecodedAccessToken(token);
 
     console.log(decodedToken);
-    this.accountService.setUser(new User(decodedToken.email, decodedToken.role, new Name(decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)));
+    this.accountService.setUser(
+        new User(
+            decodedToken.email,
+            decodedToken.role,
+            new Name(
+                decodedToken.firstName,
+                decodedToken.middleName,
+                decodedToken.lastName
+            )
+        )
+    );
   }
 
   getDecodedAccessToken(token: string): any {
-    try{
+    try {
       return jwt_decode(token);
-    }
-    catch(Error){
+    } catch( Error ) {
       return null;
     }
   }

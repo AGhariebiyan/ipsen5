@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
-    if(this.isValidEmail(this.email)) this.authService.login(this.email, this.password);
+  login() {
+    if (this.isValidEmail(this.email)) this.authService.login(this.email, this.password);
     else{
-      var dialogs = require("tns-core-modules/ui/dialogs");
+      const dialogs = require("tns-core-modules/ui/dialogs");
       dialogs.alert({
         title: "Not a valid E-mail",
         message: "Please give a valid email adress",

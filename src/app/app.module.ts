@@ -3,17 +3,22 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { StartPaginaComponent } from './StartPagina/start-pagina/start-pagina.component';
-import { LoginComponent } from './StartPagina/start-pagina/login/login.component';
-import { RegisterComponent } from './StartPagina/start-pagina/register/register.component';
-import { LoggedInModule} from "~/app/logged-in/logged-in.module";
-import { StartComponent } from './StartPagina/start-pagina/start/start.component';
-import { HttpService} from "~/app/services/http.service";
-import { NativeScriptFormsModule } from "nativescript-angular/forms"
-import { HttpClientModule} from "@angular/common/http";
-import { AccountService} from "~/app/services/account.service";
-import { JwtService} from "~/app/services/jwt.service";
-import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
+import { StartPaginaComponent } from "./StartPagina/start-pagina/start-pagina.component";
+import { LoginComponent } from "./StartPagina/start-pagina/login/login.component";
+import { RegisterComponent } from "./StartPagina/start-pagina/register/register.component";
+import { LoggedInModule } from "~/app/logged-in/logged-in.module";
+import { StartComponent } from "./StartPagina/start-pagina/start/start.component";
+import { HttpService } from "~/app/services/http.service";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { AccountService } from "~/app/services/account.service";
+import { JwtService } from "~/app/services/jwt.service";
+import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { NewsModule } from "~/app/news/news.module";
+import { EventsModule } from "~/app/events/events.module";
+import { KbaseModule } from "~/app/kbase/kbase.module";
+import { SearchModule } from "~/app/search/search.module";
+
 @NgModule({
     providers: [
         AccountService,
@@ -27,7 +32,11 @@ import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client'
         AppRoutingModule,
         LoggedInModule,
         NativeScriptFormsModule,
-        NativeScriptHttpClientModule
+        NativeScriptHttpClientModule,
+        NewsModule,
+        EventsModule,
+        KbaseModule,
+        SearchModule
     ],
     declarations: [
         AppComponent,
