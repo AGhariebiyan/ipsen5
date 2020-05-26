@@ -26,7 +26,7 @@ export class HttpService {
     );
   }
 
-  putData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
+  putData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
   }
 

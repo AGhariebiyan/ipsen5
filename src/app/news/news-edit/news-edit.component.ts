@@ -18,21 +18,22 @@ export class NewsEditComponent implements OnInit {
 
   form: FormGroup;
 
-  newsPostId: number;
+  newsPostId: string;
   newsTitle = "";
   newsDescription = "";
   date = new Date();
   deleted: boolean;
   published: boolean;
-  accountId: number;
-  companyId: number;
+  accountId: string;
+  companyId: string;
   featured: boolean;
 
   constructor(private newsService: NewsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.getNewsItem();
-    // console.log(this.activatedRoute.snapshot.params.newsId);
+    console.log(this.activatedRoute.snapshot.params.newsId);
 
     this.form = new FormGroup({
       newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
@@ -109,18 +110,18 @@ export class NewsEditComponent implements OnInit {
     const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
         this.published, this.accountId, this.companyId , this.featured);
 
-    const body = new HttpParams({
-      fromObject: {
-        Id: newsitem.id,
-        Title: newsitem.title,
-        Deleted: newsitem.deleted,
-        Published: newsitem.published,
-        AccountId: newsitem.account,
-        CompanyId: newsitem.company,
-        Featured: newsitem.featured
-      }
-    });
+    const requestBody = {
+      Id: newsitem.id,
+      Title: newsitem.title,
+      Deleted: newsitem.deleted,
+      Published: newsitem.published,
+      AccountId: newsitem.account,
+      CompanyId: newsitem.company,
+      Featured: newsitem.featured
+    }
 
+    const body = JSON.stringify(requestBody)
+    
     this.newsService.makePutRequest(this.newsId, body);
     console.log("ik zit erin");
   }
