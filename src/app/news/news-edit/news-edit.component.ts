@@ -105,6 +105,7 @@ export class NewsEditComponent implements OnInit {
   onSubmit() {
     const newsTitle = this.form.get('newsTitle').value;
     const newsDescription = this.form.get('newsDescription').value;
+    console.log(this.form.get('newsDescription').value);
     const userType = this.accountId;
 
     const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
@@ -113,6 +114,8 @@ export class NewsEditComponent implements OnInit {
     const requestBody = {
       Id: newsitem.id,
       Title: newsitem.title,
+      Content: newsitem.content,
+      Date: this.date,
       Deleted: newsitem.deleted,
       Published: newsitem.published,
       AccountId: newsitem.account,
