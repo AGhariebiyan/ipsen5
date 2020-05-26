@@ -6,6 +6,7 @@ import {User} from "~/app/models/user";
 import {Name} from "~/app/models/name";
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,9 @@ export class JwtService {
 
     updateUserFromJWT() {
         const token = this.appSettings.getString("JWTToken")
-        this.http.get("http://80.112.188.42:5000/api/auth/jwt/validate/" + token).pipe(
+        this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
+            headers: new HttpHeaders().append("auth", "false")
+        }).pipe(
         catchError(this.handleAuthError)
     ).subscribe(() => {
         const decodedToken = this.getDecodedAccessToken(token);
