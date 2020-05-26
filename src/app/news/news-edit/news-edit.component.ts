@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { NewsService } from "~/app/services/news.service";
+import { Observable } from "rxjs";
+import { NewsItem } from "~/app/models/NewsItem.model";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'ns-news-edit',
@@ -7,11 +12,47 @@ import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules
   styleUrls: ['./news-edit.component.css']
 })
 export class NewsEditComponent implements OnInit {
+  newsId = this.activatedRoute.snapshot.params.newsId;
+  newsItem$: NewsItem;
+
+  form: FormGroup;
+
+  newsTitle = "";
+  newsDescription = "";
   userType = "";
 
-  constructor() { }
+  constructor(private newsService: NewsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getNewsItem();
+    // console.log(this.activatedRoute.snapshot.params.newsId);
+
+    this.form = new FormGroup({
+      newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
+      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
+      userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+    });
+  }
+
+  getNewsItem() {
+    this.newsService.getItem(this.newsId).subscribe((newsItem) => {
+      this.newsTitle = newsItem.title;
+      this.newsDescription = newsItem.content;
+    });
+  }
+
+  //Opslaan van de wijzigingen in het formulier
+  displayConfirmDialogSave() {
+    const options = {
+      title: "Weet u zeker dat u het nieuwsbericht wilt opslaan?",
+      okButtonText: "Wijzigen",
+      cancelButtonText: "Annuleer"
+    };
+
+    confirm(options).then((result: boolean) => {
+      console.log(result);
+      this.onSubmit();
+    });
   }
 
   // Dialoog venster voor het selecteren van type.
@@ -32,8 +73,8 @@ export class NewsEditComponent implements OnInit {
     });
   }
 
-  // Dialoog voor de controle van de gebruiker voor het wijzigen.
-  displayConfirmDialog() {
+  // Dialoog voor de controle van de gebruiker voor het verwijderen.
+  displayConfirmDialogDelete() {
     const options = {
       title: "Weet u zeker dat u het nieuwsbericht wilt verwijderen?",
       okButtonText: "Verwijder",
@@ -43,6 +84,15 @@ export class NewsEditComponent implements OnInit {
     confirm(options).then((result: boolean) => {
       console.log(result);
     });
+  }
+
+  // Wijzigingen aanbrengen
+  onSubmit() {
+    const newsTitle = this.form.get('newsTitle').value;
+    const newsDescription = this.form.get('newsDescription').value;
+    const userType = this.userType;
+
+    console.log(newsTitle, newsDescription, userType);
   }
 
 }

@@ -9,7 +9,7 @@
     "node_modules/codelyzer"
   ],
   "rules": {
-    "array-type": [true, "generic"],
+    "array-type": false,
     "arrow-return-shorthand": true,
     "component-class-suffix": true,
     "deprecation": true,
@@ -37,6 +37,7 @@
     "ordered-imports": false,
     "prefer-conditional-expression": false,
     "use-host-property-decorator": true,
+    "use-input-property-decorator": true,
     "use-input-property-decorator": true,
     "use-life-cycle-interface": true,
     "use-output-property-decorator": true,
