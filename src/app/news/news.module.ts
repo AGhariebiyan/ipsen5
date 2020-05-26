@@ -27,4 +27,5 @@ import { ReactiveFormsModule } from "@angular/forms";
     ],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class NewsModule { }
+export class NewsModule {
+}
