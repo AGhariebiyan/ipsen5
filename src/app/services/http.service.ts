@@ -8,20 +8,28 @@ import { catchError } from 'rxjs/operators'
 })
 export class HttpService {
 
+  private apiLocation = "http://localhost:5000/api";
+
   constructor(private http: HttpClient) { }
 
   getData<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(endpoint);
+    return this.http.get<T>(this.apiLocation + endpoint);
   }
 
   getDataWithArgs<T>(endpoint: string, args: string): Observable<T> {
-    return this.http.get<T>(endpoint + args);
+    return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
   postData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.post(endpoint, body, {headers: headers}).pipe(
       catchError(this.handleError)
-    )
+    );
+  }
+
+  putData(endpoint: string, body: any) {
+    return this.http.put(this.apiLocation, body).pipe(
+        catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
