@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { confirm } from "tns-core-modules/ui/dialogs";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NewsService } from "~/app/services/news.service";
-import { Observable } from "rxjs";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { ActivatedRoute } from "@angular/router";
-import { HttpParams } from "@angular/common/http";
+import { ActionBar } from "tns-core-modules/ui/action-bar";
+import { isIOS } from "tns-core-modules/platform";
+import { Page } from "tns-core-modules/ui/page";
 
 @Component({
   selector: 'ns-news-edit',
@@ -14,8 +15,6 @@ import { HttpParams } from "@angular/common/http";
 })
 export class NewsEditComponent implements OnInit {
   newsId = this.activatedRoute.snapshot.params.newsId;
-  newsItem$: NewsItem;
-
   form: FormGroup;
 
   newsPostId: string;
@@ -28,7 +27,10 @@ export class NewsEditComponent implements OnInit {
   companyId: string;
   featured: boolean;
 
-  constructor(private newsService: NewsService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+      private newsService: NewsService,
+      private activatedRoute: ActivatedRoute,
+      private page: Page) { }
 
   ngOnInit(): void {
 
@@ -56,18 +58,50 @@ export class NewsEditComponent implements OnInit {
     });
   }
 
-  //Opslaan van de wijzigingen in het formulier
+  onBarLoaded($event) {
+    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
+    let navigationBar = bar.nativeView;
+
+    if (isIOS) {
+      navigationBar.prefersLargeTitles = false;
+    }
+  }
+
+  // Dialoog voor de controle van de gebruiker voor het wijzigen.
   displayConfirmDialogSave() {
     const options = {
-      title: "Weet u zeker dat u het nieuwsbericht wilt opslaan?",
-      okButtonText: "Wijzigen",
+      title: "Weet u zeker dat u het nieuwsbericht wilt wijzigen?",
+      okButtonText: "Opslaan",
       cancelButtonText: "Annuleer"
     };
-
     confirm(options).then((result: boolean) => {
-      console.log(result);
       this.onSubmit();
     });
+  }
+
+  // Wijzigingen aanbrengen
+  onSubmit() {
+    const newsTitle = this.form.get('newsTitle').value;
+    const newsDescription = this.form.get('newsDescription').value;
+
+    const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
+        this.published, this.accountId, this.companyId , this.featured);
+
+    const requestBody = {
+      Id: newsitem.id,
+      Title: newsitem.title,
+      Content: newsitem.content,
+      Date: this.date,
+      Deleted: newsitem.deleted,
+      Published: newsitem.published,
+      AccountId: newsitem.account,
+      CompanyId: newsitem.company,
+      Featured: newsitem.featured
+    }
+
+    const body = JSON.stringify(requestBody)
+
+    this.newsService.makePutRequest(this.newsId, body);
   }
 
   // Dialoog venster voor het selecteren van type.
@@ -100,33 +134,4 @@ export class NewsEditComponent implements OnInit {
       console.log(result);
     });
   }
-
-  // Wijzigingen aanbrengen
-  onSubmit() {
-    const newsTitle = this.form.get('newsTitle').value;
-    const newsDescription = this.form.get('newsDescription').value;
-    console.log(this.form.get('newsDescription').value);
-    const userType = this.accountId;
-
-    const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
-        this.published, this.accountId, this.companyId , this.featured);
-
-    const requestBody = {
-      Id: newsitem.id,
-      Title: newsitem.title,
-      Content: newsitem.content,
-      Date: this.date,
-      Deleted: newsitem.deleted,
-      Published: newsitem.published,
-      AccountId: newsitem.account,
-      CompanyId: newsitem.company,
-      Featured: newsitem.featured
-    }
-
-    const body = JSON.stringify(requestBody)
-    
-    this.newsService.makePutRequest(this.newsId, body);
-    console.log("ik zit erin");
-  }
-
 }

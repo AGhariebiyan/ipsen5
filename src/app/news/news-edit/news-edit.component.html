@@ -1,6 +1,9 @@
-<ActionBar title="Nieuws">
-        
+<ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <ActionItem (tap)="displayConfirmDialogSave()" tap="onSave" ios.systemIcon="3" android.systemIcon="ic_menu_save" ios.position="right"></ActionItem>
 </ActionBar>
+
+
 <StackLayout [formGroup]="form">
 
     <TextField
@@ -22,19 +25,13 @@
 
     <Label text="Plaatsen als"></Label>
 
-    <TextField
-            [text]="userType"
-            hint="Plaatsen als...."
-            editable="false"
-            (tap)="displayActionDialog()"
-            formControlName="userType"
-    ></TextField>
-
-    <Button
-            text="opslaan"
-            class="btn btn-primary"
-            (tap)="onSubmit()"
-    ></Button>
+<!--    <TextField-->
+<!--            [text]="userType"-->
+<!--            hint="Plaatsen als...."-->
+<!--            editable="false"-->
+<!--            (tap)="displayActionDialog()"-->
+<!--            formControlName="userType"-->
+<!--    ></TextField>-->
 
     <Button
             [disabled]="true"
