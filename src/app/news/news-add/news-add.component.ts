@@ -15,8 +15,6 @@ import { RouterExtensions } from "nativescript-angular/router";
 export class NewsAddComponent implements OnInit {
   userId = "";
   userType = "";
-  newsTitle = "";
-  newsDescription = "";
   date = new Date();
   form: FormGroup;
   constructor(private newsService: NewsService,
@@ -72,7 +70,10 @@ export class NewsAddComponent implements OnInit {
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
-      if (result === true && this.newsTitle !== "" && this.newsDescription !== "" && this.userType !== "") {
+      const newsTitle = this.form.get("newsTitle").value;
+      const newsDescription = this.form.get("newsDescription").value;
+
+      if (result === true && newsTitle !== "" && newsDescription !== "" && this.userType !== "") {
         this.onSubmit();
         this.routerExtensions.back();
       } else {
