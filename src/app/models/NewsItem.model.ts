@@ -7,19 +7,19 @@ export class NewsItem {
     date: Date;
     deleted: boolean;
     published: boolean;
-    account: string;
-    company: string;
+    accountId: string;
+    companyId: string;
     featured: boolean;
 
     constructor(title: string, content: string, date: Date, deleted: boolean,
-                published: boolean, account: string, company: string, featured: boolean, id?: string) {
+                published: boolean, accountId: string, featured: boolean, id?: string) {
         this.title = title;
         this.content = content;
         this.date = date;
         this.deleted = deleted;
         this.published = published;
-        this.account = account;
-        this.company = company;
+        this.accountId = accountId;
+        // this.companyId = companyId;
         this.featured = featured;
         this.id = id;
     }
