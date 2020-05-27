@@ -41,6 +41,7 @@ export class EventDetailComponent implements OnInit {
       this.event = JSON.parse(params["event"]);
       this.isRegistered = params["isRegistered"];
     });
+    console.log(this.isRegistered);
     let button1 = new InformationButton("Aanmeldingen", "32/50");
     let button2 = new InformationButton("Gastenlijst", ">");
     let button3 = new InformationButton("Plaats", "i");

@@ -55,21 +55,21 @@ export class EventsListComponent implements OnInit {
   }
 
     /**
-   * @author Valerie Timmerman
-   *
-   * @param event
-   * When the user clicks on a event in the listview, this event is passed to this method and the user is navigated
-   * towards the details page of that specific event. The event gets passed to this page in the queryparams as a JSON
-   * object, passing the event as an object causes problems.
-   */
-  openDetails(event: EventResponse) {
+     * @author Valerie Timmerman
+     *
+     * When the user clicks on a event in the listview, this event is passed to this method and the user is navigated
+     * towards the details page of that specific event. The event gets passed to this page in the queryparams as a JSON
+     * object, passing the event as an object causes problems.
+     * @param selectedEvent
+     */
+  openDetails(selectedEvent: EventResponse) {
 
       this.myEvents$.subscribe(events => {
         for(let event of events) {
-          if(event.id == event.id) {
-            this.navigate(event, true);
+          if(selectedEvent.id == event.id) {
+            this.navigate(selectedEvent, true);
           } else {
-            this.navigate(event, false);
+            this.navigate(selectedEvent, false);
           }
         }
       });
