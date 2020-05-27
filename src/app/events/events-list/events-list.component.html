@@ -3,21 +3,7 @@
 </ActionBar>
 <StackLayout>
     <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectionChanged()"></SegmentedBar>
-    <ListView *ngIf="!displayingallEvents" [items]="events$ | async" height="100%">
-        <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
-            <FlexBoxLayout justifyContent="space-between" class="row" (tap)="openDetails(event)">
-                <StackLayout orientation="horizontal">
-                    <StackLayout class="dateCol">
-                        <Label class="dateLabel" text="1"></Label>
-                        <Label text="April"></Label>
-                    </StackLayout>
-                    <Label class="eventLabel" [text]="event.eventName"></Label>
-                </StackLayout>
-                <Label text="&#xf054;" class="fas icon"></Label>
-            </FlexBoxLayout>
-        </ng-template>
-    </ListView>
-    <ListView *ngIf="displayingallEvents" [items]="myEvents$ | async" height="100%">
+    <ListView [items]="events$ | async" height="100%">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
             <FlexBoxLayout justifyContent="space-between" class="row" (tap)="openDetails(event)">
                 <StackLayout orientation="horizontal">
