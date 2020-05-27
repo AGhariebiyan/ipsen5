@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { confirm } from "tns-core-modules/ui/dialogs";
+import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
@@ -37,7 +37,6 @@ export class NewsEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.getNewsItem();
-    console.log(this.activatedRoute.snapshot.params.newsId);
 
     this.form = new FormGroup({
       newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
@@ -84,11 +83,11 @@ export class NewsEditComponent implements OnInit {
 
   // Wijzigingen aanbrengen
   onSubmit() {
-    const newsTitle = this.form.get('newsTitle').value;
-    const newsDescription = this.form.get('newsDescription').value;
+    const newsTitle = this.form.get("newsTitle").value;
+    const newsDescription = this.form.get("newsDescription").value;
 
-    const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
-        this.published, this.accountId, this.companyId , this.featured);
+    const newsitem = new NewsItem(newsTitle, newsDescription, new Date(), this.deleted,
+        this.published, this.accountId, this.companyId , this.featured, this.newsPostId);
 
     const requestBody = {
       Id: newsitem.id,
@@ -108,22 +107,24 @@ export class NewsEditComponent implements OnInit {
   }
 
   // Dialoog venster voor het selecteren van type.
-  // displayActionDialog() {
-  //   const options = {
-  //     title: "Plaatsen als:",
-  //     message: "Selecteer type",
-  //     cancelButtonText: "Annuleer",
-  //     actions: ["Human", "Elf", "Dwarf", "Orc", "Unicorn"]
-  //   };
-  //
-  //   action(options).then((result) => {
-  //     if (result === 'Annuleer') {
-  //       this.accountType = 1;
-  //     } else {
-  //       this.accountId = result;
-  //     }
-  //   });
-  // }
+  displayActionDialog() {
+    const options = {
+      title: "Plaatsen als:",
+      message: "Selecteer type",
+      cancelButtonText: "Annuleer",
+      actions: ["Mijzelf"]
+    };
+
+    action(options).then((result) => {
+      if (result === "annuleren") {
+        this.accountId = "";
+        this.companyId = "";
+      } else if (result === "Mijzelf") {
+        this.accountId = "";
+        this.companyId = "";
+      }
+    });
+  }
 
   // Dialoog voor de controle van de gebruiker voor het verwijderen.
   displayConfirmDialogDelete() {

@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators'
 })
 export class HttpService {
 
-  private apiLocation = "http://192.168.178.10:5000/api";
+  private apiLocation = "http://localhost:5000/api";
 
   constructor(private http: HttpClient) { }
 
@@ -29,8 +29,6 @@ export class HttpService {
   }
 
   deleteData(endpoint: string) {
-    console.log(this.apiLocation + endpoint);
-
     return this.http.delete(this.apiLocation + endpoint);
   }
 
