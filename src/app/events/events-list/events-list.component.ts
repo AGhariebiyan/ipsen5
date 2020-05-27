@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EventResponse } from '~/app/shared/models/event-response.model';
+import { AccountService } from '~/app/services/account.service';
+import { flatMap, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-events-list',
@@ -17,8 +19,10 @@ export class EventsListComponent implements OnInit {
   events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
   events$: Observable<EventResponse[]>
+  myEvents$: Observable<EventResponse[]>
+  displayingallEvents: boolean = false;
 
-  constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute) {
+  constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
     const myEvents = new SegmentedBarItem()
@@ -29,9 +33,25 @@ export class EventsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.events$ = this.es.getEvents();
+    this.myEvents$ = this.getMyEvents();
+  }
+
+  getMyEvents(): Observable<EventResponse[]> {
+    return this.accountsService.account$.pipe(
+      flatMap(account => this.es.getEventsForUserId(account.id))
+    )
   }
 
   selectionChanged() {
+    let eventsBackup$ = this.es.getEvents();
+
+    this.displayingallEvents = !this.displayingallEvents;
+
+    if (!this.displayingallEvents) {
+      this.events$ = this.myEvents$;
+    } else {
+      this.events$ = eventsBackup$;
+    }
   }
 
     /**
@@ -51,6 +71,8 @@ export class EventsListComponent implements OnInit {
     };
     this.router.navigate(['../details'], navigateExtras);
   }
+
+
 
 }
 
