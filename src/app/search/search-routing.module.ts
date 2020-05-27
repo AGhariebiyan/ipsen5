@@ -4,7 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { SearchComponent } from "./search/search.component";
 
 const routes: Routes = [
-    { path: "default", component: SearchComponent },
+    { path: "", component: SearchComponent }
 ];
 
 @NgModule({

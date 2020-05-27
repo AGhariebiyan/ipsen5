@@ -24,10 +24,8 @@ import { ReactiveFormsModule } from "@angular/forms";
       NewsRoutingModule,
       NativeScriptFormsModule,
       ReactiveFormsModule,
-      SharedModule,
-      RouterModule,
-      CommonModule
     ],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class NewsModule { }
+export class NewsModule {
+}

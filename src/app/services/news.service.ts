@@ -25,6 +25,7 @@ export class NewsService {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
 
+
     makePostRequest(body: any) {
 
         let headers = new HttpHeaders({
@@ -48,6 +49,6 @@ export class NewsService {
         console.log(this.endpointItem + id);
 
         return this.http.deleteData(this.endpointItem + id).subscribe();
-    }
 
+    }
 }
