@@ -25,7 +25,8 @@ export class EventDetailComponent implements OnInit {
   event: EventResponse;
   options = [];
   location: string;
-  isRegistered: boolean;
+  isRegistered: any;
+  registrations = [];
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
               private service: ParticipantService, private accountService: AccountService) {
@@ -41,14 +42,17 @@ export class EventDetailComponent implements OnInit {
       this.event = JSON.parse(params["event"]);
       this.isRegistered = params["isRegistered"];
     });
-    let button1 = new InformationButton("Aanmeldingen", "32/50");
-    let button2 = new InformationButton("Gastenlijst", ">");
-    let button3 = new InformationButton("Plaats", "i");
-    this.options.push(button1, button2, button3);
 
+    this.getRegistrations().then(() => this.setButtons());
     this.location = this.event.eventLocationStreet + "\n" + this.event.eventLocationPostalCode + "\n" +
         this.event.eventLocationName + "\n" + this.event.eventLocationRegion + "\n" +
         this.event.eventLocationCountry;
+  }
+
+  async getRegistrations() {
+    await this.service.getParticipantsForEvent(this.event.id).then(result => {
+      this.registrations = result;
+    });
   }
 
   goBack() {
@@ -81,8 +85,13 @@ export class EventDetailComponent implements OnInit {
   private registerForEvent() {
     this.accountService.account$.subscribe(account => {
       let participant = new Participant(this.event.id, account.id);
-      this.service.registerParticipant(participant);
-    })
+      this.service.registerParticipant(participant).then(() => {
+            this.isRegistered = 'true';
+            this.getRegistrations().then(() => this.updateButton());
+          }).catch(() => {
+        console.log("Error");
+      });
+    });
   }
 
   openInformation(event) {
@@ -108,8 +117,34 @@ export class EventDetailComponent implements OnInit {
       okButtonText: "Ja",
       cancelButtonText: "Nee"
     }).then(result => {
-      //Make unregister here
+      if(result) {
+        this.unRegister();
+      }
     })
+  }
+
+  private unRegister() {
+    this.accountService.account$.subscribe(account => {
+      let participant = new Participant(this.event.id, account.id);
+      this.service.deleteParticipant(participant).then(() => {
+        this.isRegistered = 'false';
+        this.getRegistrations().then(() => this.updateButton());
+      }).catch(() => {
+        console.log("Error");
+      });
+    })
+  }
+
+  updateButton(){
+    let button = this.options[0];
+    button.secondArgument = this.registrations.length;
+  }
+
+  private setButtons() {
+    let button1 = new InformationButton("Aanmeldingen", this.registrations.length);
+    let button2 = new InformationButton("Gastenlijst", ">");
+    let button3 = new InformationButton("Plaats", "i");
+    this.options.push(button1, button2, button3);
   }
 }
 
