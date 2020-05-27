@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "~/app/services/http.service";
-import {User} from "~/app/models/user";
-import {Name} from "~/app/models/name";
 import {Observable} from "rxjs";
 import {genSaltSync, hashSync} from "bcryptjs"
 import has = Reflect.has;
@@ -17,7 +15,7 @@ export class AccountService {
 
   updateObservable;
 
-  user$ = new Observable<Account>((observer) => {
+  account$ = new Observable<Account>((observer) => {
     observer.next(this.account);
     this.updateObservable = function (newValue: Account) {
       this.account = newValue
@@ -29,8 +27,8 @@ export class AccountService {
 
   }
 
-  subscriptionUser():Observable<User>{
-    return this.user$;
+  subscriptionUser():Observable<Account>{
+    return this.account$;
   }
 
   checkLoginResponse(response: any):boolean{

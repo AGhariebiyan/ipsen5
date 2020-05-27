@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 import { AccountService } from "~/app/services/account.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import {User} from "~/app/models/user";
-import {Name} from "~/app/models/name";
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from "~/environments/environment.tns";

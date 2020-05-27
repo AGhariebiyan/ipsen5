@@ -2,7 +2,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { User } from "../models/user";
+import { Account } from "../models/Account.model";
 
 // class to help with routing that needs to be done automaticly 
 @Injectable({
@@ -11,8 +11,8 @@ import { User } from "../models/user";
 export class routing{
     constructor(private accountService: AccountService, private http: HttpClient, private router: Router) {
         console.log("setting subscribtion user")
-        this.accountService.user$.subscribe((user: User) => {
-            if (user == null) {
+        this.accountService.account$.subscribe((account: Account) => {
+            if (account == null) {
                 //this.router.navigateByUrl('/start');
                 console.log("not logged in!")
             }

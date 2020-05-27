@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.account.user$.subscribe(user => {
-            this.loggedIn = !!user;
+        this.account.account$.subscribe(account => {
+            this.loggedIn = !!account;
             if (this.loggedIn) {
                 this.router.navigateByUrl("/loggedin/default");
             }
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
         // setting of the app can be placed here, but needs to be a service
         //if (this.appSettings.getBoolean("autoLogin")) {
-        this.jwtService.checkForJWT();
+        //this.jwtService.checkForJWT();
         //}
     }
 }
