@@ -23,7 +23,7 @@ export class HttpService {
   }
 
 
-  postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
+  postData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.post(this.apiLocation + endpoint, body, {headers: headers});
 
   }
