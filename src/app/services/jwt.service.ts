@@ -34,14 +34,16 @@ export class JwtService {
             headers: new HttpHeaders().append("auth", "false")
         }).pipe(
         catchError(this.handleAuthError)
-    ).subscribe(() => {
-        const decodedToken = this.getDecodedAccessToken(token);
-        this.accountService.setUser(new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName));
+        ).subscribe((account: any) => {
+            this.accountService.setUser(account.account);
+
+        //new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)
     });
 
     }
 
     private handleAuthError(error: HttpErrorResponse) {
+        console.log(error)
         return throwError("jwt token not validated");
     }
 

@@ -25,7 +25,6 @@ export class AuthenticationService {
             catchError(this.handleLoginError)
         ).subscribe((item) => {
           this.logInUser(item);
-          console.log(item);
         });
 
   }
