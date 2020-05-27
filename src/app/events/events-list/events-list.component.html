@@ -2,7 +2,7 @@
 <ActionBar title="Evenementen">
 </ActionBar>
 <StackLayout>
-    <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg"></SegmentedBar>
+    <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectionChanged()"></SegmentedBar>
     <ListView [items]="events$ | async" height="100%">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
             <FlexBoxLayout justifyContent="space-between" class="row" (tap)="openDetails(event)">

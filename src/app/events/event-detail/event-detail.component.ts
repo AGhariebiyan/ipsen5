@@ -6,6 +6,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/shared/models/participant";
 import { EventResponse } from "~/app/shared/models/event-response.model";
+import { AccountService } from '~/app/services/account.service';
 
 @Component({
   selector: 'ns-event-detail',
@@ -26,7 +27,7 @@ export class EventDetailComponent implements OnInit {
   location: string;
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
-              private service: ParticipantService) {
+              private service: ParticipantService, private accountService: AccountService) {
   }
 
   /**
@@ -84,8 +85,10 @@ export class EventDetailComponent implements OnInit {
   }
 
   private registerForEvent() {
-    let participant = new Participant(this.event.id, "f5874b4d-8430-449e-9d20-41775385a892");
-    this.service.registerParticipant(participant);
+    this.accountService.account$.subscribe(account => {
+      let participant = new Participant(this.event.id, account.id);
+      this.service.registerParticipant(participant);
+    })
   }
 
   openInformation(event) {
