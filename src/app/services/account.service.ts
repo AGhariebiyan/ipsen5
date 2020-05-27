@@ -15,7 +15,7 @@ export class AccountService {
 
   updateObservable;
 
-  user$ = new Observable<Account>((observer) => {
+  account$ = new Observable<Account>((observer) => {
     observer.next(this.account);
     this.updateObservable = function (newValue: Account) {
       this.account = newValue
@@ -28,7 +28,7 @@ export class AccountService {
   }
 
   subscriptionUser():Observable<Account>{
-    return this.user$;
+    return this.account$;
   }
 
   checkLoginResponse(response: any):boolean{
@@ -36,7 +36,8 @@ export class AccountService {
   }
 
     setUser(account: Account) {
-    this.updateObservable(account);
+        this.updateObservable(account);
+        console.log(account);
   }
 
   resetUser() {

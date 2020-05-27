@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 import { AccountService } from "~/app/services/account.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import {User} from "~/app/models/user";
-import {Name} from "~/app/models/name";
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from "~/environments/environment.tns";
@@ -38,7 +36,7 @@ export class JwtService {
         catchError(this.handleAuthError)
     ).subscribe(() => {
         const decodedToken = this.getDecodedAccessToken(token);
-        this.accountService.setUser(new Account(decodedToken.id, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName));
+        this.accountService.setUser(new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName));
     });
 
     }
