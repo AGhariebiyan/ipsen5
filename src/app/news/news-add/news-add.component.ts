@@ -11,7 +11,8 @@ import { AccountService } from "~/app/services/account.service";
   styleUrls: ['./news-add.component.css']
 })
 export class NewsAddComponent implements OnInit {
-  userType = " ";
+  userId = "";
+  userType = "";
   date = new Date();
   form: FormGroup;
   constructor(private newsService: NewsService,
@@ -33,10 +34,15 @@ export class NewsAddComponent implements OnInit {
     };
 
     action(options).then((result) => {
-      if (result === "annuleren") {
-        this.userType = "";
+      if (result === "Mijzelf") {
+        this.userType = result;
+        this.userId = this.accountService.account.id;
+      } else if (result === "Bedrijf") {
+        this.userType = result;
+        this.userId = this.accountService.account.id;
       } else {
         this.userType = result;
+        this.userId = this.accountService.account.id;
       }
     });
   }
@@ -46,7 +52,7 @@ export class NewsAddComponent implements OnInit {
     const newsDescription = this.form.get('newsDescription').value;
 
     const newsItem = new NewsItem(newsTitle, newsDescription, new Date(), false,
-        true, this.accountService.account.id, true);
+        true, this.userId, true);
 
     const body = JSON.stringify(newsItem);
 
