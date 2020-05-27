@@ -1,4 +1,5 @@
 export class Event {
+    eventId: string;
     eventDate: Date;
     eventName: string;
     eventDescription: string;
@@ -9,6 +10,7 @@ export class Event {
     locationCountry: string;
 
     constructor(
+        eventId: string,
         eventDate: Date, 
         eventName: string, 
         eventDescription: string, 
@@ -18,6 +20,7 @@ export class Event {
         locationRegion: string, 
         locationCountry: string) 
     {
+        this.eventId = eventId;
         this.eventDate = eventDate;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
