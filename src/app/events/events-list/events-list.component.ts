@@ -19,6 +19,8 @@ export class EventsListComponent implements OnInit {
   events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
   events$: Observable<EventResponse[]>
+  myEvents$: Observable<EventResponse[]>
+  displayingallEvents: boolean = true;
 
   constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
     const allEventsTab = new SegmentedBarItem()
@@ -31,8 +33,7 @@ export class EventsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.events$ = this.es.getEvents();
-    console.log("test")
-    this.getMyEvents().subscribe(result => result.map(val => console.log(val)))
+    this.myEvents$ = this.getMyEvents();
   }
 
   getMyEvents(): Observable<EventResponse[]> {
@@ -42,6 +43,7 @@ export class EventsListComponent implements OnInit {
   }
 
   selectionChanged() {
+    this.displayingallEvents = !this.displayingallEvents
   }
 
     /**
@@ -61,6 +63,8 @@ export class EventsListComponent implements OnInit {
     };
     this.router.navigate(['../details'], navigateExtras);
   }
+
+
 
 }
 
