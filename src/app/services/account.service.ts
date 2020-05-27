@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "~/app/services/http.service";
-import {User} from "~/app/models/user";
-import {Name} from "~/app/models/name";
 import {Observable} from "rxjs";
 import {genSaltSync, hashSync} from "bcryptjs"
 import has = Reflect.has;
@@ -29,7 +27,7 @@ export class AccountService {
 
   }
 
-  subscriptionUser():Observable<User>{
+  subscriptionUser():Observable<Account>{
     return this.user$;
   }
 
