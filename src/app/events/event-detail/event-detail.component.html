@@ -27,8 +27,8 @@
         </ng-template>
     </ListView>
 
-    <Button [visibility]="isRegistered ? 'visible' : 'hidden'" text="Inschrijven" (tap)="openRegister()"></Button>
-    <Button [visibility]="isRegistered ? 'hidden' : 'visible'" text="Uitschrijven" (tap)="openUnRegister()"></Button>
+    <Button *ngIf="isRegistered === 'false'" text="Inschrijven" (tap)="openRegister()"></Button>
+    <Button *ngIf="isRegistered === 'true'" text="Uitschrijven" (tap)="openUnRegister()"></Button>
 
 </StackLayout>
 
