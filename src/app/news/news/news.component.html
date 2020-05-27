@@ -1,7 +1,7 @@
 <ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
 <StackLayout>
     <Button text="news works!" nsRouterLink="../news-edit" class="btn btn-primary"></Button>
-    <Button text="news works!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
+    <Button text="toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
 
     <Button *ngFor="let newsitem of (newsItems | async)" [text]="newsitem.title" [nsRouterLink]="['../news-edit/' + newsitem.id]"></Button>
 </StackLayout>

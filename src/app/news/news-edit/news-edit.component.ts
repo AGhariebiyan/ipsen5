@@ -87,8 +87,8 @@ export class NewsEditComponent implements OnInit {
     const newsTitle = this.form.get('newsTitle').value;
     const newsDescription = this.form.get('newsDescription').value;
 
-    const newsitem = new NewsItem(this.newsPostId, newsTitle, newsDescription, new Date(), this.deleted,
-        this.published, this.accountId, this.companyId , this.featured);
+    const newsitem = new NewsItem(newsTitle, newsDescription, new Date(), this.deleted,
+        this.published, this.accountId, this.companyId , this.featured, this.newsPostId);
 
     const requestBody = {
       Id: newsitem.id,
@@ -100,9 +100,9 @@ export class NewsEditComponent implements OnInit {
       AccountId: newsitem.account,
       CompanyId: newsitem.company,
       Featured: newsitem.featured
-    }
+    };
 
-    const body = JSON.stringify(requestBody)
+    const body = JSON.stringify(requestBody);
 
     this.newsService.makePutRequest(this.newsId, body);
   }
