@@ -53,8 +53,8 @@ export class NewsEditComponent implements OnInit {
       this.newsDescription = newsItem.content;
       this.deleted = newsItem.deleted;
       this.published = newsItem.published;
-      this.accountId = newsItem.account;
-      this.companyId = newsItem.company;
+      this.accountId = newsItem.accountId;
+      // this.companyId = newsItem.company;
       this.featured = newsItem.featured;
 
     });
@@ -88,7 +88,7 @@ export class NewsEditComponent implements OnInit {
     const newsDescription = this.form.get('newsDescription').value;
 
     const newsitem = new NewsItem(newsTitle, newsDescription, new Date(), this.deleted,
-        this.published, this.accountId, this.companyId , this.featured, this.newsPostId);
+        this.published, this.accountId, this.featured, this.newsPostId);
 
     const requestBody = {
       Id: newsitem.id,
@@ -97,8 +97,8 @@ export class NewsEditComponent implements OnInit {
       Date: this.date,
       Deleted: newsitem.deleted,
       Published: newsitem.published,
-      AccountId: newsitem.account,
-      CompanyId: newsitem.company,
+      AccountId: newsitem.accountId,
+      // CompanyId: newsitem.company,
       Featured: newsitem.featured
     };
 
