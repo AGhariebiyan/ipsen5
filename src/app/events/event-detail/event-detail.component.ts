@@ -25,6 +25,7 @@ export class EventDetailComponent implements OnInit {
   event: EventResponse;
   options = [];
   location: string;
+  isRegistered: boolean;
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
               private service: ParticipantService, private accountService: AccountService) {
@@ -36,7 +37,10 @@ export class EventDetailComponent implements OnInit {
    * When the class is created the JSON object passed by the overview page gets parsed and put as a global variable.
    */
   ngOnInit(): void {
-    this.activeRoute.queryParams.subscribe(params => {this.event = JSON.parse(params["event"])});
+    this.activeRoute.queryParams.subscribe(params => {
+      this.event = JSON.parse(params["event"]);
+      this.isRegistered = params["isRegistered"];
+    });
     let button1 = new InformationButton("Aanmeldingen", "32/50");
     let button2 = new InformationButton("Gastenlijst", ">");
     let button3 = new InformationButton("Plaats", "i");
@@ -74,16 +78,6 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
-  showConfirmation(result: boolean) {
-    if(result) {
-      dialogs.alert( {
-        title: "Inschrijven",
-        message: "U bent nu ingeschreven.",
-        okButtonText: "Sluit"
-      });
-    }
-  }
-
   private registerForEvent() {
     this.accountService.account$.subscribe(account => {
       let participant = new Participant(this.event.id, account.id);
@@ -107,6 +101,16 @@ export class EventDetailComponent implements OnInit {
     }
   }
 
+  openUnRegister() {
+    dialogs.confirm({
+      title: "Uitschrijven",
+      message: "Weet u zeker dat u zich wilt uitschrijven voor dit evenement?",
+      okButtonText: "Ja",
+      cancelButtonText: "Nee"
+    }).then(result => {
+      //Make unregister here
+    })
+  }
 }
 
 class InformationButton {

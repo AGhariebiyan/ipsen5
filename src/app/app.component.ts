@@ -26,8 +26,6 @@ export class AppComponent implements OnInit {
             }
         });
         // Init your component properties here.
-        console.log("app component created")
-
         // setting of the app can be placed here, but needs to be a service
         //if (this.appSettings.getBoolean("autoLogin")) {
         //this.jwtService.checkForJWT();
