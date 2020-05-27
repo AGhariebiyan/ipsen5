@@ -36,8 +36,6 @@ export class NewsService {
     }
 
     makePutRequest(id: string, body: any) {
-        console.log(body);
-
         let headers = new HttpHeaders({
             'Content-Type': 'application/json'
         });
@@ -46,8 +44,6 @@ export class NewsService {
     }
 
     deleteNewspost(id: string) {
-        console.log(this.endpointItem + id);
-
         return this.http.deleteData(this.endpointItem + id).subscribe();
 
     }

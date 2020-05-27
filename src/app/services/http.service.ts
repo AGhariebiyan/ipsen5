@@ -10,9 +10,7 @@ import { environment } from "~/environments/environment.tns";
 })
 export class HttpService {
 
-
   private apiLocation = environment.apiUrl + "/api";
-
 
   constructor(private http: HttpClient) { }
 
@@ -35,8 +33,6 @@ export class HttpService {
   }
 
   deleteData(endpoint: string) {
-    console.log(this.apiLocation + endpoint);
-
     return this.http.delete(this.apiLocation + endpoint);
   }
 
