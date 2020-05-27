@@ -63,13 +63,16 @@ export class EventsListComponent implements OnInit {
      * @param selectedEvent
      */
   openDetails(selectedEvent: EventResponse) {
-
       this.myEvents$.subscribe(events => {
-        for(let event of events) {
-          if(selectedEvent.id == event.id) {
-            this.navigate(selectedEvent, true);
-          } else {
-            this.navigate(selectedEvent, false);
+        if(events.length == 0) {
+          this.navigate(selectedEvent, false);
+        } else {
+          for(let event of events) {
+            if(selectedEvent.id == event.id) {
+              this.navigate(selectedEvent, true);
+            } else {
+              this.navigate(selectedEvent, false);
+            }
           }
         }
       });
