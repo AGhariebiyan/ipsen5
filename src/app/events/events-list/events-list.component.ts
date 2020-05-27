@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EventResponse } from '~/app/shared/models/event-response.model';
+import { AccountService } from '~/app/services/account.service';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-events-list',
@@ -18,7 +20,7 @@ export class EventsListComponent implements OnInit {
   segmentedBarItems: Array<SegmentedBarItem> = [];
   events$: Observable<EventResponse[]>
 
-  constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute) {
+  constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
     const myEvents = new SegmentedBarItem()
@@ -29,6 +31,14 @@ export class EventsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.events$ = this.es.getEvents();
+    console.log("test")
+    this.getMyEvents().subscribe(result => result.map(val => console.log(val)))
+  }
+
+  getMyEvents(): Observable<EventResponse[]> {
+    return this.accountsService.account$.pipe(
+      flatMap(account => this.es.getEventsForUserId(account.id))
+    )
   }
 
   selectionChanged() {

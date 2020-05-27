@@ -29,7 +29,7 @@ export class EventService {
         let allEvents = result[1];
 
         //Empty container to place events in
-        let filteredEvents: EventResponse[];
+        let filteredEvents: EventResponse[] = [];
         let myParticipations = result[0].filter(val => val.accountId === id)
 
         //Running through all my participations
