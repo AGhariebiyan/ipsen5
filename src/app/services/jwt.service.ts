@@ -36,7 +36,7 @@ export class JwtService {
         catchError(this.handleAuthError)
     ).subscribe(() => {
         const decodedToken = this.getDecodedAccessToken(token);
-        this.accountService.setUser(new Account(decodedToken.id, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName));
+        this.accountService.setUser(new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName));
     });
 
     }
