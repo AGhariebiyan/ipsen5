@@ -17,8 +17,10 @@ import { NewsEditComponent } from "~/app/news/news-edit/news-edit.component";
 // // ];
 
 const routes: Routes = [
-    {path: "", redirectTo: "news", pathMatch: "full"},
-    {path: "news", component: NewsComponent}
+    { path: "default", component: NewsComponent },
+    { path: "news-add", component: NewsAddComponent},
+    { path: "news-edit/:newsId", component: NewsEditComponent }
+
 ];
 
 @NgModule({

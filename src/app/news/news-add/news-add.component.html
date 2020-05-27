@@ -1,12 +1,15 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
-<StackLayout>
+<StackLayout [formGroup]="form">
+    <Button text="Toevoegen" class="btn btn-primary" (tap)="onSubmit()"></Button>
     <TextField
+            formControlName="newsTitle"
             class="marginTopField"
             hint="Titel"
             [text]=""
     ></TextField>
 
     <TextView
+            formControlName="newsDescription"
             class="marginTopField"
             id="textDescription"
             hint="Bericht"
@@ -18,13 +21,14 @@
     ></Label>
 
     <TextField
+            formControlName="userType"
             [text]="userType"
             hint="Plaatsen als...."
             editable="false"
             (tap)="displayActionDialog()"
     ></TextField>
 
-<!--    <Button text="Verwijderen" class="btn btn-primary" (tap)="displayConfirmDialog()"></Button>-->
+
 </StackLayout>
 
 

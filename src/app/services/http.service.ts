@@ -10,7 +10,9 @@ import { environment } from "~/environments/environment.tns";
 })
 export class HttpService {
 
+
   private apiLocation = environment.apiUrl + "/api";
+
 
   constructor(private http: HttpClient) { }
 
@@ -22,16 +24,20 @@ export class HttpService {
     return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
-  postData(endpoint: string, body: any, headers: HttpHeaders) {
-    return this.http.post(this.apiLocation + endpoint, body, {headers: headers}).pipe(
-      catchError(this.handleError)
-    );
+
+  postData(endpoint: string, body: HttpParams, headers: HttpHeaders) {
+    return this.http.post(this.apiLocation + endpoint, body, {headers: headers});
+
   }
 
-  putData(endpoint: string, body: any) {
-    return this.http.put(this.apiLocation, body).pipe(
-        catchError(this.handleError)
-    );
+  putData(endpoint: string, body: any, headers: HttpHeaders) {
+    return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
+  }
+
+  deleteData(endpoint: string) {
+    console.log(this.apiLocation + endpoint);
+
+    return this.http.delete(this.apiLocation + endpoint);
   }
 
   private handleError(error: HttpErrorResponse) {

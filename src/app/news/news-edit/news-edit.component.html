@@ -1,5 +1,10 @@
-<ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
-<StackLayout [formGroup]="form" [items]="newsItem$ | async">
+<ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <ActionItem (tap)="displayConfirmDialogSave()" tap="onSave" ios.systemIcon="3" android.systemIcon="ic_menu_save" ios.position="right"></ActionItem>
+</ActionBar>
+
+
+<StackLayout [formGroup]="form">
 
     <TextField
             class="marginTopField"
@@ -21,18 +26,12 @@
     <Label text="Plaatsen als"></Label>
 
     <TextField
-            [text]="userType"
+            [text]=""
             hint="Plaatsen als...."
             editable="false"
             (tap)="displayActionDialog()"
             formControlName="userType"
     ></TextField>
-
-    <Button
-            text="opslaan"
-            class="btn btn-primary"
-            (tap)="displayConfirmDialogSave()"
-    ></Button>
 
     <Button
             [disabled]="true"

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { NewsService } from "~/app/services/news.service";
+import { NewsItem } from "~/app/models/NewsItem.model";
 
 @Component({
   selector: 'ns-news-add',
@@ -8,8 +11,16 @@ import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules
 })
 export class NewsAddComponent implements OnInit {
   userType = " ";
-  constructor() { }
+  date = new Date();
+  form: FormGroup;
+  constructor(private newsService: NewsService) { }
   ngOnInit(): void {
+
+    this.form = new FormGroup({
+      newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
+      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
+      userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+    });
   }
 
   displayActionDialog() {
@@ -26,6 +37,18 @@ export class NewsAddComponent implements OnInit {
         this.userType = result;
       }
     });
+  }
+
+  onSubmit() {
+    const newsTitle = this.form.get('newsTitle').value;
+    const newsDescription = this.form.get('newsDescription').value;
+
+    const newsItem = new NewsItem(newsTitle, newsDescription, new Date(), false,
+        true, this.userType, "1" , true);
+
+    const body = JSON.stringify(newsItem);
+
+    this.newsService.makePostRequest(body);
   }
 
   displayConfirmDialog() {
