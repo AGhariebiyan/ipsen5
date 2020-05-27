@@ -7,12 +7,15 @@ import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [SearchComponent],
-  imports: [
-    NativeScriptCommonModule,
-    SearchRoutingModule,
-    SharedModule
-  ],
-  schemas: [NO_ERRORS_SCHEMA]
+    declarations: [SearchComponent],
+    imports: [
+        NativeScriptCommonModule,
+        SearchRoutingModule,
+        SharedModule
+    ],
+    exports: [
+        SearchComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class SearchModule { }

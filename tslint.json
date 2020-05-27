@@ -38,6 +38,7 @@
     "prefer-conditional-expression": false,
     "use-host-property-decorator": true,
     "use-input-property-decorator": true,
+    "use-input-property-decorator": true,
     "use-life-cycle-interface": true,
     "use-output-property-decorator": true,
     "use-pipe-transform-interface": true,

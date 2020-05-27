@@ -99,9 +99,9 @@ export class NewsEditComponent implements OnInit {
       AccountId: newsitem.account,
       CompanyId: newsitem.company,
       Featured: newsitem.featured
-    }
+    };
 
-    const body = JSON.stringify(requestBody)
+    const body = JSON.stringify(requestBody);
 
     this.newsService.makePutRequest(this.newsId, body);
   }

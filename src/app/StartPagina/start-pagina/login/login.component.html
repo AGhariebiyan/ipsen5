@@ -1,0 +1,7 @@
+<StackLayout class="root">
+    <TextField required hint="email" [(ngModel)]="email" class="input email" keyboardType="email" autocorrect="false"></TextField>
+    <TextField required hint="wachtwoord" [(ngModel)]="password"  secure="true" class="input password-field"></TextField>
+    <Button text="INLOGGEN" (tap)="login()" class="btn btn-primary login"></Button>
+    <Label [nsRouterLink]="['']"  text="Wachtwoord vergeten >" class="text-link"> </Label>
+    <Label [nsRouterLink]="['../register']" text="Maak een account aan >" class="text-link"> </Label>
+</StackLayout>
