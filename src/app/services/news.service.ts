@@ -25,7 +25,6 @@ export class NewsService {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
 
-
     makePostRequest(body: any) {
 
         let headers = new HttpHeaders({
