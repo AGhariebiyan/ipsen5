@@ -19,13 +19,14 @@ import { ReactiveFormsModule } from "@angular/forms";
       NewsEditComponent,
       ActionBarNewsComponent
   ],
-  imports: [
-      NativeScriptCommonModule,
-      NewsRoutingModule,
-      NativeScriptFormsModule,
-      ReactiveFormsModule,
+    imports: [
+        NativeScriptCommonModule,
+        NewsRoutingModule,
+        NativeScriptFormsModule,
+        ReactiveFormsModule,
+        CommonModule
     ],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class NewsModule {
-}
+
+export class NewsModule { }

@@ -3,6 +3,7 @@ import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
+import { AccountService } from "~/app/services/account.service";
 
 @Component({
   selector: 'ns-news-add',
@@ -13,7 +14,8 @@ export class NewsAddComponent implements OnInit {
   userType = " ";
   date = new Date();
   form: FormGroup;
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService,
+              private accountService: AccountService) { }
   ngOnInit(): void {
 
     this.form = new FormGroup({
@@ -44,7 +46,7 @@ export class NewsAddComponent implements OnInit {
     const newsDescription = this.form.get('newsDescription').value;
 
     const newsItem = new NewsItem(newsTitle, newsDescription, new Date(), false,
-        true, "2045f514-e16d-4a5c-888e-72ff575232ad", true);
+        true, this.accountService.account.id, true);
 
     const body = JSON.stringify(newsItem);
 
