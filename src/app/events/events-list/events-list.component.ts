@@ -54,18 +54,29 @@ export class EventsListComponent implements OnInit {
    * towards the details page of that specific event. The event gets passed to this page in the queryparams as a JSON
    * object, passing the event as an object causes problems.
    */
-  openDetails(event: Event) {
+  openDetails(event: EventResponse) {
+
+      this.myEvents$.subscribe(events => {
+        for(let event of events) {
+          if(event.id == event.id) {
+            this.navigate(event, true);
+          } else {
+            this.navigate(event, false);
+          }
+        }
+      });
+  }
+
+  navigate(event, isRegistered) {
     let navigateExtras: NavigationExtras = {
       relativeTo: this.activeRoute,
       queryParams: {
-        event: JSON.stringify(event)
+        event: JSON.stringify(event),
+        isRegistered: isRegistered
       }
     };
     this.router.navigate(['../details'], navigateExtras);
   }
-
-
-
 }
 
 

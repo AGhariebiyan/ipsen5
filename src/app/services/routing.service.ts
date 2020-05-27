@@ -10,14 +10,11 @@ import { Account } from "../models/Account.model";
 })
 export class routing{
     constructor(private accountService: AccountService, private http: HttpClient, private router: Router) {
-        console.log("setting subscribtion user")
         this.accountService.account$.subscribe((account: Account) => {
             if (account == null) {
                 //this.router.navigateByUrl('/start');
-                console.log("not logged in!")
             }
             else {
-                console.log("going to logged in page")
                 this.router.navigateByUrl("/loggedIn")
             }
         });

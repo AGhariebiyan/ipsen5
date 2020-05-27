@@ -27,7 +27,8 @@
         </ng-template>
     </ListView>
 
-    <Button text="Inschrijven" (tap)="openRegister()"></Button>
+    <Button *ngIf="!isRegistered" text="Inschrijven" (tap)="openRegister()"></Button>
+    <Button *ngIf="isRegistered" text="Uitschrijven" (tap)="openUnRegister()"></Button>
 
 </StackLayout>
 
