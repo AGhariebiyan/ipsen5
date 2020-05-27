@@ -9,6 +9,7 @@ import { isIOS } from "tns-core-modules/platform";
 import { Page } from "tns-core-modules/ui/page";
 import { RouterExtensions } from "nativescript-angular/router";
 import { AccountService } from "~/app/services/account.service";
+import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-news-edit',
@@ -81,8 +82,17 @@ export class NewsEditComponent implements OnInit {
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
-      this.onSubmit();
-      this.routerExtensions.back();
+      if (result === true && this.newsTitle !== "" && this.newsDescription !== "" && this.userType !== "") {
+        this.onSubmit();
+        this.routerExtensions.back();
+      } else {
+        dialogs.alert({
+          title: "vul alle invoervelden in",
+          okButtonText: "Oke"
+        }).then(() => {
+          console.log("Dialog closed!");
+        });
+      }
     });
   }
 
