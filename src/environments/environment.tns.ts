@@ -1,3 +1,4 @@
-export class environment {
-    static apiUrl: string = "http://192.168.178.21:5000";
-}
+export const environment = {
+    production: false,
+    apiUrl: "http://localhost:5000"
+};
