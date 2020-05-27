@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Page} from "@nativescript/core/ui/page";
+import {Page} from "tns-core-modules/ui/page";
 import {AccountService} from "~/app/services/account.service";
 import {AuthenticationService} from "~/app/services/authentication.service";
 

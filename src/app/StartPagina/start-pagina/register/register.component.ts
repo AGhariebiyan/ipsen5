@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Page } from "@nativescript/core/ui/page/page";
+import { Page } from "tns-core-modules/ui/page";
 import { RegisterService } from "~/app/services/register.service";
 import { first } from "rxjs/internal/operators";
 import { Router } from "@angular/router";
