@@ -7,6 +7,7 @@ import {Name} from "~/app/models/name";
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from "~/environments/environment.tns";
+import { Account } from '../models/Account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class JwtService {
         catchError(this.handleAuthError)
     ).subscribe(() => {
         const decodedToken = this.getDecodedAccessToken(token);
-        this.accountService.setUser(new User(decodedToken.email, decodedToken.role, new Name(decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)));
+        this.accountService.setUser(new Account(decodedToken.id, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName));
     });
 
     }

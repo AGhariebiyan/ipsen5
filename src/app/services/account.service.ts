@@ -6,20 +6,21 @@ import {Observable} from "rxjs";
 import {genSaltSync, hashSync} from "bcryptjs"
 import has = Reflect.has;
 import {HttpHeaders} from "@angular/common/http";
+import { Account } from '../models/Account.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  user: User;
+  account: Account;
 
   updateObservable;
 
-  user$ = new Observable<User>((observer) => {
-    observer.next(this.user);
-    this.updateObservable = function (newValue: User) {
-      this.user = newValue
+  user$ = new Observable<Account>((observer) => {
+    observer.next(this.account);
+    this.updateObservable = function (newValue: Account) {
+      this.account = newValue
       observer.next(newValue);
     };
   });
@@ -36,16 +37,12 @@ export class AccountService {
     return response.correct;
   }
 
-    setUser(user: any) {
-    const newUser = new User(
-        user.email,
-        user.role,
-        new Name(user.firstName, user.middleName, user.lastName));
-    this.updateObservable(newUser);
+    setUser(account: Account) {
+    this.updateObservable(account);
   }
 
   resetUser() {
-    this.user = null;
+    this.account = null;
     this.updateObservable(null);
   }
 }
