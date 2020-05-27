@@ -1,11 +1,11 @@
 <ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
 <StackLayout [formGroup]="form">
-    <Button text="Toevoegen" class="btn btn-primary" (tap)="onSubmit()"></Button>
+    <Button text="Toevoegen" class="btn btn-primary" (tap)="displayConfirmDialogSave()"></Button>
     <TextField
             formControlName="newsTitle"
             class="marginTopField"
             hint="Titel"
-            [text]=""
+            [text]="newsTitle"
     ></TextField>
 
     <TextView
@@ -13,7 +13,7 @@
             class="marginTopField"
             id="textDescription"
             hint="Bericht"
-            [text]=""
+            [text]="newsDescription"
     ></TextView>
 
     <Label

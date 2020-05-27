@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { AccountService } from "~/app/services/account.service";
+import * as dialogs from "tns-core-modules/ui/dialogs";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   selector: 'ns-news-add',
@@ -13,10 +15,13 @@ import { AccountService } from "~/app/services/account.service";
 export class NewsAddComponent implements OnInit {
   userId = "";
   userType = "";
+  newsTitle = "";
+  newsDescription = "";
   date = new Date();
   form: FormGroup;
   constructor(private newsService: NewsService,
-              private accountService: AccountService) { }
+              private accountService: AccountService,
+              private routerExtensions: RouterExtensions) { }
   ngOnInit(): void {
 
     this.form = new FormGroup({
@@ -59,14 +64,25 @@ export class NewsAddComponent implements OnInit {
     this.newsService.makePostRequest(body);
   }
 
-  displayConfirmDialog() {
+  // Dialoog voor de controle van de gebruiker voor het wijzigen.
+  displayConfirmDialogSave() {
     const options = {
       title: "Weet u zeker dat u dit bericht wilt toevoegen?",
       okButtonText: "Toevoegen",
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
-      console.log(result);
+      if (result === true && this.newsTitle !== "" && this.newsDescription !== "" && this.userType !== "") {
+        this.onSubmit();
+        this.routerExtensions.back();
+      } else {
+        dialogs.alert({
+          title: "vul alle invoervelden in",
+          okButtonText: "Oke"
+        }).then(() => {
+          console.log("Dialog closed!");
+        });
+      }
     });
   }
 }
