@@ -12,8 +12,8 @@ import { map } from "rxjs/operators";
 })
 export class NewsService {
 
-    private endpoint = "/newsposts";
-    private endpointItem = "/newsposts/";
+    private endpoint = "/news";
+    private endpointItem = "/news/";
 
     constructor(private http: HttpService) {}
 
@@ -24,7 +24,6 @@ export class NewsService {
     getItem(id: string): Observable<NewsItem> {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
-
 
     makePostRequest(body: any) {
 
