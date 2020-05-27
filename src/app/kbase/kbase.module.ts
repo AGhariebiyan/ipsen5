@@ -15,4 +15,5 @@ import { SharedModule } from '../shared/shared.module';
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
+
 export class KbaseModule { }
