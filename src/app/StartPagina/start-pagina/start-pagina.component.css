@@ -1,0 +1,13 @@
+/* Add mobile styles for the component here.  */
+.logo {
+    width: 70%;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    background-color: #2B388F;
+}
+
+.root {
+    background-color: #2B388F;
+}
+
+

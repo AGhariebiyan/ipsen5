@@ -1,0 +1,34 @@
+<ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
+<StackLayout [formGroup]="form">
+    <Button text="Toevoegen" class="btn btn-primary" (tap)="displayConfirmDialogSave()"></Button>
+    <TextField
+            formControlName="newsTitle"
+            class="marginTopField"
+            hint="Titel"
+            [text]="newsTitle"
+    ></TextField>
+
+    <TextView
+            formControlName="newsDescription"
+            class="marginTopField"
+            id="textDescription"
+            hint="Bericht"
+            [text]="newsDescription"
+    ></TextView>
+
+    <Label
+            text="Plaatsen als"
+    ></Label>
+
+    <TextField
+            formControlName="userType"
+            [text]="userType"
+            hint="Plaatsen als...."
+            editable="false"
+            (tap)="displayActionDialog()"
+    ></TextField>
+
+
+</StackLayout>
+
+

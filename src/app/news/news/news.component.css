@@ -1,1 +1,21 @@
 /* Add mobile styles for the component here.  */
+StackLayout {
+    border-color: green;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 90%;
+    height: 80%;
+}
+
+#news-item {
+    width: 90%;
+    height: 20%;
+    border: 1px solid gray;
+
+}
+
+Label{
+    background-color: green;
+}

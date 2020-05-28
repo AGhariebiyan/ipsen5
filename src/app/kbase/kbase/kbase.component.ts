@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kbase.component.css']
 })
 export class KbaseComponent implements OnInit {
-
+  sectionTitle = "Knowledge Base"
   constructor() { }
 
   ngOnInit(): void {

@@ -1,0 +1,66 @@
+import { Injectable } from '@angular/core';
+import * as jwt_decode from "jwt-decode";
+import { AccountService } from "~/app/services/account.service";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { environment } from "~/environments/environment.tns";
+import { Account } from '../models/Account.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class JwtService {
+
+  appSettings = require("tns-core-modules/application-settings");
+
+  constructor(private accountService: AccountService, private http: HttpClient) {
+    }
+
+  checkForJWT() {
+        if (this.appSettings.hasKey("JWTToken")) {
+            this.updateUserFromJWT();
+        }
+  }
+
+  setNewJWT(token: string) {
+    this.appSettings.setString("JWTToken", token);
+    this.updateUserFromJWT();
+  }
+
+  updateUserFromJWT() {
+        const token = this.appSettings.getString("JWTToken")
+        this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
+            headers: new HttpHeaders().append("auth", "false")
+        }).pipe(
+        catchError(this.handleAuthError)
+        ).subscribe((account: any) => {
+            console.log(account.account)
+            this.accountService.setUser(account.account);
+        //new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)
+    });
+
+    }
+
+    private handleAuthError(error: HttpErrorResponse) {
+        console.log(error)
+        return throwError("jwt token not validated");
+    }
+
+    removeJWTToken() {
+        this.appSettings.remove("JWTToken");
+    }
+
+  getDecodedAccessToken(token: string): any {
+    try{
+      return jwt_decode(token);
+    }
+    catch(Error){
+      return null;
+    }
+  }
+
+  setAutoLogout(){
+    // code to make user automatically logout when jwt is expired
+  }
+}

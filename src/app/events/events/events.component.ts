@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { isIOS } from 'tns-core-modules/platform';
 import { ActionBar } from 'tns-core-modules/ui/action-bar/action-bar';
 import { Page } from 'tns-core-modules/ui/page';
+import { RouterExtensions } from "nativescript-angular";
 
 @Component({
   selector: 'ns-events',
@@ -10,19 +11,11 @@ import { Page } from 'tns-core-modules/ui/page';
   moduleId: module.id
 })
 export class EventsComponent implements OnInit {
-  
 
-  constructor(private page: Page) { }
+  constructor(private page: Page, private router: RouterExtensions) { }
 
   ngOnInit(): void {
+    this.page.actionBarHidden = true;
   }
 
-  onBarLoad($event) {
-    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
-    let navigationBar = bar.nativeView;
-
-    if (isIOS) {
-      navigationBar.prefersLargeTitles = true;
-    }
-  }
 }

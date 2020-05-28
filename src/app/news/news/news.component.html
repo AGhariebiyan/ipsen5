@@ -1,2 +1,6 @@
 <ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
-<Button text="news works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
+
+    <Button *ngFor="let newsitem of (newsItems | async)" [text]="newsitem.title" [nsRouterLink]="['../news-edit/' + newsitem.id]"></Button>
+</StackLayout>

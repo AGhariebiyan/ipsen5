@@ -1,3 +1,4 @@
 node_modules/
 /.idea
 /platforms
+/src/environments/environment.tns.ts

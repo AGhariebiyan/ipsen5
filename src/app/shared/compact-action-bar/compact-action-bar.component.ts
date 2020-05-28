@@ -1,29 +1,27 @@
 import { Component, OnInit, Input } from '@angular/core';
-import * as frameModule from "tns-core-modules/ui/frame";
 import { isIOS } from 'tns-core-modules/platform';
 import { Page } from 'tns-core-modules/ui/page';
 import { ActionBar } from 'tns-core-modules/ui/action-bar/action-bar';
 
 @Component({
-  selector: 'ns-custom-action-bar',
-  templateUrl: './custom-action-bar.component.html'
+  selector: 'lg-compact-action-bar',
+  templateUrl: './compact-action-bar.component.html',
+  moduleId: module.id
 })
-export class CustomActionBarComponent implements OnInit {
-  @Input() titleText: string
+export class CompactActionBarComponent implements OnInit {
 
-  constructor(private page: Page) { }
+  @Input() titleText: string;
 
-  ngOnInit(): void {
+  constructor(private page: Page) {}
 
-  }
+  ngOnInit(): void {}
 
   onBarLoaded($event) {
     let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
     let navigationBar = bar.nativeView;
 
     if (isIOS) {
-      navigationBar.prefersLargeTitles = true;
+      navigationBar.prefersLargeTitles = false;
     }
   }
-
 }
