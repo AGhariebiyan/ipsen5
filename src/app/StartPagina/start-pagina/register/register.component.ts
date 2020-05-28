@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page";
-import { RegisterService } from "~/app/services/register.service";
 import { Router } from "@angular/router";
+import { RegisterService } from "~/app/services/register/register.service";
 
 @Component({
   selector: "ns-registreren",
@@ -50,13 +50,15 @@ export class RegisterComponent implements OnInit {
             return;
         } else if (!this.isValidName(this.firstName, this.middleName, this.lastName)) {
             this.showDialog("Ongeldige naam", "Deze naam is ongeldig, de lengte van de voornaam een achternaam moet minimaal 2 zijn.");
+            this.clearNameFields();
 
             return;
         }
 
         // Register the user.
-        this.registerService.register(this.email, this.password, this.firstName, this.lastName, this.middleName)
+        const x = this.registerService.register(this.email, this.password, this.firstName, this.lastName, this.middleName)
             .subscribe((data) => {
+                console.log(data);
                 this.dialogs.confirm({
                     title: "Je account is aangemaakt",
                     message: "Je wordt naar de login pagina geleid",
@@ -72,9 +74,10 @@ export class RegisterComponent implements OnInit {
                 }
             }
         );
+
     }
 
-    clearPasswordFields(){
+    clearPasswordFields() {
         this.password = "";
         this.repeatPassword = "";
     }
@@ -125,5 +128,5 @@ export class RegisterComponent implements OnInit {
         }
 
         return true;
-    }}
-
+    }
+}
