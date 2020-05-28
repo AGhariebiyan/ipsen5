@@ -7,5 +7,5 @@ export interface EventResponse {
     eventLocationPostalCode: string;
     eventLocationRegion: string;
     eventLocationCountry: string;
-    eventDate: Date;
+    eventDate: string;
 }
