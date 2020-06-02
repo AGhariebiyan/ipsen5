@@ -5,6 +5,7 @@ import { StartPaginaComponent } from "~/app/StartPagina/start-pagina/start-pagin
 import { LoginComponent } from "~/app/StartPagina/start-pagina/login/login.component";
 import { RegisterComponent } from "~/app/StartPagina/start-pagina/register/register.component";
 import { StartComponent } from "~/app/StartPagina/start-pagina/start/start.component";
+import { RoleGuard } from "~/app/services/role.guard";
 
 const routes: Routes = [
 
@@ -25,6 +26,8 @@ const routes: Routes = [
 
     {
         path: "loggedin",
+        canActivate: [RoleGuard],
+        data: {roles: ["member", "admin"]},
         loadChildren: () => import("~/app/logged-in/logged-in.module").then((m) => m.LoggedInModule)
     }
 ];
