@@ -5,12 +5,15 @@ import {genSaltSync, hashSync} from "bcryptjs"
 import has = Reflect.has;
 import {HttpHeaders} from "@angular/common/http";
 import { Account } from '../models/Account.model';
+import { NewsItem } from "~/app/models/NewsItem.model";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+  private endpoint = "/accounts";
+
   account: Account;
 
   updateObservable;
@@ -23,7 +26,7 @@ export class AccountService {
     };
   });
 
-  constructor() {
+  constructor(private http: HttpService) {
 
   }
 
@@ -42,5 +45,11 @@ export class AccountService {
   resetUser() {
     this.account = null;
     this.updateObservable(null);
+  }
+
+  getUser(id: string): Observable<Account> {
+    console.log("account service");
+    console.log(this.http.getDataWithArgs(this.endpoint + "/", id));
+    return this.http.getDataWithArgs(this.endpoint + "/", id);
   }
 }

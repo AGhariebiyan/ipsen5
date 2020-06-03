@@ -5,10 +5,10 @@
 
 <StackLayout>
     <Image class="profilePicture" src="https://miro.medium.com/max/11344/1*32h8ts3A-7XNr6A4Js87ng.jpeg"></Image>
-    <Label class="newspostAuthor" text="Naam" horizontalAlignment="center"></Label>
-    <Label class="newspostDate" text="20-20-2020: 17:15" horizontalAlignment="center"></Label>
+    <Label class="newspostAuthor" [text]="firstName" horizontalAlignment="center"></Label>
+    <Label class="newspostDate" [text]="date" horizontalAlignment="center"></Label>
 
-    <Label class="newspostTitle" text="titel" horizontalAlignment="center"></Label>
-    <TextView class="newspostDescription" text="test" horizontalAlignment="center" editable="false"></TextView>
+    <Label class="newspostTitle" [text]="newsTitle" horizontalAlignment="center"></Label>
+    <TextView class="newspostDescription" [text]="newsDescription" horizontalAlignment="center" editable="false"></TextView>
 
 </StackLayout>
