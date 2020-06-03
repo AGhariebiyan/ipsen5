@@ -9,7 +9,7 @@ import { NewsDetailComponent } from "~/app/news/news-detail/news-detail.componen
 const routes: Routes = [
     { path: "", redirectTo: "news", pathMatch: "full" },
     { path: "news", component: NewsComponent },
-    { path: "news-detail", component: NewsDetailComponent },
+    { path: "news-detail/:newsId", component: NewsDetailComponent },
     { path: "news-add", component: NewsAddComponent },
     { path: "news-edit", component: NewsEditComponent },
     { path: "news-edit/:newsId", component: NewsEditComponent }
