@@ -33,6 +33,7 @@ export class EventsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.es.changedEvent.subscribe(() => this.ngOnInit());
     this.events$ = this.es.getEvents();
     this.myEvents$ = this.getMyEvents();
   }

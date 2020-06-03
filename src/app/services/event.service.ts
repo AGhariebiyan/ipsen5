@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { EventResponse } from '../shared/models/event-response.model';
 import { Observable, Subject, forkJoin } from 'rxjs';
@@ -11,7 +11,8 @@ import { HttpHeaders } from "@angular/common/http";
 })
 export class EventService {
 
-  private endpoint = "/Events"
+  private endpoint = "/Events";
+  public changedEvent = new EventEmitter<EventResponse>();
 
   constructor(private http: HttpService, private participantService: ParticipantService) { }
 
@@ -66,7 +67,8 @@ export class EventService {
               'Content-Type': 'application/json'
           });
           this.http.putData(this.endpoint + "/" + event.id, event, httpHeaders).subscribe( () => {
-            accept();
+              this.changedEvent.emit(event);
+              accept();
           }, () => {
             reject();
           });

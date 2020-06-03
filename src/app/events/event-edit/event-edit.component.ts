@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute } from "@angular/router";
 import { EventResponse } from "~/app/shared/models/event-response.model";
@@ -43,7 +43,7 @@ export class EventEditComponent implements OnInit {
     this.eventService.updateEvent(this._event)
         .then(() => {
           this.dialogService.showDialog("Opslaan", "Het evenement is succesvol opgeslagen.")
-              .then(this.goBack);
+              .then(() => this.goBack());
         })
         .catch(() => {
           this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw " +

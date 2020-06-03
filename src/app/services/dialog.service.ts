@@ -11,8 +11,8 @@ export class DialogService {
                 title,
                 message,
                 okButtonText: "Sluiten"
-            }).then(() => accept)
-                .catch(() => reject);
+            }).then(() => accept())
+                .catch(() => reject());
         });
 
     }

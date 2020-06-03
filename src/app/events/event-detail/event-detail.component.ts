@@ -42,14 +42,19 @@ export class EventDetailComponent implements OnInit {
    * When the class is created the JSON object passed by the overview page gets parsed and put as a global variable.
    */
   ngOnInit(): void {
-    this.activeRoute.queryParams.subscribe(params => {
+
+    let subscription = this.activeRoute.queryParams;
+
+    subscription.subscribe(params => {
       this.event = JSON.parse(params["event"]);
       if(params["isRegistered"] == 'true') {
         this.isRegistered = true;
       } else {
         this.isRegistered = false;
       }
-    });
+    }).unsubscribe();
+
+    this.eventService.changedEvent.subscribe(event => this.event = event);
 
     this.getRegistrations().then(() => this.setButtons());
     this.location = this.event.eventLocationStreet + "\n" + this.event.eventLocationPostalCode + "\n" +
@@ -161,11 +166,7 @@ export class EventDetailComponent implements OnInit {
         event: JSON.stringify(this.event),
       }
     };
-    this.routerExtensions.navigate(['../edit'], navigateExtras).then( () => {
-      this.eventService.getEvent(this.event.id).then( event => {
-        this.event = event;
-      });
-    });
+    this.routerExtensions.navigate(['../edit'], navigateExtras);
   }
 
 }
