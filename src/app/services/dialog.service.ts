@@ -22,11 +22,9 @@ export class DialogService {
                 okButtonText: "Ja",
                 cancelButtonText: "Nee"
             }).then(result => {
-                if(result) {
-                    accept();
-                } else {
-                    reject();
-                }
+                accept(result);
+            }).catch(error => {
+                reject(error);
             })
 
         });

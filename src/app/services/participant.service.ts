@@ -1,9 +1,8 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpService } from "~/app/services/http.service";
 import { Participant } from "~/app/shared/models/participant";
 import { Observable } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
-import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +14,11 @@ export class ParticipantService {
     constructor(private http: HttpService) {
     }
 
+    /**
+     * @param participant
+     *
+     * Registers the user and returns if it was successful or not in the shape of a promise.
+     */
     registerParticipant(participant: Participant): Promise<void> {
         let httpHeaders = new HttpHeaders({
             'Content-Type': 'application/json'
@@ -23,14 +27,8 @@ export class ParticipantService {
         return new Promise<void>((accept, reject) => {
             this.http.postData(this.endpoint, participant, httpHeaders)
                 .subscribe(() => {
-                    dialogs.alert({
-                        title: "Inschrijven",
-                        message: "U bent nu ingeschreven voor het evenement.",
-                        okButtonText: "Sluit"
-                    });
                     accept();
                 }, () => {
-                    this.handleError();
                     reject();
                 });
         });
@@ -40,45 +38,44 @@ export class ParticipantService {
         return this.http.getData(this.endpoint);
     }
 
-    deleteParticipant(thisParticipant): Promise<void> {
+    /**
+     * @param thisParticipant
+     *
+     * Gets all the participants in the backend and then searches for the participants that has to be deleted
+     * via searchThisParticipant. After that handleRemove will delete the participant and tell if
+     * @param participants
+     */
+    deleteParticipant(thisParticipant, participants): Promise<void> {
         return new Promise<void>((accept, reject) => {
             this.getAllParticipations().subscribe(result => {
                 if (result.length == 0) {
-                    this.handleError();
+                    reject();
                 } else {
-                    for (let participant of result) {
-                        if (participant.accountId === thisParticipant.accountId && participant.eventId === thisParticipant.eventId) {
-                            this.handleRemove(participant).then(() => {
-                                accept();
-                            }).catch(() => {
-                                reject()
-                            });
-                        }
-                    }
+                    thisParticipant = this.searchThisParticipant(result, thisParticipant);
+                    this.handleRemove(thisParticipant).then(() => {
+                        accept();
+                    }).catch(() => {
+                        reject();
+                    });
                 }
             });
         });
     }
 
-    handleError() {
-        dialogs.alert({
-            title: "Let op!",
-            message: "Er ging iets mis, probeer het later opnieuw.",
-            okButtonText: "Sluit"
-        });
+    searchThisParticipant(participants: Participant[], thisParticipant: Participant): Participant {
+        for (let participant of participants) {
+            if (participant.accountId === thisParticipant.accountId && participant.eventId === thisParticipant.eventId) {
+                return participant;
+            }
+        }
+        return null;
     }
 
     private handleRemove(participant: Participant): Promise<void> {
         return new Promise<void>((accept, reject) => {
             this.http.deleteData(this.endpoint + "/" + participant.id).subscribe(() => {
-                dialogs.alert({
-                    title: "Uitschrijven",
-                    message: "U bent nu uitgeschreven voor het evenement.",
-                    okButtonText: "Sluit"
-                });
                 accept();
             }, () => {
-                 this.handleError();
                  reject();
             });
         });

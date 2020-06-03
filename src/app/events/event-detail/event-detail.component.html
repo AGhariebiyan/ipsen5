@@ -22,7 +22,7 @@
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
             <StackLayout orientation="horizontal" (tap)="openInformation(event)">
                 <Label width="50%" [text]="event.firstArgument" horizontalAlignment="left"></Label>
-                <Label width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
+                <Label class="fas icon" width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
             </StackLayout>
         </ng-template>
     </ListView>

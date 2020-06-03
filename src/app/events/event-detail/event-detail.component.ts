@@ -7,6 +7,7 @@ import { Participant } from "~/app/shared/models/participant";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
 import { DialogService } from "~/app/services/dialog.service";
+import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-event-detail',
@@ -83,8 +84,10 @@ export class EventDetailComponent implements OnInit {
       this.service.registerParticipant(participant).then(() => {
             this.isRegistered = 'true';
             this.getRegistrations().then(() => this.updateButton());
+            this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
           }).catch(() => {
-        console.log("Error");
+            this.dialogService.showDialog("Let op!", "Er ging iets mis tijdens het inschrijven, " +
+                "probeer het later opnieuw of neem contact op met de systeembeheerder.")
       });
     });
   }
@@ -113,11 +116,13 @@ export class EventDetailComponent implements OnInit {
   private unRegister() {
     this.accountService.account$.subscribe(account => {
       let participant = new Participant(this.event.id, account.id);
-      this.service.deleteParticipant(participant).then(() => {
+      this.service.deleteParticipant(participant, this.registrations).then(() => {
         this.isRegistered = 'false';
         this.getRegistrations().then(() => this.updateButton());
+        this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
       }).catch(() => {
-        console.log("Error");
+        this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw of " +
+            "neem contact op met de systeembeheerder.");
       });
     })
   }
@@ -129,8 +134,8 @@ export class EventDetailComponent implements OnInit {
 
   private setButtons() {
     let button1 = new InformationButton("Aanmeldingen", this.registrations.length);
-    let button2 = new InformationButton("Gastenlijst", ">");
-    let button3 = new InformationButton("Plaats", "i");
+    let button2 = new InformationButton("Gastenlijst", '>');
+    let button3 = new InformationButton("Plaats", "ⓘ");
     this.options.push(button1, button2, button3);
   }
 }
