@@ -1,0 +1,20 @@
+<ActionBar title="Evenement aanpassen">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+    <ActionItem (tap)="openSave()" ios.systemIcon="3" android.systemIcon="ic_menu_save" ios.position="right"></ActionItem>
+</ActionBar>
+
+<RadDataForm [source]="event">
+    <TKEntityProperty tkDataFormProperty name="id" hidden="true"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventName" displayName="Naam:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventDescription" displayName="Omschrijving:">
+        <TKPropertyEditor tkEntityPropertyEditor type="MultilineText"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationName" displayName="Plaats:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationStreet" displayName="Straat:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationPostalCode" displayName="Postcode:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationRegion" displayName="Regio:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationCountry" displayName="Land:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventDate" displayName="Datum:">
+        <TKPropertyEditor tkEntityPropertyEditor type="DatePicker"></TKPropertyEditor>
+    </TKEntityProperty>
+</RadDataForm>

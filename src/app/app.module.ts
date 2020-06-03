@@ -15,6 +15,7 @@ import { AccountService } from "~/app/services/account.service";
 import { JwtService } from "~/app/services/jwt.service";
 import { routing } from "./services/routing.service";
 import { RegisterService } from "~/app/services/register/register.service";
+import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 
 @NgModule({
     providers: [
@@ -31,7 +32,7 @@ import { RegisterService } from "~/app/services/register/register.service";
         NativeScriptModule,
         AppRoutingModule,
         LoggedInModule,
-        NativeScriptFormsModule
+        NativeScriptFormsModule,
     ],
     declarations: [
         AppComponent,
