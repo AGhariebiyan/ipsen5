@@ -7,11 +7,10 @@ import { NewsAddComponent } from './news-add/news-add.component';
 import { NewsEditComponent } from './news-edit/news-edit.component';
 import { RouterModule } from "@angular/router";
 import { ActionBarNewsComponent } from './action-bar-news/action-bar-news.component';
-import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { NativeScriptFormsModule } from 'nativescript-angular';
 import { ReactiveFormsModule } from "@angular/forms";
-import { NewspostComponent } from './newspost/newspost.component';
+import { NewsDetailComponent } from './news-detail/news-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { NewspostComponent } from './newspost/newspost.component';
       NewsAddComponent,
       NewsEditComponent,
       ActionBarNewsComponent,
-      NewspostComponent
+      NewsDetailComponent
   ],
     imports: [
         NativeScriptCommonModule,

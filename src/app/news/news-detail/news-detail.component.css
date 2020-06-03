@@ -1,0 +1,16 @@
+/* Add mobile styles for the component here.  */
+.newspostAuthor{
+    color: #364498;
+    font-weight: bold;
+    font-size: 50pt;
+}
+
+.newspostDate{
+    color: gray;
+}
+
+.newspostTitle{
+    color: black;
+    font-weight: bold;
+}
+

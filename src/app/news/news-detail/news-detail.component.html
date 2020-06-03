@@ -1,0 +1,13 @@
+<ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <ActionItem tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+</ActionBar>
+
+<StackLayout>
+    <Label class="newspostAuthor" text="Naam" horizontalAlignment="center"></Label>
+    <Label class="newspostDate" text="20-20-2020: 17:15" horizontalAlignment="center"></Label>
+
+    <Label class="newspostTitle" text="titel"></Label>
+    <TextView text="test"></TextView>
+
+</StackLayout>

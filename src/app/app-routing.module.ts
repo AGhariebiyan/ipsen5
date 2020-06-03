@@ -10,7 +10,7 @@ const routes: Routes = [
 
     {
         path: "",
-        redirectTo: "/start",
+        redirectTo: "/news",
         pathMatch: "full"
     },
     {

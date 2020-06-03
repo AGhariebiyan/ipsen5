@@ -3,4 +3,5 @@
     <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
 
     <Button *ngFor="let newsitem of (newsItems | async)" [text]="newsitem.title" [nsRouterLink]="['../news-edit/' + newsitem.id]"></Button>
+    <Button text="inzien nieuwspost" [nsRouterLink]="['../news-detail']"></Button>
 </StackLayout>
