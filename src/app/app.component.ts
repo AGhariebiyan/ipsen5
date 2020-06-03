@@ -19,10 +19,12 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.account.account$.subscribe(account => {
+        this.account.account$.subscribe((account) => {
             this.loggedIn = !!account;
             if (this.loggedIn) {
-                this.router.navigateByUrl("/loggedin/default");
+                this.router.navigateByUrl("/loggedin/default").catch(() => {
+                    console.log("Could not navigate");
+                });
             }
         });
         // Init your component properties here.

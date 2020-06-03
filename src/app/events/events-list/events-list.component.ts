@@ -21,6 +21,7 @@ export class EventsListComponent implements OnInit {
   events$: Observable<EventResponse[]>
   myEvents$: Observable<EventResponse[]>
   displayingallEvents: boolean = false;
+  months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
 
   constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
     const allEventsTab = new SegmentedBarItem()
@@ -93,6 +94,15 @@ export class EventsListComponent implements OnInit {
       }
     });
   }
+
+  getDateDay(dateString: string): number {
+    const date = new Date(dateString)
+
+    return date.getDay();
+  }
+
+  getDateMonth(dateString: string): string {
+    const date = new Date(dateString)
+    return this.months[date.getMonth()]
+  }
 }
-
-

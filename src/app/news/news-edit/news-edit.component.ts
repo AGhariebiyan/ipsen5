@@ -8,6 +8,8 @@ import { ActionBar } from "tns-core-modules/ui/action-bar";
 import { isIOS } from "tns-core-modules/platform";
 import { Page } from "tns-core-modules/ui/page";
 import { RouterExtensions } from "nativescript-angular/router";
+import { AccountService } from "~/app/services/account.service";
+import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-news-edit',
@@ -17,6 +19,9 @@ import { RouterExtensions } from "nativescript-angular/router";
 export class NewsEditComponent implements OnInit {
   newsId = this.activatedRoute.snapshot.params.newsId;
   form: FormGroup;
+
+  userId = "";
+  userType = "";
 
   newsPostId: string;
   newsTitle = "";
@@ -32,7 +37,8 @@ export class NewsEditComponent implements OnInit {
       private newsService: NewsService,
       private activatedRoute: ActivatedRoute,
       private page: Page,
-      private routerExtensions: RouterExtensions) { }
+      private routerExtensions: RouterExtensions,
+      private accountService: AccountService) { }
 
   ngOnInit(): void {
 
@@ -76,8 +82,17 @@ export class NewsEditComponent implements OnInit {
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
-      this.onSubmit();
-      this.routerExtensions.back();
+      if (result === true && this.newsTitle !== "" && this.newsDescription !== "" && this.userType !== "") {
+        this.onSubmit();
+        this.routerExtensions.back();
+      } else {
+        dialogs.alert({
+          title: "vul alle invoervelden in",
+          okButtonText: "Oke"
+        }).then(() => {
+          console.log("Dialog closed!");
+        });
+      }
     });
   }
 
@@ -96,7 +111,7 @@ export class NewsEditComponent implements OnInit {
       Date: this.date,
       Deleted: newsitem.deleted,
       Published: newsitem.published,
-      AccountId: newsitem.accountId,
+      AccountId: this.userId,
       // CompanyId: newsitem.company,
       Featured: newsitem.featured
     };
@@ -112,16 +127,19 @@ export class NewsEditComponent implements OnInit {
       title: "Plaatsen als:",
       message: "Selecteer type",
       cancelButtonText: "Annuleer",
-      actions: ["Mijzelf"]
+      actions: ["Mijzelf", "Bedrijf"]
     };
 
     action(options).then((result) => {
-      if (result === "annuleren") {
-        this.accountId = "";
-        this.companyId = "";
-      } else if (result === "Mijzelf") {
-        this.accountId = "";
-        this.companyId = "";
+      if (result === "Mijzelf") {
+        this.userType = result;
+        this.userId = this.accountService.account.id;
+      } else if (result === "Bedrijf") {
+        this.userType = result;
+        this.userId = this.accountService.account.id;
+      } else {
+        this.userType = result;
+        this.userId = this.accountService.account.id;
       }
     });
   }
