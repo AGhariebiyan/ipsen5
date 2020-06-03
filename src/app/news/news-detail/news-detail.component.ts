@@ -39,6 +39,7 @@ export class NewsDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getNewsItem();
     console.log(this.accountId + "NGONINIT");
+    console.log("---------------" + this.newsId);
   }
 
   //Top actionbar

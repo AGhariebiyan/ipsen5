@@ -1,6 +1,6 @@
 <ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
-    <ActionItem tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+    <ActionItem [nsRouterLink]="['../../news-edit/' + newsId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
 </ActionBar>
 
 <StackLayout>
