@@ -87,7 +87,12 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras);
+    this.router.navigate(['../details'], navigateExtras).then( () => {
+      if(!this.displayingallEvents) {
+        this.myEvents$ = this.getMyEvents();
+        this.events$ = this.myEvents$;
+      }
+    });
   }
 
   getDateDay(dateString: string): number {

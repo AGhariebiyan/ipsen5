@@ -45,6 +45,9 @@ export class AuthenticationService {
   }
 
   private handleLoginError(error: HttpErrorResponse) {
+
+    console.log(error);
+
     const dialogs = require("tns-core-modules/ui/dialogs");
 
     if (error.error instanceof HttpErrorResponse) {

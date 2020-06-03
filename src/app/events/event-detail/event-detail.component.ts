@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 import { Event } from "~/app/shared/models/event.model";
 import { ActivatedRoute } from "@angular/router";
-import * as dialogs from "tns-core-modules/ui/dialogs";
 import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/shared/models/participant";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
+import { DialogService } from "~/app/services/dialog.service";
+import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-event-detail',
@@ -25,10 +26,12 @@ export class EventDetailComponent implements OnInit {
   event: EventResponse;
   options = [];
   location: string;
-  isRegistered: boolean;
+  isRegistered: any;
+  registrations = [];
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
-              private service: ParticipantService, private accountService: AccountService) {
+              private service: ParticipantService, private accountService: AccountService,
+              private dialogService: DialogService) {
   }
 
   /**
@@ -41,14 +44,17 @@ export class EventDetailComponent implements OnInit {
       this.event = JSON.parse(params["event"]);
       this.isRegistered = params["isRegistered"];
     });
-    let button1 = new InformationButton("Aanmeldingen", "32/50");
-    let button2 = new InformationButton("Gastenlijst", ">");
-    let button3 = new InformationButton("Plaats", "i");
-    this.options.push(button1, button2, button3);
 
+    this.getRegistrations().then(() => this.setButtons());
     this.location = this.event.eventLocationStreet + "\n" + this.event.eventLocationPostalCode + "\n" +
         this.event.eventLocationName + "\n" + this.event.eventLocationRegion + "\n" +
         this.event.eventLocationCountry;
+  }
+
+  async getRegistrations() {
+    await this.service.getParticipantsForEvent(this.event.id).then(result => {
+      this.registrations = result;
+    });
   }
 
   goBack() {
@@ -56,22 +62,16 @@ export class EventDetailComponent implements OnInit {
   }
 
   openActions() {
-    dialogs.action({
-      title: "Opties",
-      cancelButtonText: "Annuleer",
-      actions: ["Aanpassen", "Delen"]
-    }).then(result => {
+    this.dialogService.showActions("Opties", "", ["Aanpassen", "Delen"])
+    .then(result => {
       console.log("Dialog result: " + result);
     });
   }
 
   openRegister() {
-    dialogs.confirm({
-      title: "Inschrijven",
-      message: "Weet u zeker dat u zich wilt inschrijven voor dit evenement?",
-      okButtonText: "Ja",
-      cancelButtonText: "Nee"
-    }).then(result => {
+    this.dialogService.showConfirm("Inschrijven",
+        "Weet u zeker dat u zich wilt inschrijven voor dit evenement?")
+   .then(result => {
       if(result) {
         this.registerForEvent();
       }
@@ -81,8 +81,15 @@ export class EventDetailComponent implements OnInit {
   private registerForEvent() {
     this.accountService.account$.subscribe(account => {
       let participant = new Participant(this.event.id, account.id);
-      this.service.registerParticipant(participant);
-    })
+      this.service.registerParticipant(participant).then(() => {
+            this.isRegistered = 'true';
+            this.getRegistrations().then(() => this.updateButton());
+            this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
+          }).catch(() => {
+            this.dialogService.showDialog("Let op!", "Er ging iets mis tijdens het inschrijven, " +
+                "probeer het later opnieuw of neem contact op met de systeembeheerder.")
+      });
+    });
   }
 
   openInformation(event) {
@@ -92,24 +99,44 @@ export class EventDetailComponent implements OnInit {
       case "Gastenlijst":
         break;
       case "Plaats":
-        dialogs.alert({
-          title: "Plaats",
-          message: "Het evenement vindt plaats in: \n \n" + this.location,
-          okButtonText: "Sluit"
-        });
+        this.dialogService.showDialog("Plaats", "Het evenement vindt plaats in: \n \n" + this.location);
         break;
     }
   }
 
   openUnRegister() {
-    dialogs.confirm({
-      title: "Uitschrijven",
-      message: "Weet u zeker dat u zich wilt uitschrijven voor dit evenement?",
-      okButtonText: "Ja",
-      cancelButtonText: "Nee"
-    }).then(result => {
-      //Make unregister here
+    this.dialogService.showConfirm("Uitschrijven", "Weet u zeker dat u zich wilt uitschrijven voor dit evenement?")
+    .then(result => {
+      if(result) {
+        this.unRegister();
+      }
     })
+  }
+
+  private unRegister() {
+    this.accountService.account$.subscribe(account => {
+      let participant = new Participant(this.event.id, account.id);
+      this.service.deleteParticipant(participant, this.registrations).then(() => {
+        this.isRegistered = 'false';
+        this.getRegistrations().then(() => this.updateButton());
+        this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
+      }).catch(() => {
+        this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw of " +
+            "neem contact op met de systeembeheerder.");
+      });
+    })
+  }
+
+  updateButton(){
+    let button = this.options[0];
+    button.secondArgument = this.registrations.length;
+  }
+
+  private setButtons() {
+    let button1 = new InformationButton("Aanmeldingen", this.registrations.length);
+    let button2 = new InformationButton("Gastenlijst", '>');
+    let button3 = new InformationButton("Plaats", "ⓘ");
+    this.options.push(button1, button2, button3);
   }
 }
 
