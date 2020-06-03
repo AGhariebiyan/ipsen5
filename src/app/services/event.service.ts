@@ -14,6 +14,16 @@ export class EventService {
 
   constructor(private http: HttpService, private participantService: ParticipantService) { }
 
+   getEvent(id: string): Promise<EventResponse> {
+      return new Promise<EventResponse>( (accept, reject) => {
+          this.http.getData<EventResponse>(this.endpoint + "/" + id).subscribe(result => {
+              accept(result);
+          }, error => {
+              reject(error);
+          });
+      });
+  }
+
   getEvents(): Observable<EventResponse[]> {
     return this.http.getData<EventResponse[]>(this.endpoint);
   }

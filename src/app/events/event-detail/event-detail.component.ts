@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 import { Event } from "~/app/shared/models/event.model";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/shared/models/participant";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
 import { DialogService } from "~/app/services/dialog.service";
 import * as dialogs from "tns-core-modules/ui/dialogs";
+import { EventService } from "~/app/services/event.service";
+import { PermissionRole } from "~/app/models/PermissionRole.model";
 
 @Component({
   selector: 'ns-event-detail',
@@ -26,12 +28,12 @@ export class EventDetailComponent implements OnInit {
   event: EventResponse;
   options = [];
   location: string;
-  isRegistered: any;
+  isRegistered: boolean;
   registrations = [];
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
               private service: ParticipantService, private accountService: AccountService,
-              private dialogService: DialogService) {
+              private dialogService: DialogService, private eventService: EventService) {
   }
 
   /**
@@ -42,7 +44,11 @@ export class EventDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe(params => {
       this.event = JSON.parse(params["event"]);
-      this.isRegistered = params["isRegistered"];
+      if(params["isRegistered"] == 'true') {
+        this.isRegistered = true;
+      } else {
+        this.isRegistered = false;
+      }
     });
 
     this.getRegistrations().then(() => this.setButtons());
@@ -62,9 +68,18 @@ export class EventDetailComponent implements OnInit {
   }
 
   openActions() {
-    this.dialogService.showActions("Opties", "", ["Aanpassen", "Delen"])
+    let actions = [];
+    if(this.accountService.account.role.internalName == 'admin' ||
+        this.accountService.account.role.internalName == 'board-member') {
+      actions = ["Aanpassen", "Delen"];
+    } else {
+      actions = ["Delen"];
+    }
+    this.dialogService.showActions("Opties", "", actions)
     .then(result => {
-      console.log("Dialog result: " + result);
+      if(result === "Aanpassen"){
+        this.editEvent();
+      }
     });
   }
 
@@ -82,7 +97,7 @@ export class EventDetailComponent implements OnInit {
     this.accountService.account$.subscribe(account => {
       let participant = new Participant(this.event.id, account.id);
       this.service.registerParticipant(participant).then(() => {
-            this.isRegistered = 'true';
+            this.isRegistered = true;
             this.getRegistrations().then(() => this.updateButton());
             this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
           }).catch(() => {
@@ -117,7 +132,7 @@ export class EventDetailComponent implements OnInit {
     this.accountService.account$.subscribe(account => {
       let participant = new Participant(this.event.id, account.id);
       this.service.deleteParticipant(participant, this.registrations).then(() => {
-        this.isRegistered = 'false';
+        this.isRegistered = false;
         this.getRegistrations().then(() => this.updateButton());
         this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
       }).catch(() => {
@@ -138,6 +153,21 @@ export class EventDetailComponent implements OnInit {
     let button3 = new InformationButton("Plaats", "ⓘ");
     this.options.push(button1, button2, button3);
   }
+
+  private editEvent() {
+    let navigateExtras: NavigationExtras = {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        event: JSON.stringify(this.event),
+      }
+    };
+    this.routerExtensions.navigate(['../edit'], navigateExtras).then( () => {
+      this.eventService.getEvent(this.event.id).then( event => {
+        this.event = event;
+      });
+    });
+  }
+
 }
 
 class InformationButton {
