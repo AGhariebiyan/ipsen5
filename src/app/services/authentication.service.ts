@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { HttpService } from "~/app/services/http.service";
 import { AccountService } from "~/app/services/account.service";
-import { catchError } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { JwtService } from "~/app/services/jwt.service";
 import { environment } from "~/environments/environment.tns";
@@ -17,15 +17,17 @@ export class AuthenticationService {
               private jwtService: JwtService) { }
 
   login(email: string, password: string) {
-    this.http.post(environment.apiUrl + "/api/auth/login",
+    return this.http.post(environment.apiUrl + "/api/auth/login",
         {email, password},
         {
           headers: new HttpHeaders().append("auth", "false")
         }).pipe(
-            catchError(this.handleLoginError)
-        ).subscribe((item) => {
-          this.logInUser(item);
-        });
+            catchError(this.handleLoginError),
+        ).pipe(
+          tap((item) => {
+            this.logInUser(item);
+          })
+    );
 
   }
 
@@ -38,6 +40,7 @@ export class AuthenticationService {
   }
 
   logInUser(item: any) {
+    console.log("logInUser called");
     this.jwtService.setNewJWT(item.token);
 
     // testing
@@ -49,25 +52,26 @@ export class AuthenticationService {
 
     console.log(error);
 
-    const dialogs = require("tns-core-modules/ui/dialogs");
+    const dialogs = require("tns-core-modules/ui/dialogs" );
 
     if (error.error instanceof HttpErrorResponse) {
-      if (error.error.message === "Unauthorized") {
-      dialogs.alert({
-        title: "E-mail or password incorrect",
-        message: "Please try again",
-        okButtonText: "Close"
-      });
-      } else { dialogs.alert({
-        title: "Something went wrong",
-        message: "Please try again",
-        okButtonText: "Close"
-      });
+      console.log("RESPONSE ERROR:", error);
+      if (error.error.statusText === "Unauthorized") {
+        dialogs.alert({
+          title: "E-mail or password incorrect",
+          message: "Please try again",
+          okButtonText: "Close"
+        });
+        } else { dialogs.alert({
+          title: "Something went wrong",
+          message: "Please try again",
+          okButtonText: "Close"
+        });
       }
     } else {
-      console.log(`API returned code :${error.status}`);
+      console.log(`API  returned code :${error.status}`);
       console.log(`Body was: ${error.error}`);
-      if (error.error === "Unauthorized") {
+      if (error.statusText === "Unauthorized") {
         dialogs.alert({
           title: "E-mail or password incorrect",
           message: "Please try again",

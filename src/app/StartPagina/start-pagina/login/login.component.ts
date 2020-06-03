@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Page} from "tns-core-modules/ui/page";
 import {AccountService} from "~/app/services/account.service";
 import {AuthenticationService} from "~/app/services/authentication.service";
+import { RouterExtensions } from '@nativescript/angular/router';
 
 @Component({
   selector: 'ns-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   email: string = "";
   password: string = "";
 
-  constructor(private page: Page, private authService: AuthenticationService) {
+  constructor(private page: Page, private authService: AuthenticationService, private routerExtensions: RouterExtensions) {
     page.actionBarHidden = true;
   }
 
@@ -20,7 +21,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.isValidEmail(this.email)) this.authService.login(this.email, this.password);
+    if (this.isValidEmail(this.email)){
+      this.authService.login(this.email, this.password).subscribe(succes => {
+        this.routerExtensions.navigateByUrl("/loggedIn");
+      })
+    }
     else{
       const dialogs = require("tns-core-modules/ui/dialogs");
       dialogs.alert({

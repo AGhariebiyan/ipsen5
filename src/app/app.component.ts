@@ -3,6 +3,7 @@ import {Page} from "@nativescript/core/ui/page";
 import { JwtService } from "./services/jwt.service";
 import { AccountService } from "./services/account.service";
 import { Router } from "@angular/router";
+import { filter, take, takeUntil, takeWhile } from "rxjs/internal/operators";
 
 @Component({
     selector: "ns-app",
@@ -19,7 +20,12 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.account.account$.subscribe((account) => {
+        this.account.account$.pipe(
+            filter((account) => {
+                return !!account;
+            }),
+            take(1))
+            .subscribe((account) => {
             this.loggedIn = !!account;
             if (this.loggedIn) {
                 this.router.navigateByUrl("/loggedin/default").catch(() => {
