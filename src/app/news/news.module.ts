@@ -11,13 +11,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { NativeScriptFormsModule } from 'nativescript-angular';
 import { ReactiveFormsModule } from "@angular/forms";
+import { NewspostComponent } from './newspost/newspost.component';
 
 @NgModule({
   declarations: [
       NewsComponent,
       NewsAddComponent,
       NewsEditComponent,
-      ActionBarNewsComponent
+      ActionBarNewsComponent,
+      NewspostComponent
   ],
     imports: [
         NativeScriptCommonModule,
