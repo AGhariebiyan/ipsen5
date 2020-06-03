@@ -44,6 +44,7 @@ export class AuthenticationService {
     // this.jwtService.setNewJWT(item);
   }
 
+  //Todo Change to dialogservice
   private handleLoginError(error: HttpErrorResponse) {
     const dialogs = require("tns-core-modules/ui/dialogs");
 

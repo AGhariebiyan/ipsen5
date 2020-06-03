@@ -1,0 +1,39 @@
+/* Add mobile styles for the component here.  */
+
+
+.icon{
+    font-size: 16;
+}
+
+.indicator-icon {
+    color: royalblue;
+}
+
+.row {
+    padding-left: 20;
+    padding-right: 20;
+    margin-top: 5;
+    margin-bottom: 5;
+}
+
+.user-image {
+    width: 50;
+    height: 50;
+    border-radius: 25;
+}
+
+.group {
+    margin: 20;
+    border-radius: 6;
+    background-color: white;
+    color: black;
+}
+
+.view {
+    background-color: #ebebeb;
+}
+
+.name {
+    font-weight: bold;
+}
+

@@ -9,6 +9,7 @@ export class Account {
         public firstName: string,
         public middleName: string,
         public lastName: string,
+        public description: string,
         public role: PermissionRole
     ) {
     }

@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpService } from "~/app/services/http.service";
 import { Observable } from "rxjs";
-import { genSaltSync, hashSync } from "bcryptjs";
-import has = Reflect.has;
-import { HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Account } from "../models/Account.model";
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +21,7 @@ export class AccountService {
     };
   });
 
-  constructor() {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -35,6 +33,38 @@ export class AccountService {
     return response.correct;
   }
 
+  updateBio(bio: string): Observable<Account> {
+    if (!this.account) {
+      return null;
+    }
+    this.account.description = bio;
+
+    return this.updateAccount();
+  }
+
+  updateName(firstName: string, lastName: string, middleName: string): Observable<Account> {
+    if (!this.account) {
+      return null;
+    }
+    this.account.firstName = firstName;
+    this.account.lastName = lastName;
+    this.account.middleName = middleName ? middleName : "";
+
+    return this.updateAccount();
+  }
+
+  updateEmail(email: string){
+    if(!this.account){
+      return null;
+    }
+    this.account.email = email;
+    this.updateAccount();
+  }
+
+  updatePassword(password: string){
+    // Todo fill in
+  }
+
   setUser(account: Account) {
         this.updateObservable(account);
   }
@@ -42,5 +72,9 @@ export class AccountService {
   resetUser() {
     this.account = null;
     this.updateObservable(null);
+  }
+
+  private updateAccount(): Observable<Account> {
+    return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account);
   }
 }
