@@ -6,16 +6,46 @@ StackLayout {
     align-items: flex-start;
     flex-wrap: wrap;
     width: 90%;
-    height: 80%;
+    /*height: 100%;*/
+    display: inline-block;
 }
 
-#news-item {
-    width: 90%;
-    height: 20%;
-    border: 1px solid gray;
+.newsText {
+    padding-left: 75px;
+    font-size: 12px;
+
+}
+
+.newsTitle {
+    margin-top: 20em;
+    text-align: left;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.newsBorder {
+    border-radius: 50px;
+    border-width: 2px ;
+    border-color: gray;
+    margin-top: 10em;
+    margin-bottom: 10em;
+    height: 600px;
+    width: 100%;
+}
+
+.newsExtra {
+    color: blue;
 
 }
 
 Label{
-    background-color: green;
+    height: 100px;
+    width: 100%
+}
+
+Image {
+    display: block;
+    margin-top: 10%;
+    margin-left: 7.5%;
+    width: 5%;
 }
