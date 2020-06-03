@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 import { Event } from "~/app/shared/models/event.model";
 import { ActivatedRoute } from "@angular/router";
-import * as dialogs from "tns-core-modules/ui/dialogs";
 import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/shared/models/participant";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
+import { DialogService } from "~/app/services/dialog.service";
 
 @Component({
   selector: 'ns-event-detail',
@@ -29,7 +29,8 @@ export class EventDetailComponent implements OnInit {
   registrations = [];
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
-              private service: ParticipantService, private accountService: AccountService) {
+              private service: ParticipantService, private accountService: AccountService,
+              private dialogService: DialogService) {
   }
 
   /**
@@ -60,22 +61,16 @@ export class EventDetailComponent implements OnInit {
   }
 
   openActions() {
-    dialogs.action({
-      title: "Opties",
-      cancelButtonText: "Annuleer",
-      actions: ["Aanpassen", "Delen"]
-    }).then(result => {
+    this.dialogService.showActions("Opties", "", ["Aanpassen", "Delen"])
+    .then(result => {
       console.log("Dialog result: " + result);
     });
   }
 
   openRegister() {
-    dialogs.confirm({
-      title: "Inschrijven",
-      message: "Weet u zeker dat u zich wilt inschrijven voor dit evenement?",
-      okButtonText: "Ja",
-      cancelButtonText: "Nee"
-    }).then(result => {
+    this.dialogService.showConfirm("Inschrijven",
+        "Weet u zeker dat u zich wilt inschrijven voor dit evenement?")
+   .then(result => {
       if(result) {
         this.registerForEvent();
       }
@@ -101,22 +96,14 @@ export class EventDetailComponent implements OnInit {
       case "Gastenlijst":
         break;
       case "Plaats":
-        dialogs.alert({
-          title: "Plaats",
-          message: "Het evenement vindt plaats in: \n \n" + this.location,
-          okButtonText: "Sluit"
-        });
+        this.dialogService.showDialog("Plaats", "Het evenement vindt plaats in: \n \n" + this.location);
         break;
     }
   }
 
   openUnRegister() {
-    dialogs.confirm({
-      title: "Uitschrijven",
-      message: "Weet u zeker dat u zich wilt uitschrijven voor dit evenement?",
-      okButtonText: "Ja",
-      cancelButtonText: "Nee"
-    }).then(result => {
+    this.dialogService.showConfirm("Uitschrijven", "Weet u zeker dat u zich wilt uitschrijven voor dit evenement?")
+    .then(result => {
       if(result) {
         this.unRegister();
       }
