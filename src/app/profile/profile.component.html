@@ -6,10 +6,14 @@
         <!--     User object-->
         <StackLayout class="group">
             <FlexBoxLayout justifyContent="space-between" class="row" alignItems="center" [nsRouterLink]="['../mydata']" >
-                <Image src="https://randomuser.me/api/portraits/men/94.jpg" class="user-image"></Image>
+                <Image [src]="this.account?.image ? this.baseUrl + this.account.image.url : 'https://randomuser.me/api/portraits/men/94.jpg'" class="user-image"></Image>
                 <StackLayout>
-                    <Label text="Oetze van den Broek" textWrap="true" class="name"></Label>
-                    <Label text="oetze@live.nl" textWrap="true"></Label>
+                    <Label [text]="
+                    this.account.firstName + ' ' +
+                    (this.account.middleName? this.account.middleName + ' ' : '') +
+                    this.account.lastName"
+                           textWrap="true" class="name"></Label>
+                    <Label [text]="this.account.email" textWrap="true"></Label>
                 </StackLayout>
                 <Label text="&#xf054;" class="fas icon" ></Label>
             </FlexBoxLayout>
