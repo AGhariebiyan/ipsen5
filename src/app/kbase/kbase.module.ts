@@ -3,11 +3,12 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { KbaseComponent } from './kbase/kbase.component';
 import { KbaseRoutingModule } from './kbase-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { KbaseAddComponent } from './kbase-add/kbase-add.component';
 
 
 
 @NgModule({
-  declarations: [KbaseComponent],
+  declarations: [KbaseComponent, KbaseAddComponent],
   imports: [
     NativeScriptCommonModule,
     KbaseRoutingModule,
