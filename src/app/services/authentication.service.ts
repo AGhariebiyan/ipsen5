@@ -46,7 +46,7 @@ export class AuthenticationService {
     // this.jwtService.setNewJWT(item);
   }
 
-  //Todo Change to dialogservice
+  // Todo Change to dialogservice
   private handleLoginError(error: HttpErrorResponse) {
 
     console.log(error);
@@ -72,23 +72,25 @@ export class AuthenticationService {
       console.log(`Body was: ${error.error}`);
       if (error.statusText === "Unauthorized") {
         console.log(error);
-        if (error.error == "email not verified") 
+        if (error.error === "email not verified") {
             dialogs.alert({
                 title: "E-mail is nog niet geverifierd",
                 message: "Als u nog geen e-mail heeft gehad of als deze verlopen is vraag dan opnieuw aan.",
                 okButtonText: "Close"
             });
-        else
+        } else {
           dialogs.alert({
             title: "E-mail or password incorrect",
             message: "Please try again",
             okButtonText: "Close"
           });
-      } else { dialogs.alert({
-        title: "Something went wrong",
-        message: "Please try again",
-        okButtonText: "Close"
-      });
+        }
+      } else {
+        dialogs.alert({
+          title: "Something went wrong",
+          message: "Please try again",
+          okButtonText: "Close"
+        });
       }
     }
 
