@@ -40,7 +40,6 @@ export class AuthenticationService {
   }
 
   logInUser(item: any) {
-    console.log("logInUser called");
     this.jwtService.setNewJWT(item.token);
 
     // testing

@@ -1,7 +1,7 @@
 export interface EventResponse {
     id: string;
-    eventDescription: string;
     eventName: string;
+    eventDescription: string;
     eventLocationName: string;
     eventLocationStreet: string;
     eventLocationPostalCode: string;

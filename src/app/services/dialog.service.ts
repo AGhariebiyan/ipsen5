@@ -5,11 +5,14 @@ import * as dialogs from "tns-core-modules/ui/dialogs" ;
 })
 export class DialogService {
 
-    showDialog(title: string, message: string) {
-        dialogs.alert({
-            title,
-            message,
-            okButtonText: "Sluiten"
+    showDialog(title: string, message: string): Promise<void> {
+        return new Promise<void>((accept, reject) => {
+            dialogs.alert({
+                title,
+                message,
+                okButtonText: "Sluiten"
+            }).then(() => accept())
+                .catch(() => reject());
         });
     }
 

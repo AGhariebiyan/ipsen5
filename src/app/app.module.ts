@@ -15,6 +15,7 @@ import { AccountService } from "~/app/services/account.service";
 import { JwtService } from "~/app/services/jwt.service";
 import { AutoRoutingService } from "./services/routing.service";
 import { RegisterService } from "~/app/services/register/register.service";
+import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 import { ProfileComponent } from "./profile/profile.component";
 import { UserDataComponent } from "./profile/user-data/user-data.component";
 import { EditNameComponent } from "./profile/user-data/edit-name/edit-name.component";

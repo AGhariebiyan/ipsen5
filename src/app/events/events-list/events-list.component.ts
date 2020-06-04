@@ -33,6 +33,7 @@ export class EventsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.es.changedEvent.subscribe(() => this.ngOnInit());
     this.events$ = this.es.getEvents();
     this.myEvents$ = this.getMyEvents();
   }
@@ -71,10 +72,10 @@ export class EventsListComponent implements OnInit {
           for(let event of events) {
             if(selectedEvent.id == event.id) {
               this.navigate(selectedEvent, true);
-            } else {
-              this.navigate(selectedEvent, false);
+              return;
             }
           }
+          this.navigate(selectedEvent, false);
         }
       });
   }

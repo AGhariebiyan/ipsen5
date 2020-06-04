@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\events",
+    "\\src\\app\\events\\events-list",
+    "\\src\\app\\services",
+    "\\src\\app\\StartPagina",
+    "\\src\\app\\StartPagina\\start-pagina",
+    "\\src\\app\\StartPagina\\start-pagina\\login",
+    "\\src\\app\\StartPagina\\start-pagina\\register"
+  ],
+  "SelectedNode": "\\src\\app\\services\\register.service.ts",
+  "PreviewInSolutionExplorer": false
+}
