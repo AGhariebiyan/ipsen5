@@ -11,6 +11,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class KbaseAddComponent implements OnInit {
   form: FormGroup;
+  newsTitle = "";
+  newsDescription = "";
 
   constructor(private page: Page) { }
 
