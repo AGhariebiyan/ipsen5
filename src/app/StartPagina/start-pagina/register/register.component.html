@@ -1,14 +1,18 @@
-<StackLayout class="root">
-    <TextField required hint="Voornaam" [(ngModel)]="firstName" class="input email" keyBoardType="name" autocorrect="false"></TextField>
-    <TextField required hint="Tussenvoegsel" [(ngModel)]="middleName" class="input" keyBoardType="name" autocorrect="false"></TextField>
-    <TextField required hint="Achternaam" [(ngModel)]="lastName" class="input" keyBoardType="name" autocorrect="false"></TextField>
+<ScrolView orientation="vertical">
+    <StackLayout class="root">
 
-    <TextField required hint="E-mailadres" [(ngModel)]="email" class="input email" keyboardType="email" autocorrect="false"></TextField>
-    <TextField required hint="Herhaal e-mailadres" [(ngModel)]="repeatEmail" class="input" keyboardType="email" autocorrect="false"></TextField>
+        <TextField required hint="Voornaam" [(ngModel)]="firstName" class="input email" keyBoardType="name" autocorrect="false"></TextField>
+        <TextField required hint="Tussenvoegsel" [(ngModel)]="middleName" class="input" keyBoardType="name" autocorrect="false"></TextField>
+        <TextField required hint="Achternaam" [(ngModel)]="lastName" class="input" keyBoardType="name" autocorrect="false"></TextField>
 
-    <TextField required hint="Wachtwoord" [(ngModel)]="password"  secure="true" class="input email"></TextField>
-    <TextField required hint="Herhaal wachtwoord" [(ngModel)]="repeatPassword"  secure="true" class="input"></TextField>
+        <TextField required hint="E-mailadres" [(ngModel)]="email" class="input email" keyboardType="email" autocorrect="false"></TextField>
+        <TextField required hint="Herhaal e-mailadres" [(ngModel)]="repeatEmail" class="input" keyboardType="email" autocorrect="false"></TextField>
 
-    <Button text="Maak account aan" (tap)="register()" class="btn btn-primary login"></Button>
-    <Label [nsRouterLink]="['../login']"  text="Ik heb al een account >" class="text-link"> </Label>
-</StackLayout>
+        <TextField required hint="Wachtwoord" [(ngModel)]="password" secure="true" class="input email"></TextField>
+        <TextField required hint="Herhaal wachtwoord" [(ngModel)]="repeatPassword" secure="true" class="input"></TextField>
+
+        <Button text="Maak account aan" (tap)="register()" class="btn btn-primary login"></Button>
+        <Label [nsRouterLink]="['../login']" text="Ik heb al een account >" class="text-link"> </Label>
+
+    </StackLayout>
+</ScrolView>
