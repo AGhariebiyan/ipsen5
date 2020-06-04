@@ -97,13 +97,12 @@ export class EventsListComponent implements OnInit {
   }
 
   getDateDay(dateString: string): number {
-    const date = new Date(dateString)
-
-    return date.getDay();
+    const date = new Date(dateString);
+    return date.getDate();
   }
 
   getDateMonth(dateString: string): string {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return this.months[date.getMonth()]
   }
 }
