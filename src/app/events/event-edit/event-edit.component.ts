@@ -50,7 +50,7 @@ export class EventEditComponent implements OnInit {
       if(this._event.eventDate >= today) {
           for(const key of Object.keys(this._event)) {
               const value = this._event[key];
-              if(value == null || value == "") {
+              if(value == null || value.toString().trim() == "") {
                   this.dialogService.showDialog("Let op!", "Er mogen geen waardes leeg zijn!");
                   return false;
               }
