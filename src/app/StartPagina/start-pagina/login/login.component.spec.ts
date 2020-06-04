@@ -22,4 +22,8 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+    it('email should be valid', () => {
+        expect(component.isValidEmail('test@email.com')).toBeTruthy();
+    });
 });

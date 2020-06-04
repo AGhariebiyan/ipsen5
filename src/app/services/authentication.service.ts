@@ -64,9 +64,15 @@ export class AuthenticationService {
       });
       }
     } else {
-      console.log(`API returned code :${error.status}`);
-      console.log(`Body was: ${error.error}`);
-      if (error.error === "Unauthorized") {
+        if (error.status == 401) {
+            console.log(error);
+            if (error.error == "email not verified") 
+                dialogs.alert({
+                    title: "E-mail is nog niet geverifierd",
+                    message: "Als u nog geen e-mail heeft gehad of als deze verlopen is vraag dan opnieuw aan.",
+                    okButtonText: "Close"
+                });
+            else
         dialogs.alert({
           title: "E-mail or password incorrect",
           message: "Please try again",
