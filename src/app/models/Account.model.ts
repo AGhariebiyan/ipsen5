@@ -1,4 +1,5 @@
 import { PermissionRole } from "~/app/models/PermissionRole.model";
+import { Image } from "~/app/models/image.model";
 
 export class Account {
 
@@ -9,7 +10,9 @@ export class Account {
         public firstName: string,
         public middleName: string,
         public lastName: string,
-        public role: PermissionRole
+        public description: string,
+        public role: PermissionRole,
+        public image?: Image
     ) {
     }
 

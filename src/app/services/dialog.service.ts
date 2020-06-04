@@ -14,7 +14,6 @@ export class DialogService {
             }).then(() => accept())
                 .catch(() => reject());
         });
-
     }
 
     showConfirm(title: string, message: string): Promise<boolean> {
@@ -25,11 +24,11 @@ export class DialogService {
                 message,
                 okButtonText: "Ja",
                 cancelButtonText: "Nee"
-            }).then(result => {
+            }).then((result) => {
                 accept(result);
-            }).catch(error => {
+            }).catch((error) => {
                 reject(error);
-            })
+            });
 
         });
     }
@@ -42,9 +41,9 @@ export class DialogService {
                 message,
                 actions,
                 cancelButtonText: "Sluiten"
-            }).then(result => {
+            }).then((result) => {
                 accept(result);
-            }).catch(error => {
+            }).catch((error) => {
                 reject(error);
             });
         });
