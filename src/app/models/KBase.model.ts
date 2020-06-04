@@ -1,4 +1,4 @@
-export class NewsItem {
+export class KBase {
     id: string;
     title: string;
     content: string;

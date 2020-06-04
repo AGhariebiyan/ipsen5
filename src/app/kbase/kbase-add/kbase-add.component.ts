@@ -11,15 +11,15 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class KbaseAddComponent implements OnInit {
   form: FormGroup;
-  newsTitle = "";
-  newsDescription = "";
+  articleTitle = "";
+  articleDescription = "";
 
   constructor(private page: Page) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      articleTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
+      articleDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
     });
   }
 
