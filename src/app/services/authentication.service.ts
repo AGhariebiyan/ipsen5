@@ -71,11 +71,19 @@ export class AuthenticationService {
       console.log(`API  returned code :${error.status}`);
       console.log(`Body was: ${error.error}`);
       if (error.statusText === "Unauthorized") {
-        dialogs.alert({
-          title: "E-mail or password incorrect",
-          message: "Please try again",
-          okButtonText: "Close"
-        });
+        console.log(error);
+        if (error.error == "email not verified") 
+            dialogs.alert({
+                title: "E-mail is nog niet geverifierd",
+                message: "Als u nog geen e-mail heeft gehad of als deze verlopen is vraag dan opnieuw aan.",
+                okButtonText: "Close"
+            });
+        else
+          dialogs.alert({
+            title: "E-mail or password incorrect",
+            message: "Please try again",
+            okButtonText: "Close"
+          });
       } else { dialogs.alert({
         title: "Something went wrong",
         message: "Please try again",
