@@ -4,6 +4,8 @@ import { KbaseComponent } from './kbase/kbase.component';
 import { KbaseRoutingModule } from './kbase-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { KbaseAddComponent } from './kbase-add/kbase-add.component';
+import { NativeScriptFormsModule } from "nativescript-angular";
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 
@@ -11,6 +13,8 @@ import { KbaseAddComponent } from './kbase-add/kbase-add.component';
   declarations: [KbaseComponent, KbaseAddComponent],
   imports: [
     NativeScriptCommonModule,
+    NativeScriptFormsModule,
+    ReactiveFormsModule,
     KbaseRoutingModule,
     SharedModule
   ],

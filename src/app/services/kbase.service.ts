@@ -13,8 +13,8 @@ import { KBase } from "~/app/models/KBase.model";
 })
 export class KbaseService {
 
-    private endpoint = "/article";
-    private endpointItem = "/article/";
+    private endpoint = "/articles";
+    private endpointItem = "/articles/";
 
     constructor(private http: HttpService) {}
 

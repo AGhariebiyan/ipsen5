@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { action, ActionOptions, confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import { ActionBar } from "tns-core-modules/ui/action-bar";
 import { isIOS } from "tns-core-modules/platform";
 import { Page } from "tns-core-modules/ui/page";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { confirm, default as dialogs } from "tns-core-modules/ui/dialogs";
+import * as dialogs from "tns-core-modules/ui/dialogs";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { AccountService } from "~/app/services/account.service";
 import { RouterExtensions } from "nativescript-angular/router";
@@ -11,14 +12,12 @@ import { KbaseService } from "~/app/services/kbase.service";
 import { KBase } from "~/app/models/KBase.model";
 
 @Component({
-  selector: 'ns-kbase-add',
-  templateUrl: './kbase-add.component.html',
-  styleUrls: ['./kbase-add.component.css']
+  selector: "ns-kbase-add",
+  templateUrl: "./kbase-add.component.html",
+  styleUrls: ["./kbase-add.component.css"]
 })
 export class KbaseAddComponent implements OnInit {
   form: FormGroup;
-  articleTitle = "";
-  articleDescription = "";
 
   constructor(
       private page: Page,
@@ -28,14 +27,14 @@ export class KbaseAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      articleTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      articleDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      articleTitle: new FormControl(null, { updateOn: "change", validators: [Validators.required]}),
+      articleDescription: new FormControl(null, { updateOn: "change", validators: [Validators.required]})
     });
   }
 
   onBarLoaded($event) {
-    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
-    let navigationBar = bar.nativeView;
+    const bar: ActionBar = this.page.getViewById<ActionBar>("bar");
+    const navigationBar = bar.nativeView;
 
     if (isIOS) {
       navigationBar.prefersLargeTitles = false;
@@ -48,9 +47,10 @@ export class KbaseAddComponent implements OnInit {
       okButtonText: "Opslaan",
       cancelButtonText: "Annuleer"
     };
+
     confirm(options).then((result: boolean) => {
-      const articleTitle = this.form.get('articleTitle').value;
-      const articleDescription = this.form.get('articleDescription').value;
+      const articleTitle = this.form.get("articleTitle").value;
+      const articleDescription = this.form.get("articleDescription").value;
 
       if (result === true && articleTitle !== "" && articleDescription !== "") {
         this.onSubmit();
@@ -67,8 +67,11 @@ export class KbaseAddComponent implements OnInit {
   }
 
   onSubmit() {
-    const articleTitle = this.form.get('articleTitle').value;
-    const articleDescription = this.form.get('articleDescription').value;
+    const articleTitle = this.form.get("articleTitle").value;
+    const articleDescription = this.form.get("articleDescription").value;
+
+    console.log(articleTitle);
+    console.log(articleDescription);
 
     const articleItem = new KBase(articleTitle, articleDescription, new Date(),
         true, this.accountService.account.id);
