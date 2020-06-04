@@ -39,9 +39,10 @@ export class EventsListComponent implements OnInit {
   }
 
   getMyEvents(): Observable<EventResponse[]> {
-    return this.accountsService.account$.pipe(
-      flatMap(account => this.es.getEventsForUserId(account.id))
-    )
+    return this.es.getEventsForUserId(this.accountsService.account.id);
+    // return this.accountsService.account$.pipe(
+    //   flatMap(account => this.es.getEventsForUserId(account.id))
+    // )
   }
 
   selectionChanged() {

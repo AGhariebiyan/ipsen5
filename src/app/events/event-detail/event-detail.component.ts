@@ -99,16 +99,14 @@ export class EventDetailComponent implements OnInit {
   }
 
   private registerForEvent() {
-    this.accountService.account$.subscribe(account => {
-      let participant = new Participant(this.event.id, account.id);
-      this.service.registerParticipant(participant).then(() => {
-            this.isRegistered = true;
-            this.getRegistrations().then(() => this.updateButton());
-            this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
-          }).catch(() => {
-            this.dialogService.showDialog("Let op!", "Er ging iets mis tijdens het inschrijven, " +
-                "probeer het later opnieuw of neem contact op met de systeembeheerder.")
-      });
+    let participant = new Participant(this.event.id, this.accountService.account.id);
+    this.service.registerParticipant(participant).then(() => {
+      this.isRegistered = true;
+      this.getRegistrations().then(() => this.updateButton());
+      this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
+    }).catch(() => {
+      this.dialogService.showDialog("Let op!", "Er ging iets mis tijdens het inschrijven, " +
+          "probeer het later opnieuw of neem contact op met de systeembeheerder.")
     });
   }
 
@@ -134,17 +132,15 @@ export class EventDetailComponent implements OnInit {
   }
 
   private unRegister() {
-    this.accountService.account$.subscribe(account => {
-      let participant = new Participant(this.event.id, account.id);
-      this.service.deleteParticipant(participant, this.registrations).then(() => {
-        this.isRegistered = false;
-        this.getRegistrations().then(() => this.updateButton());
-        this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
-      }).catch(() => {
-        this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw of " +
-            "neem contact op met de systeembeheerder.");
-      });
-    })
+    let participant = new Participant(this.event.id, this.accountService.account.id);
+    this.service.deleteParticipant(participant, this.registrations).then(() => {
+      this.isRegistered = false;
+      this.getRegistrations().then(() => this.updateButton());
+      this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
+    }).catch(() => {
+      this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw of " +
+          "neem contact op met de systeembeheerder.");
+    });
   }
 
   updateButton(){
