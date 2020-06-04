@@ -61,9 +61,7 @@ export class AuthenticationService {
       });
       }
     } else {
-      console.log(`API returned code :${error.status}`);
-      console.log(`Body was: ${error.error}`);
-      if (error.error === "Unauthorized") {
+      if (error.status == 401) {
         dialogs.alert({
           title: "E-mail or password incorrect",
           message: "Please try again",
