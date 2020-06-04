@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
                 console.log(data);
                 this.dialogs.confirm({
                     title: "Je account is aangemaakt",
-                    message: "Je wordt naar de login pagina geleid",
+                    message: "Er is een mail gestuurd om je e-mail te verifieren.\nJe kan pas inloggen als je e-mail is geverifieerd.\nJe wordt naar de login pagina geleid.",
                     okButtonText: "Ok"
                 });
                 this.clearAllFields();
