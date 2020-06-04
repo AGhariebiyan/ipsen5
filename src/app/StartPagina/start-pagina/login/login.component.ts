@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {Page} from "tns-core-modules/ui/page";
-import {AccountService} from "~/app/services/account.service";
-import {AuthenticationService} from "~/app/services/authentication.service";
-import { RouterExtensions } from '@nativescript/angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Page } from "tns-core-modules/ui/page";
+import { AccountService } from "~/app/services/account.service";
+import { AuthenticationService } from "~/app/services/authentication.service";
+import { RouterExtensions } from "@nativescript/angular/router";
 
 @Component({
-  selector: 'ns-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "ns-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
   email: string = "";
@@ -21,12 +21,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.isValidEmail(this.email)){
-      this.authService.login(this.email, this.password).subscribe(succes => {
+    if (this.isValidEmail(this.email)) {
+      this.authService.login(this.email, this.password).subscribe((success) => {
         this.routerExtensions.navigateByUrl("/loggedIn");
-      })
-    }
-    else{
+      });
+    } else {
       const dialogs = require("tns-core-modules/ui/dialogs");
       dialogs.alert({
         title: "Not a valid E-mail",

@@ -22,7 +22,7 @@ export class AuthenticationService {
         {
           headers: new HttpHeaders().append("auth", "false")
         }).pipe(
-            catchError(this.handleLoginError),
+            catchError(this.handleLoginError)
         ).pipe(
           tap((item) => {
             this.logInUser(item);
