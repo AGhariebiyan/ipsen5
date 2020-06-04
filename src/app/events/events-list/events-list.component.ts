@@ -21,6 +21,7 @@ export class EventsListComponent implements OnInit {
   events$: Observable<EventResponse[]>
   myEvents$: Observable<EventResponse[]>
   displayingallEvents: boolean = false;
+  months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
 
   constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
     const allEventsTab = new SegmentedBarItem()
@@ -32,6 +33,7 @@ export class EventsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.es.changedEvent.subscribe(() => this.ngOnInit());
     this.events$ = this.es.getEvents();
     this.myEvents$ = this.getMyEvents();
   }
@@ -63,14 +65,17 @@ export class EventsListComponent implements OnInit {
      * @param selectedEvent
      */
   openDetails(selectedEvent: EventResponse) {
-
       this.myEvents$.subscribe(events => {
-        for(let event of events) {
-          if(selectedEvent.id == event.id) {
-            this.navigate(selectedEvent, true);
-          } else {
-            this.navigate(selectedEvent, false);
+        if(events.length == 0) {
+          this.navigate(selectedEvent, false);
+        } else {
+          for(let event of events) {
+            if(selectedEvent.id == event.id) {
+              this.navigate(selectedEvent, true);
+              return;
+            }
           }
+          this.navigate(selectedEvent, false);
         }
       });
   }
@@ -83,8 +88,22 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras);
+    this.router.navigate(['../details'], navigateExtras).then( () => {
+      if(!this.displayingallEvents) {
+        this.myEvents$ = this.getMyEvents();
+        this.events$ = this.myEvents$;
+      }
+    });
+  }
+
+  getDateDay(dateString: string): number {
+    const date = new Date(dateString)
+
+    return date.getDay();
+  }
+
+  getDateMonth(dateString: string): string {
+    const date = new Date(dateString)
+    return this.months[date.getMonth()]
   }
 }
-
-

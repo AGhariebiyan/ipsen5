@@ -2,14 +2,14 @@
 <ActionBar title="Evenementen">
 </ActionBar>
 <StackLayout>
-    <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectionChanged()"></SegmentedBar>
+    <SegmentedBar [items]="segmentedBarItems" id="bar" selectedIndex="0" class="seg" (selectedIndexChange)="selectionChanged()"></SegmentedBar>
     <ListView [items]="events$ | async" height="100%">
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
             <FlexBoxLayout justifyContent="space-between" class="row" (tap)="openDetails(event)">
                 <StackLayout orientation="horizontal">
                     <StackLayout class="dateCol">
-                        <Label class="dateLabel" text="1"></Label>
-                        <Label text="April"></Label>
+                        <Label class="dateLabel" [text]="getDateDay(event.eventDate)"></Label>
+                        <Label [text]="getDateMonth(event.eventDate)"></Label>
                     </StackLayout>
                     <Label class="eventLabel" [text]="event.eventName"></Label>
                 </StackLayout>
