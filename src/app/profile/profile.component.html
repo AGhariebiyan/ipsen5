@@ -5,8 +5,8 @@
     <StackLayout>
         <!--     User object-->
         <StackLayout class="group">
-            <FlexBoxLayout justifyContent="space-between" class="row" alignItems="center" [nsRouterLink]="['../mydata']" >
-                <Image [src]="this.account?.image ? this.baseUrl + this.account.image.url : 'https://randomuser.me/api/portraits/men/94.jpg'" class="user-image"></Image>
+            <FlexBoxLayout  justifyContent="space-between" class="row" alignItems="center" [nsRouterLink]="['../mydata']" >
+                <Image [src]="account.image?.url ? baseUrl + account.image.url : placeholder" class="user-image"></Image>
                 <StackLayout>
                     <Label [text]="
                     this.account.firstName + ' ' +

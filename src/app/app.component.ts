@@ -21,10 +21,11 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
 
         this.account.account$.pipe(
-            filter((account) => {
-                return !!account;
-            }),
-            take(1))
+            // filter((account) => {
+            //     return !!account;
+            // }),
+            // take(1)
+            )
             .subscribe((account) => {
             this.loggedIn = !!account;
             if (this.loggedIn) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular";
 import { Event } from "~/app/shared/models/event.model";
 import { AccountService } from "~/app/services/account.service";
@@ -20,11 +20,15 @@ export class ProfileComponent implements OnInit {
 
   account: Account;
   baseUrl = environment.apiUrl + "/";
-  constructor(private routerExtensions: RouterExtensions, private accountService: AccountService) { }
+  placeholder = "https://randomuser.me/api/portraits/men/78.jpg";
+
+  constructor(private routerExtensions: RouterExtensions,
+              private accountService: AccountService) {
+
+  }
 
   ngOnInit(): void {
     this.account = this.accountService.account;
-    console.log("USER ACCOUNT:");
   }
 
   goBack() {

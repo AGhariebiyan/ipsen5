@@ -52,7 +52,7 @@ export class AuthenticationService {
 
     console.log(error);
 
-    const dialogs = require("tns-core-modules/ui/dialogs" );
+    const dialogs = require("tns-core-modules/ui/dialogs");
 
     if (error.error instanceof HttpErrorResponse) {
       console.log("RESPONSE ERROR:", error);
