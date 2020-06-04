@@ -1,4 +1,5 @@
 <ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
 <StackLayout>
     <Button text="artikel toevoegen" nsRouterLink="../kbase-add" class="btn btn-primary"></Button>
+    <Button *ngFor="let article of (articles | async)" [text]="article.title" [nsRouterLink]="['../kbase-edit/' + article.id]"></Button>
 </StackLayout>

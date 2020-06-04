@@ -43,7 +43,7 @@ export class KbaseAddComponent implements OnInit {
 
   displayConfirmDialogSave() {
     const options = {
-      title: "Weet u zeker dat u het nieuwsbericht wilt wijzigen?",
+      title: "Weet u zeker dat u het artikel wilt toevoegen?",
       okButtonText: "Opslaan",
       cancelButtonText: "Annuleer"
     };
@@ -52,7 +52,7 @@ export class KbaseAddComponent implements OnInit {
       const articleTitle = this.form.get("articleTitle").value;
       const articleDescription = this.form.get("articleDescription").value;
 
-      if (result === true && articleTitle !== "" && articleDescription !== "") {
+      if (result === true && articleTitle !== null && articleDescription !== null) {
         this.onSubmit();
         this.routerExtensions.back();
       } else {

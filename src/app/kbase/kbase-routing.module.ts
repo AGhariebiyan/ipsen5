@@ -4,6 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { KbaseComponent } from "./kbase/kbase.component";
 import { NewsComponent } from "~/app/news/news/news.component";
 import { KbaseAddComponent } from "~/app/kbase/kbase-add/kbase-add.component";
+import { KbaseEditComponent } from "~/app/kbase/kbase-edit/kbase-edit.component";
 
 const routes: Routes = [
     { path: "",
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: "kbase-add",
         component: KbaseAddComponent
+    },
+    {
+        path: "kbase-edit/:articleId",
+        component: KbaseEditComponent
     }
 ];
 

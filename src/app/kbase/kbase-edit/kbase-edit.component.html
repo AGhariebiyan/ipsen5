@@ -1,7 +1,8 @@
-<ActionBar  title="artikel toevoegen" id="bar" (loaded)="onBarLoaded($event)">
+<ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
     <ActionItem (tap)="displayConfirmDialogSave()" tap="onSave" ios.systemIcon="3" android.systemIcon="ic_menu_save" ios.position="right"></ActionItem>
 </ActionBar>
+
 
 <StackLayout [formGroup]="form">
 
@@ -10,14 +11,15 @@
             hint="Titel"
             returnKeyType="next"
             formControlName="articleTitle"
+            [text]="articleTitle"
     ></TextField>
 
     <TextView
             class="marginTopField"
-            id="articleDescription"
-            hint="Artikel beschrijving"
+            id="textDescription"
+            hint="Bericht beschrijving"
             returnKeyType="next"
             formControlName="articleDescription"
+            [text]="articleDescription"
     ></TextView>
-
 </StackLayout>
