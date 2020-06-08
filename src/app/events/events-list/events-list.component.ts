@@ -21,6 +21,7 @@ export class EventsListComponent implements OnInit {
   events$: Observable<EventResponse[]>
   myEvents$: Observable<EventResponse[]>
   displayingallEvents: boolean = false;
+  months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
 
   constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
     const allEventsTab = new SegmentedBarItem()
@@ -32,14 +33,16 @@ export class EventsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.es.changedEvent.subscribe(() => this.ngOnInit());
     this.events$ = this.es.getEvents();
     this.myEvents$ = this.getMyEvents();
   }
 
   getMyEvents(): Observable<EventResponse[]> {
-    return this.accountsService.account$.pipe(
-      flatMap(account => this.es.getEventsForUserId(account.id))
-    )
+    return this.es.getEventsForUserId(this.accountsService.account.id);
+    // return this.accountsService.account$.pipe(
+    //   flatMap(account => this.es.getEventsForUserId(account.id))
+    // )
   }
 
   selectionChanged() {
@@ -55,22 +58,25 @@ export class EventsListComponent implements OnInit {
   }
 
     /**
-   * @author Valerie Timmerman
-   *
-   * @param event
-   * When the user clicks on a event in the listview, this event is passed to this method and the user is navigated
-   * towards the details page of that specific event. The event gets passed to this page in the queryparams as a JSON
-   * object, passing the event as an object causes problems.
-   */
-  openDetails(event: EventResponse) {
-
+     * @author Valerie Timmerman
+     *
+     * When the user clicks on a event in the listview, this event is passed to this method and the user is navigated
+     * towards the details page of that specific event. The event gets passed to this page in the queryparams as a JSON
+     * object, passing the event as an object causes problems.
+     * @param selectedEvent
+     */
+  openDetails(selectedEvent: EventResponse) {
       this.myEvents$.subscribe(events => {
-        for(let event of events) {
-          if(event.id == event.id) {
-            this.navigate(event, true);
-          } else {
-            this.navigate(event, false);
+        if(events.length == 0) {
+          this.navigate(selectedEvent, false);
+        } else {
+          for(let event of events) {
+            if(selectedEvent.id == event.id) {
+              this.navigate(selectedEvent, true);
+              return;
+            }
           }
+          this.navigate(selectedEvent, false);
         }
       });
   }
@@ -83,8 +89,21 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras);
+    this.router.navigate(['../details'], navigateExtras).then( () => {
+      if(!this.displayingallEvents) {
+        this.myEvents$ = this.getMyEvents();
+        this.events$ = this.myEvents$;
+      }
+    });
+  }
+
+  getDateDay(dateString: string): number {
+    const date = new Date(dateString);
+    return date.getDate();
+  }
+
+  getDateMonth(dateString: string): string {
+    const date = new Date(dateString);
+    return this.months[date.getMonth()]
   }
 }
-
-

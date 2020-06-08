@@ -5,12 +5,20 @@ import { StartPaginaComponent } from "~/app/StartPagina/start-pagina/start-pagin
 import { LoginComponent } from "~/app/StartPagina/start-pagina/login/login.component";
 import { RegisterComponent } from "~/app/StartPagina/start-pagina/register/register.component";
 import { StartComponent } from "~/app/StartPagina/start-pagina/start/start.component";
+import { RoleGuard } from "~/app/services/role.guard";
+import { ProfileComponent } from "~/app/profile/profile.component";
+import { UserDataComponent } from "~/app/profile/user-data/user-data.component";
+import { OptionsComponent } from "~/app/profile/options/options.component";
+import { EditNameComponent } from "~/app/profile/user-data/edit-name/edit-name.component";
+import { EditBioComponent } from "~/app/profile/user-data/edit-bio/edit-bio.component";
+import { EditPasswordComponent } from "~/app/profile/user-data/edit-password/edit-password.component";
+import { EditEmailComponent } from "~/app/profile/user-data/edit-email/edit-email.component";
 
 const routes: Routes = [
 
     {
         path: "",
-        redirectTo: "/start",
+        redirectTo: "/kbase",
         pathMatch: "full"
     },
     {
@@ -22,9 +30,25 @@ const routes: Routes = [
             { path: "register", component: RegisterComponent }
         ]
     },
-
+    {
+        path: "profile",
+        component: ProfileComponent
+    },
+    {
+        path: "mydata",
+        component: UserDataComponent,
+        children: [
+            {path: "", component: OptionsComponent },
+            {path: "edit-name", component: EditNameComponent},
+            {path: "edit-bio", component: EditBioComponent},
+            {path: "edit-password", component: EditPasswordComponent},
+            {path: "edit-email", component: EditEmailComponent}
+        ]
+    },
     {
         path: "loggedin",
+        canActivate: [RoleGuard],
+        data: {roles: ["member", "admin"]},
         loadChildren: () => import("~/app/logged-in/logged-in.module").then((m) => m.LoggedInModule)
     }
 ];

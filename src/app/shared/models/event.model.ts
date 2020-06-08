@@ -1,33 +1,33 @@
 export class Event {
-    eventId: string;
+    id: string;
     eventDate: Date;
     eventName: string;
     eventDescription: string;
-    locationName: string;
-    locationStreet: string;
-    locationPostalCode: string;
-    locationRegion: string;
-    locationCountry: string;
+    eventLocationName: string;
+    eventLocationStreet: string;
+    eventLocationPostalCode: string;
+    eventLocationRegion: string;
+    eventLocationCountry: string;
 
     constructor(
-        eventId: string,
+        id: string,
         eventDate: Date, 
         eventName: string, 
         eventDescription: string, 
-        locationName: string, 
-        locationStreet: string, 
-        locationPostalCode: string, 
-        locationRegion: string, 
-        locationCountry: string) 
+        eventLocationName: string, 
+        eventLocationStreet: string, 
+        eventLocationPostalCode: string, 
+        eventLocationRegion: string, 
+        eventLocationCountry: string) 
     {
-        this.eventId = eventId;
+        this.id = id;
         this.eventDate = eventDate;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
-        this.locationName = locationName;
-        this.locationStreet = locationStreet;
-        this.locationPostalCode = locationPostalCode;
-        this.locationRegion = locationRegion;
-        this.locationCountry = locationCountry;
+        this.eventLocationName = eventLocationName;
+        this.eventLocationStreet = eventLocationStreet;
+        this.eventLocationPostalCode = eventLocationPostalCode;
+        this.eventLocationRegion = eventLocationRegion;
+        this.eventLocationCountry = eventLocationCountry;
     }
 }
