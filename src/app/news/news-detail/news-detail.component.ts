@@ -63,16 +63,16 @@ export class NewsDetailComponent implements OnInit {
       this.accountId = newsItem.accountId;
       // this.companyId = newsItem.company;
       this.featured = newsItem.featured;
-      this.getUser(this.accountId);
+      // this.getUser(this.accountId);
     });
   }
 
-  getUser(id: string) {
-    this.accountService.getUser(id).subscribe((user) => {
-      this.firstName = user.firstName;
-      this.middleName = user.middleName;
-      this.lastName = user.lastName;
-    });
-  }
+  // getUser(id: string) {
+  //   this.accountService.getUser(id).subscribe((user) => {
+  //     this.firstName = user.firstName;
+  //     this.middleName = user.middleName;
+  //     this.lastName = user.lastName;
+  //   });
+  // }
 
 }

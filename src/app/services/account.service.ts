@@ -23,8 +23,8 @@ export class AccountService {
   //   };
   // });
 
-  constructor(private http: HttpClient, private httpService: HttpService) {
 
+  constructor(private http: HttpClient, private httpService: HttpService) {
   }
 
   updateObservable(account: Account) {
