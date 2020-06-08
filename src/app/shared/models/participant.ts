@@ -1,5 +1,6 @@
 export class Participant {
 
+    id: string;
     eventId: string;
     accountId: string;
 

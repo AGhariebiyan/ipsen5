@@ -1,0 +1,36 @@
+/* Add mobile styles for the component here.  */
+StackLayout {
+    margin-top: 1%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.newspostAuthor{
+    color: #364498;
+    font-weight: bold;
+    font-size: 50pt;
+}
+
+.newspostDate{
+    color: gray;
+}
+
+.newspostTitle{
+    margin-top: 2%;
+    color: black;
+    font-weight: bold;
+    width: 98%;
+}
+.newspostDescription{
+    color: black;
+    width: 98%;
+}
+
+.profilePicture{
+    border-radius: 100%;
+    width: 15%;
+    height: 15%;
+    background-color: red;
+}

@@ -4,6 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { EventsComponent } from "./events/events.component";
 import { EventsListComponent } from "./events-list/events-list.component";
 import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
+import { EventEditComponent } from "~/app/events/event-edit/event-edit.component";
 
 // const routes: Routes = [
 //     {
@@ -35,6 +36,10 @@ const routes: Routes = [
     {
         path: "details",
         component: EventDetailComponent
+    },
+    {
+        path: "edit",
+        component: EventEditComponent
     }
 ];
 

@@ -11,7 +11,6 @@ import { Router } from "@angular/router";
 export class AppComponent implements OnInit {
 
     loggedIn = false;
-    //appSettings = require("tns-core-modules/application-settings");
 
     constructor(private page: Page, private jwtService: JwtService, private account: AccountService, private router: Router) {
         this.page.actionBarHidden = true;
@@ -19,16 +18,18 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.account.account$.subscribe(account => {
+        this.account.account$.subscribe((account) => {
             this.loggedIn = !!account;
             if (this.loggedIn) {
-                this.router.navigateByUrl("/loggedin/default");
+                this.router.navigateByUrl("/loggedin/default").catch(() => {
+                    console.log("Could not navigate");
+                });
             }
         });
         // Init your component properties here.
         // setting of the app can be placed here, but needs to be a service
-        //if (this.appSettings.getBoolean("autoLogin")) {
-        //this.jwtService.checkForJWT();
-        //}
+
+        this.jwtService.checkForJWT();
+
     }
 }
