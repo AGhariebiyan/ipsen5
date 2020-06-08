@@ -4,4 +4,5 @@
 
     <Button *ngFor="let newsitem of (newsItems | async)" [text]="newsitem.title" [nsRouterLink]="['../news-detail/' + newsitem.id]"></Button>
     <Button text="inzien nieuwspost" [nsRouterLink]="['../news-detail']"></Button>
+
 </StackLayout>

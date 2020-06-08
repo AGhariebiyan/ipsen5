@@ -1,0 +1,8 @@
+<FlexBoxLayout justify-content="space-between" flexDirection="column" height="100%" alignItems="center" [formGroup]="form">
+    <FlexBoxLayout justify-content="space-between" flexDirection="column">
+        <TextField hint="Omschrijf jezelf" editable="true" width="80%" formControlName="description"></TextField>
+    </FlexBoxLayout>
+    <Button class="save-button" text="Opslaan" [isEnabled]="form.valid" (tap)="submitForm()">
+    </Button>
+</FlexBoxLayout>
+

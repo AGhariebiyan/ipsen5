@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page";
-import { RegisterService } from "~/app/services/register.service";
-import { first } from "rxjs/internal/operators";
 import { Router } from "@angular/router";
+import { RegisterService } from "~/app/services/register/register.service";
 
 @Component({
   selector: "ns-registreren",
@@ -10,13 +9,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    repeatEmail: string;
-    repeatPassword: string;
+    firstName: string = "";
+    middleName: string = "";
+    lastName: string = "";
+    email: string = "";
+    password: string = "";
+    repeatEmail: string = "";
+    repeatPassword: string = "";
     dialogs = require("tns-core-modules/ui/dialogs");
 
     constructor(private page: Page, private registerService: RegisterService, private router: Router) {
@@ -51,16 +50,18 @@ export class RegisterComponent implements OnInit {
             return;
         } else if (!this.isValidName(this.firstName, this.middleName, this.lastName)) {
             this.showDialog("Ongeldige naam", "Deze naam is ongeldig, de lengte van de voornaam een achternaam moet minimaal 2 zijn.");
+            this.clearNameFields();
 
             return;
         }
 
         // Register the user.
-        this.registerService.register(this.email, this.password, this.firstName, this.lastName, this.middleName)
+        const x = this.registerService.register(this.email, this.password, this.firstName, this.lastName, this.middleName)
             .subscribe((data) => {
+                console.log(data);
                 this.dialogs.confirm({
                     title: "Je account is aangemaakt",
-                    message: "Je wordt naar de login pagina geleid",
+                    message: "Er is een mail gestuurd om je e-mail te verifieren.\nJe kan pas inloggen als je e-mail is geverifieerd.\nJe wordt naar de login pagina geleid.",
                     okButtonText: "Ok"
                 });
                 this.clearAllFields();
@@ -73,9 +74,10 @@ export class RegisterComponent implements OnInit {
                 }
             }
         );
+
     }
 
-    clearPasswordFields(){
+    clearPasswordFields() {
         this.password = "";
         this.repeatPassword = "";
     }
@@ -126,5 +128,5 @@ export class RegisterComponent implements OnInit {
         }
 
         return true;
-    }}
-
+    }
+}

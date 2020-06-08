@@ -1,0 +1,10 @@
+<FlexBoxLayout justify-content="space-between" flexDirection="column" height="100%" alignItems="center" [formGroup]="form">
+    <FlexBoxLayout justify-content="space-between" flexDirection="column">
+        <TextField hint="Email" editable="true" width="80%" formControlName="email"></TextField>
+        <TextField hint="Herhaal Email" editable="true" width="80%" formControlName="repeatEmail"></TextField>
+
+    </FlexBoxLayout>
+    <Button class="save-button" text="Opslaan" [isEnabled]="form.valid" (tap)="submitForm()">
+    </Button>
+</FlexBoxLayout>
+

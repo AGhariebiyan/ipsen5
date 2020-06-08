@@ -1,0 +1,90 @@
+<ActionBar title="Mijn Profiel">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+<ScrollView height="100%" class="view">
+    <StackLayout>
+        <!--     User object-->
+        <StackLayout class="group">
+            <FlexBoxLayout  justifyContent="space-between" class="row" alignItems="center" [nsRouterLink]="['../mydata']" >
+                <Image [src]="account.image?.url ? baseUrl + account.image.url : placeholder" class="user-image"></Image>
+                <StackLayout>
+                    <Label [text]="
+                    this.account.firstName + ' ' +
+                    (this.account.middleName? this.account.middleName + ' ' : '') +
+                    this.account.lastName"
+                           textWrap="true" class="name"></Label>
+                    <Label [text]="this.account.email" textWrap="true"></Label>
+                </StackLayout>
+                <Label text="&#xf054;" class="fas icon" ></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf073;" class="fas icon indicator-icon"></Label>
+                <Label text="Ingeschreven Evenementen" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf15c;" class="fas icon indicator-icon"></Label>
+                <Label text="KBase contributies" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+
+
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf05a;" class="fas icon indicator-icon"></Label>
+                <Label text="Over deze app" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf05a;" class="fas icon indicator-icon"></Label>
+                <Label text="Over Lugus" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf3e0;" class="fas icon indicator-icon"></Label>
+                <Label text="Partners van Lugus" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf0c0;" class="fas icon indicator-icon"></Label>
+                <Label text="Raad van Bestuur" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf271;" class="fas icon indicator-icon"></Label>
+                <Label text="Evenement aanmaken" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label  text="&#xf067;" class="fas icon indicator-icon"></Label>
+                <Label text="Nieuwsbericht plaatsen" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="center" class="row">
+                <Label  text="&#xf067;" class="fas icon indicator-icon"></Label>
+                <Label text="   Uitloggen" textWrap="true"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+    </StackLayout>
+</ScrollView>
+

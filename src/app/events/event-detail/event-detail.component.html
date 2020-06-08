@@ -1,6 +1,6 @@
 <ActionBar title="Evenement">
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
-    <ActionItem (tap)="openActions()" ios.systemIcon="10" android.systemIcon="ic_menu_more" ios.position="right"></ActionItem>
+    <ActionItem (tap)="openActions()" ios.systemIcon="9" android.systemIcon="ic_menu_more" ios.position="right"></ActionItem>
 </ActionBar>
 
 <StackLayout>
@@ -22,13 +22,13 @@
         <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
             <StackLayout orientation="horizontal" (tap)="openInformation(event)">
                 <Label width="50%" [text]="event.firstArgument" horizontalAlignment="left"></Label>
-                <Label width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
+                <Label class="fas icon" width="50%" [text]="event.secondArgument" horizontalAlignment="right" style="text-align: right"></Label>
             </StackLayout>
         </ng-template>
     </ListView>
 
     <Button *ngIf="!isRegistered" text="Inschrijven" (tap)="openRegister()"></Button>
-    <Button *ngIf="isRegistered" text="Uitschrijven" (tap)="openUnRegister()"></Button>
+    <Button *ngIf="isRegistered" text="Uitschrijven" (tap)="openUnRegister()"></Button><Button [visibility]="isRegistered == 'true' ? 'visible': 'hidden' " text="Uitschrijven" (tap)="openUnRegister()"></Button>
 
 </StackLayout>
 
