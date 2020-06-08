@@ -1,7 +1,13 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import {HttpService} from "~/app/services/http.service";
+import {Observable} from "rxjs";
+import {genSaltSync, hashSync} from "bcryptjs"
+import has = Reflect.has;
+import {HttpHeaders} from "@angular/common/http";
+import { Account } from '../models/Account.model';
+import { NewsItem } from "~/app/models/NewsItem.model";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { Account } from "../models/Account.model";
 import { environment } from "~/environments/environment.tns";
 import { catchError, map, tap } from "rxjs/internal/operators";
 
@@ -9,6 +15,8 @@ import { catchError, map, tap } from "rxjs/internal/operators";
   providedIn: "root"
 })
 export class AccountService {
+  private endpoint = "/accounts";
+
   account: Account;
 
   account$ = new Subject<Account>();
@@ -21,7 +29,7 @@ export class AccountService {
   //   };
   // });
 
-  constructor(private http: HttpClient) {
+  constructor(private httpClient: HttpClient, private http: HttpService) {
 
   }
 
@@ -80,8 +88,14 @@ export class AccountService {
     this.updateObservable(null);
   }
 
+  getUser(id: string): Observable<Account> {
+    console.log("account service");
+    console.log(this.http.getDataWithArgs(this.endpoint + "/", id));
+    return this.http.getDataWithArgs(this.endpoint + "/", id);
+  }
+
   private updateAccount(): Observable<Account> {
-    return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(
+    return this.httpClient.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(
       tap(() => {
         this.updateObservable(this.account);
       })

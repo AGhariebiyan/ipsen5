@@ -18,7 +18,7 @@ const routes: Routes = [
 
     {
         path: "",
-        redirectTo: "/start",
+        redirectTo: "/kbase",
         pathMatch: "full"
     },
     {
