@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { Account } from "../models/Account.model";
 import { environment } from "~/environments/environment.tns";
 import { catchError, map, tap } from "rxjs/internal/operators";
+import { NewsItem } from "~/app/models/NewsItem.model";
+import { HttpService } from "~/app/services/http.service";
 
 @Injectable({
   providedIn: "root"
@@ -21,8 +23,8 @@ export class AccountService {
   //   };
   // });
 
-  constructor(private http: HttpClient) {
 
+  constructor(private http: HttpClient, private httpService: HttpService) {
   }
 
   updateObservable(account: Account) {
@@ -78,6 +80,12 @@ export class AccountService {
   resetUser() {
     this.account = null;
     this.updateObservable(null);
+  }
+
+  getUser(id: string): Observable<Account> {
+    console.log("/api/accounts/" + id);
+
+    return this.httpService.getDataWithArgs("/accounts/", id);
   }
 
   private updateAccount(): Observable<Account> {
