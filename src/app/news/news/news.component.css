@@ -39,7 +39,7 @@ StackLayout {
 }
 
 Label{
-    height: 100px;
+    height: 50px;
     width: 100%
 }
 
@@ -48,4 +48,9 @@ Image {
     margin-top: 10%;
     margin-left: 7.5%;
     width: 5%;
+}
+
+TextView {
+    background-color: transparent;
+    border-color: transparent;
 }
