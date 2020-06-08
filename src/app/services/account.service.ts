@@ -1,22 +1,16 @@
-import { Injectable } from '@angular/core';
-import {HttpService} from "~/app/services/http.service";
-import {Observable} from "rxjs";
-import {genSaltSync, hashSync} from "bcryptjs"
-import has = Reflect.has;
-import {HttpHeaders} from "@angular/common/http";
-import { Account } from '../models/Account.model';
-import { NewsItem } from "~/app/models/NewsItem.model";
+import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { Account } from "../models/Account.model";
 import { environment } from "~/environments/environment.tns";
 import { catchError, map, tap } from "rxjs/internal/operators";
+import { NewsItem } from "~/app/models/NewsItem.model";
+import { HttpService } from "~/app/services/http.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class AccountService {
-  private endpoint = "/accounts";
-
   account: Account;
 
   account$ = new Subject<Account>();
@@ -29,7 +23,7 @@ export class AccountService {
   //   };
   // });
 
-  constructor(private httpClient: HttpClient, private http: HttpService) {
+  constructor(private http: HttpClient, private httpService: HttpService) {
 
   }
 
@@ -80,7 +74,7 @@ export class AccountService {
   }
 
   setUser(account: Account) {
-        this.updateObservable(account);
+    this.updateObservable(account);
   }
 
   resetUser() {
@@ -89,16 +83,16 @@ export class AccountService {
   }
 
   getUser(id: string): Observable<Account> {
-    console.log("account service");
-    console.log(this.http.getDataWithArgs(this.endpoint + "/", id));
-    return this.http.getDataWithArgs(this.endpoint + "/", id);
+    console.log("/api/accounts/" + id);
+
+    return this.httpService.getDataWithArgs("/accounts/", id);
   }
 
   private updateAccount(): Observable<Account> {
-    return this.httpClient.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(
-      tap(() => {
-        this.updateObservable(this.account);
-      })
+    return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(
+        tap(() => {
+          this.updateObservable(this.account);
+        })
     );
   }
 }
