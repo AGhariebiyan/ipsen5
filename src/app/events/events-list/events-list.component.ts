@@ -18,18 +18,18 @@ export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
   events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  events$: Observable<EventResponse[]>
-  myEvents$: Observable<EventResponse[]>
+  events$: Observable<EventResponse[]>;
+  myEvents$: Observable<EventResponse[]>;
   displayingallEvents: boolean = false;
   months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
 
   constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
-    const allEventsTab = new SegmentedBarItem()
-    allEventsTab.title = "Alle Evenementen"
-    const myEvents = new SegmentedBarItem()
-    myEvents.title = "Voor Aangemeld"
-    this.segmentedBarItems.push(allEventsTab)
-    this.segmentedBarItems.push(myEvents)
+    const allEventsTab = new SegmentedBarItem();
+    allEventsTab.title = "Alle Evenementen";
+    const myEvents = new SegmentedBarItem();
+    myEvents.title = "Voor Aangemeld";
+    this.segmentedBarItems.push(allEventsTab);
+    this.segmentedBarItems.push(myEvents);
   }
 
   ngOnInit(): void {
@@ -66,6 +66,7 @@ export class EventsListComponent implements OnInit {
      * @param selectedEvent
      */
   openDetails(selectedEvent: EventResponse) {
+      console.log("Tapped");
       this.myEvents$.subscribe(events => {
         if(events.length == 0) {
           this.navigate(selectedEvent, false);
