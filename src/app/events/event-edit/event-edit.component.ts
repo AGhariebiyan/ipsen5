@@ -3,7 +3,7 @@ import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute } from "@angular/router";
 import { DialogService } from "~/app/services/dialog.service";
 import { EventService } from "~/app/services/event.service";
-import { Event } from "~/app/shared/models/event.model";
+import { Event } from "~/app/models/event.model";
 
 @Component({
   selector: 'ns-event-edit',
@@ -65,7 +65,10 @@ export class EventEditComponent implements OnInit {
     this.eventService.updateEvent(this._event)
         .then(() => {
           this.dialogService.showDialog("Opslaan", "Het evenement is succesvol opgeslagen.")
-              .then(() => this.goBack());
+              .then(() => {
+                this.eventService.getEvents()
+                this.goBack()
+              });
         })
         .catch(() => {
           this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw " +

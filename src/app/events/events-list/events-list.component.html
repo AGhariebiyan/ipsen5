@@ -1,5 +1,6 @@
 <!-- <lg-main-action-bar [titleText]="sectionTitle"></lg-main-action-bar> -->
 <ActionBar title="Evenementen">
+    <ActionItem (tap)="newEventProto()" ios.systemIcon="4" android.systemIcon="ic_menu_add" ios.position="right"></ActionItem>
 </ActionBar>
 <StackLayout>
     <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectionChanged()"></SegmentedBar>

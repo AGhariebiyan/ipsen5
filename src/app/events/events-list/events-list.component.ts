@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '~/app/shared/models/event.model';
+import { Event } from '~/app/models/event.model';
 import { SegmentedBarItem, Page } from 'tns-core-modules/ui'
 import { EventService } from '~/app/services/event.service';
 import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
-import { EventResponse } from '~/app/shared/models/event-response.model';
+import { EventResponse } from '~/app/models/event-response.model';
 import { AccountService } from '~/app/services/account.service';
 import { flatMap, map, filter } from 'rxjs/operators';
 
@@ -43,12 +43,14 @@ export class EventsListComponent implements OnInit {
     this.events$ = this.es.events$;
     this.es.getEvents()
 
+    this.myEvents$ = this.es.myEvents$
+    this.es.getUserEvents()
+
     this.displayedEvents$ = this.events$
-    this.getMyEvents().subscribe(result => this.myEvents$.next(result))
   }
 
   getMyEvents(): Observable<EventResponse[]> {
-    return this.es.getEventsForUserId(this.accountsService.account.id);
+    return this.es.myEvents$
     // return this.accountsService.account$.pipe(
     //   flatMap(account => this.es.getEventsForUserId(account.id))
     // )
@@ -67,7 +69,7 @@ export class EventsListComponent implements OnInit {
      * @param selectedEvent
      */
   openDetails(selectedEvent: EventResponse) {
-      this.events$.subscribe(events => {
+      this.myEvents$.subscribe(events => {
         if(events.length == 0) {
           this.navigate(selectedEvent, false);
         } else {
@@ -92,7 +94,6 @@ export class EventsListComponent implements OnInit {
     };
     this.router.navigate(['../details'], navigateExtras).then( () => {
       if(!this.displayingallEvents) {
-        this.myEvents$ = this.getMyEvents();
         this.events$ = this.myEvents$;
       }
     });
@@ -106,5 +107,9 @@ export class EventsListComponent implements OnInit {
   getDateMonth(dateString: string): string {
     const date = new Date(dateString);
     return this.months[date.getMonth()]
+  }
+
+  newEventProto() {
+    this.router.navigate(['new'])
   }
 }

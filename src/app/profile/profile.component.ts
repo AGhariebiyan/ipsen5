@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular";
-import { Event } from "~/app/shared/models/event.model";
+import { Event } from "~/app/models/event.model";
 import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
 import { environment } from "~/environments/environment.tns";

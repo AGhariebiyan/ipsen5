@@ -14,6 +14,10 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
+  jsonHeader = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+
   getData<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(this.apiLocation + endpoint);
   }
