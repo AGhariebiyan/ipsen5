@@ -1,6 +1,17 @@
 <ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
-<StackLayout>
-    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
+<!--<StackLayout>-->
+<!--    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>-->
+<!--</StackLayout>-->
 
-    <Button *ngFor="let newsitem of (newsItems | async)" [text]="newsitem.title" [nsRouterLink]="['../news-edit/' + newsitem.id]"></Button>
-</StackLayout>
+<ScrollView scrollBarIndicatorVisible="false">
+    <StackLayout>
+        <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
+        <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
+            <Image src="font://&#xF2b9;" horizontalAlignment="left"></Image>
+            <Label class="newsText newsTitle" [text]="newsitem.title"></Label>
+            <TextView class="newsText" [text]="newsitem.content"></TextView>
+            <Label class="newsText newsExtra" text="Lees meer >" [nsRouterLink]="['../news-detail/' + newsitem.id]"></Label>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
+

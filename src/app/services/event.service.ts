@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { EventResponse } from '../shared/models/event-response.model';
 import { Observable, Subject, forkJoin, BehaviorSubject } from 'rxjs';
 import { ParticipantService } from './participant.service';
 import { flatMap, mergeMap, map } from 'rxjs/operators';
+import { HttpHeaders } from "@angular/common/http";
+import { Event } from "~/app/shared/models/event.model";
+import { stringify } from "@angular/compiler/src/util";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private endpoint = "/Events"
+  private endpoint = "/Events";
+  public changedEvent = new EventEmitter<EventResponse>();
 
   events$ = new BehaviorSubject<EventResponse[]>(null)
 
@@ -24,6 +28,19 @@ export class EventService {
 
   private getEventsInternal(): Observable<EventResponse[]> {
     return this.http.getData<EventResponse[]>(this.endpoint)
+}
+   getEvent(id: string): Promise<EventResponse> {
+      return new Promise<EventResponse>( (accept, reject) => {
+          this.http.getData<EventResponse>(this.endpoint + "/" + id).subscribe(result => {
+              accept(result);
+          }, error => {
+              reject(error);
+          });
+      });
+  }
+
+  getEvents(): Observable<EventResponse[]> {
+    return this.http.getData<EventResponse[]>(this.endpoint);
   }
 
   getEventsForUserId(id: string): Observable<EventResponse[]> {
@@ -48,7 +65,7 @@ export class EventService {
           if (match) {
             filteredEvents.push(match)
           }
-        })
+        });
 
         //Return result
         return filteredEvents
@@ -60,4 +77,18 @@ export class EventService {
     return this.http.deleteData(this.endpoint + "/" + id)
   }
 
+    updateEvent(event: Event): Promise<void> {
+      return new Promise<void>((accept, reject) => {
+          let httpHeaders = new HttpHeaders({
+              'Content-Type': 'application/json'
+          });
+          this.http.putData(this.endpoint + "/" + event.id, event, httpHeaders).subscribe( () => {
+              let emitEvent = JSON.stringify(event);
+              this.changedEvent.emit(JSON.parse(emitEvent));
+              accept();
+          }, () => {
+            reject();
+          });
+      });
+    }
 }

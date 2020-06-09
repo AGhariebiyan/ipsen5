@@ -48,9 +48,10 @@ export class EventsListComponent implements OnInit {
   }
 
   getMyEvents(): Observable<EventResponse[]> {
-    return this.accountsService.account$.pipe(
-      flatMap(account => this.es.getEventsForUserId(account.id))
-    )
+    return this.es.getEventsForUserId(this.accountsService.account.id);
+    // return this.accountsService.account$.pipe(
+    //   flatMap(account => this.es.getEventsForUserId(account.id))
+    // )
   }
   
   selectionChanged() {
@@ -73,10 +74,10 @@ export class EventsListComponent implements OnInit {
           for(let event of events) {
             if(selectedEvent.id == event.id) {
               this.navigate(selectedEvent, true);
-            } else {
-              this.navigate(selectedEvent, false);
+              return;
             }
           }
+          this.navigate(selectedEvent, false);
         }
       });
   }
@@ -89,17 +90,21 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras);
+    this.router.navigate(['../details'], navigateExtras).then( () => {
+      if(!this.displayingallEvents) {
+        this.myEvents$ = this.getMyEvents();
+        this.events$ = this.myEvents$;
+      }
+    });
   }
 
   getDateDay(dateString: string): number {
-    const date = new Date(dateString)
-
-    return date.getDay();
+    const date = new Date(dateString);
+    return date.getDate();
   }
 
   getDateMonth(dateString: string): string {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return this.months[date.getMonth()]
   }
 }
