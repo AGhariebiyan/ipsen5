@@ -6,6 +6,8 @@ import { ActivatedRoute } from "@angular/router";
 import { NewsService } from "~/app/services/news.service";
 import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
+import { Image } from "~/app/models/image.model";
+import { environment } from "~/environments/environment.tns";
 
 @Component({
   selector: 'ns-news-detail',
@@ -29,6 +31,7 @@ export class NewsDetailComponent implements OnInit {
   firstName: string;
   middleName: string;
   lastName: string;
+  profilePicture: string;
 
   constructor(
       private newsService: NewsService,
@@ -70,6 +73,7 @@ export class NewsDetailComponent implements OnInit {
       this.firstName = user.firstName;
       this.middleName = user.middleName;
       this.lastName = user.lastName;
+      this.profilePicture = this.newsService.apiLocation + "/" + user.image.url;
     });
   }
 
