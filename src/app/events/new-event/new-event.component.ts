@@ -6,6 +6,7 @@ import { DialogService } from '~/app/services/dialog.service';
 import { EventService } from '~/app/services/event.service';
 import { ThrowStmt } from '@angular/compiler';
 import { goBack } from 'tns-core-modules/ui/frame/frame';
+import { RouterExtensions } from 'nativescript-angular';
 
 @Component({
   selector: 'ns-new-event',
@@ -16,10 +17,14 @@ export class NewEventComponent implements OnInit {
   private _event: NewEvent
 
   regions = ["Drenthe", "Flevoland", "Friesland", "Gelderland", "Groningen", "Limburg", "Noord Brabant", "Noord Holland", "Overijssel", "Utrecht", "Zeeland", "Zuid Holland"]
-  constructor(private dialogService: DialogService, private eventService: EventService) {}
+  constructor(private dialogService: DialogService, private eventService: EventService, private router: RouterExtensions) {}
 
   ngOnInit(): void {
     this._event = new NewEvent(new Date(),"","","","","","Zuid Holland","Nederland")
+  }
+
+  goBack() {
+    this.router.back();
   }
 
   get event(): NewEvent {
@@ -39,8 +44,10 @@ export class NewEventComponent implements OnInit {
     }
 
     this.eventService.newEvent(JSON.stringify(this.event)).subscribe(() => {
-      this.eventService.getEvents()
-      goBack()
+      this.eventService.getEvents().then(() => this.goBack())
+    }, error => {
+      this.dialogService.showDialog("Er ging iets mis", "Het evenement kon niet worden aangemaakt.")
+      return
     })
     
 
@@ -55,16 +62,4 @@ export class NewEventComponent implements OnInit {
       }
     })
   }
-
-//   openSave() {
-//     if(this.validateData()) {
-//         this.dialogService.showConfirm("Opslaan", "Weet u zeker dat u het evenement wilt aanpassen?")
-//             .then( result => {
-//                 if(result) {
-//                     this.save();
-//                 }
-//             });
-//     }
-
-// }
 }

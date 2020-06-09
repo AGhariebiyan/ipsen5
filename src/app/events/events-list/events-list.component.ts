@@ -7,7 +7,6 @@ import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EventResponse } from '~/app/models/event-response.model';
 import { AccountService } from '~/app/services/account.service';
-import { flatMap, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-events-list',
@@ -16,19 +15,19 @@ import { flatMap, map, filter } from 'rxjs/operators';
 })
 export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
-  events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  displayedEvents$ = new BehaviorSubject<EventResponse[]>(null)
+  isPrivileged = this.accountsService.account.role.internalName == "admin" || this.accountsService.account.role.internalName == "board-member"
   events$: BehaviorSubject<EventResponse[]>
-  myEvents$ = new BehaviorSubject<EventResponse[]>(null)
+  myEvents$: BehaviorSubject<EventResponse[]>
   displayingallEvents: boolean = false;
-  months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
+  
+  months = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AUG", "SEP", "OKT", "NOV", "DEC"]
 
   constructor(
     private es: EventService, 
     private router: RouterExtensions, 
-    private activeRoute: ActivatedRoute, 
-    private accountsService: AccountService,
+    private activeRoute: ActivatedRoute,
+    private accountsService: AccountService
     ) 
     {
     const allEventsTab = new SegmentedBarItem()
@@ -45,17 +44,15 @@ export class EventsListComponent implements OnInit {
 
     this.myEvents$ = this.es.myEvents$
     this.es.getUserEvents()
-
-    this.displayedEvents$ = this.events$
-  }
-
-  getMyEvents(): Observable<EventResponse[]> {
-    return this.es.myEvents$
-    // return this.accountsService.account$.pipe(
-    //   flatMap(account => this.es.getEventsForUserId(account.id))
-    // )
   }
   
+  /**
+     * @author Waly Kerkeboom
+     *
+     * Changes the boolean value that determines
+     * whether the all events or just the user's
+     * events are being displayed on the page
+     */
   selectionChanged() {
     this.displayingallEvents = !this.displayingallEvents;
   }
@@ -99,17 +96,30 @@ export class EventsListComponent implements OnInit {
     });
   }
 
+   /**
+     * @author Waly Kerkeboom
+     *
+     * Takes a dateString and returns the day number (1-31)
+     * @param dateString
+     */
   getDateDay(dateString: string): number {
     const date = new Date(dateString);
     return date.getDate();
   }
 
+  /**
+     * @author Waly Kerkeboom
+     *
+     * Takes a dateString, converts it into a number (0-11) and uses subscripts to pull
+     * month name out of the months array
+     * @param dateString
+     */
   getDateMonth(dateString: string): string {
     const date = new Date(dateString);
     return this.months[date.getMonth()]
   }
 
-  newEventProto() {
+  addEventPressed() {
     this.router.navigate(['new'])
   }
 }

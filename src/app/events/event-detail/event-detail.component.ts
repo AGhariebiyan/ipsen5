@@ -10,6 +10,7 @@ import { DialogService } from "~/app/services/dialog.service";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { EventService } from "~/app/services/event.service";
 import { PermissionRole } from "~/app/models/PermissionRole.model";
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-event-detail',
@@ -87,7 +88,7 @@ export class EventDetailComponent implements OnInit {
           this.editEvent();
           break;
         case "Verwijderen":
-          this.deleteEvent();
+          this.confirmDeletion();
           break;
         default:
           break;
@@ -95,11 +96,26 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
+  confirmDeletion() {
+    this.dialogService.showConfirm("Evenement Verwijderen", "Weet u zeker dat u dit evenement wil verwijderen?")
+    .then(result => {
+      if (result) {
+        this.deleteEvent()
+      }
+    });
+  }
+
   deleteEvent() {
-    this.eventService.deleteEvent(this.event.id).subscribe(result => {
-      this.eventService.getEvents()
-      this.goBack()
-    })
+    // this.eventService.deleteEvent(this.event.id).subscribe((result) => {
+    //   this.eventService.getEvents().then(() => this.goBack())
+    // }, error => {
+    //   this.dialogService.showDialog("Er is iets fout gegaan", "Probeer het later opnieuw")
+    // })
+    // this.eventService.deleteEvent(this.event.id).subscribe(() => this.eventService.refreshAllEvents().then(() => this.goBack()),
+    // () => this.dialogService.showDialog("Er is iets fout gegaan", "Probeer het later opnieuw"))
+    this.eventService.deleteEvent(this.event.id).then(() => {
+      this.eventService.refreshAllEvents().then(() => this.goBack())
+    }, () => this.dialogService.showDialog("Er is een fout opgetreden", "Deze actie kon niet worden voltooid. Probeer later opnieuw."))
   }
 
   openRegister() {

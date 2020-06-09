@@ -22,12 +22,26 @@ export class EventService {
 
   constructor(private http: HttpService, private participantService: ParticipantService, private accountService: AccountService) {}
 
-  getEvents() {
-    this.http.getData<EventResponse[]>(this.endpoint).subscribe(result => this.events$.next(result));
+  refreshAllEvents(): Promise<[void, void]> {
+    return Promise.all([this.getEvents(), this.getUserEvents()])
   }
 
-  getUserEvents() {
-    this.getEventsForCurrentUserInternal().subscribe(val => this.myEvents$.next(val))
+  getEvents(): Promise<void> {
+    return new Promise<void>((accept, reject) => {
+      this.getEventsInternal().subscribe(val => {
+        this.events$.next(val)
+        accept()
+      }, () => reject())
+    })
+  }
+
+  getUserEvents(): Promise<void> {
+    return new Promise<void>((accept, reject) => {
+      this.getEventsForCurrentUserInternal().subscribe(val => {
+        this.myEvents$.next(val)
+        accept()
+      }, () => reject())
+    })
   }
 
   private getEventsInternal(): Observable<EventResponse[]> {
@@ -77,7 +91,9 @@ export class EventService {
   }
 
   deleteEvent(id: string) {
-    return this.http.deleteData(this.endpoint + "/" + id)
+    return new Promise<void>((accept, reject) => {
+      this.http.deleteData(this.endpoint + "/" + id).subscribe(() => accept(), () => reject())
+    })
   }
 
   updateEvent(event: Event): Promise<void> {

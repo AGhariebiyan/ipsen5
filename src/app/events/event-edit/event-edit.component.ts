@@ -12,6 +12,7 @@ import { Event } from "~/app/models/event.model";
 })
 export class EventEditComponent implements OnInit {
   _event: Event;
+  regions = ["Drenthe", "Flevoland", "Friesland", "Gelderland", "Groningen", "Limburg", "Noord Brabant", "Noord Holland", "Overijssel", "Utrecht", "Zeeland", "Zuid Holland"]
 
   constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
               private dialogService: DialogService, private eventService: EventService) { }
