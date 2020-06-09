@@ -6,11 +6,13 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Event } from "~/app/shared/models/event.model";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { map } from "rxjs/operators";
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
     providedIn: 'root'
 })
 export class NewsService {
+    apiLocation = environment.apiUrl;
 
     private endpoint = "/news";
     private endpointItem = "/news/";
