@@ -160,5 +160,6 @@ export class NewsEditComponent implements OnInit {
   deleteNewsPost() {
     this.newsService.deleteNewspost(this.newsId);
     this.routerExtensions.back();
+    this.routerExtensions.back();
   }
 }
