@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from "~/app/services/account.service";
+import { ImageService } from "~/app/services/image.service";
 
 @Component({
   selector: 'ns-edit-companies',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditCompaniesComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private accountService: AccountService,
+              private imageService: ImageService) { }
 
   ngOnInit(): void {
+
   }
 
 }
