@@ -29,7 +29,7 @@ export class EventService {
   }
 
   getEvents(): Observable<EventResponse[]> {
-    return this.http.getData<EventResponse[]>(this.endpoint);
+    return this.http.getData<EventResponse[]>(this.endpoint );
   }
 
   getEventsForUserId(id: string): Observable<EventResponse[]> {
