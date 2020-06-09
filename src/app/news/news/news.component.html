@@ -2,6 +2,7 @@
 </ActionBar>
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
+        <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
         <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectFeatured()"></SegmentedBar>
 
 <!--            <GridLayout class="newsBorder" rows="30, 30" columns="100,100" *ngFor="let newsitem of newsItems | async">-->
@@ -25,13 +26,14 @@
 <!--            <Label text="lees meer" col="1" row="3" fontSize="14" verticalAlignment="bottom" margin="3"></Label>-->
 <!--        </GridLayout>-->
 
+    <StackLayout>
         <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
             <Image dock="left" width="10%"  src="font://&#xF2b9;" horizontalAlignment="left"></Image>
             <Label class="newsAccount" [text]="newsitem.title"></Label>
             <Label class="newsText" [text]="newsitem.date | date : 'longDate'"></Label>
             <Label class="newsText newsTitle" [text]="newsitem.title"></Label>
             <TextView class="newsText" [text]="newsitem.content | shorten" editable="false"></TextView>
-            <Label class="newsText newsExtra" text="Lees meer >" verticalAlignment="bottom"></Label>
+            <Label class="newsText newsExtra" text="Lees meer >" [nsRouterLink]="['../news-detail/' + newsitem.id]" verticalAlignment="bottom"></Label>
         </StackLayout>
 
     </StackLayout>

@@ -85,6 +85,7 @@ export class NewsEditComponent implements OnInit {
       if (result === true && this.newsTitle !== "" && this.newsDescription !== "" && this.userType !== "") {
         this.onSubmit();
         this.routerExtensions.back();
+        this.routerExtensions.back();
       } else {
         dialogs.alert({
           title: "vul alle invoervelden in",
@@ -159,6 +160,7 @@ export class NewsEditComponent implements OnInit {
 
   deleteNewsPost() {
     this.newsService.deleteNewspost(this.newsId);
+    this.routerExtensions.back();
     this.routerExtensions.back();
   }
 }

@@ -4,11 +4,13 @@ import { Observable } from "rxjs";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
     providedIn: "root"
 })
 export class NewsService {
+    apiLocation = environment.apiUrl;
 
     private endpoint = "/news";
     private endpointItem = "/news/";

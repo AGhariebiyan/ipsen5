@@ -18,7 +18,7 @@ const routes: Routes = [
 
     {
         path: "",
-        redirectTo: "/news",
+        redirectTo: "/start",
         pathMatch: "full"
     },
     {

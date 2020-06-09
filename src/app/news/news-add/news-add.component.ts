@@ -60,6 +60,7 @@ export class NewsAddComponent implements OnInit {
     const body = JSON.stringify(newsItem);
 
     this.newsService.makePostRequest(body);
+    this.newsService.getItems();
   }
 
   // Dialoog voor de controle van de gebruiker voor het wijzigen.
