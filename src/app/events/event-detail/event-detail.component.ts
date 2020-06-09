@@ -7,6 +7,7 @@ import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/shared/models/participant";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
+import { EventService } from '~/app/services/event.service';
 
 @Component({
   selector: 'ns-event-detail',
@@ -27,8 +28,13 @@ export class EventDetailComponent implements OnInit {
   location: string;
   isRegistered: boolean;
 
-  constructor(private routerExtensions: RouterExtensions, private activeRoute: ActivatedRoute,
-              private service: ParticipantService, private accountService: AccountService) {
+  constructor(
+    private routerExtensions: RouterExtensions, 
+    private activeRoute: ActivatedRoute,
+    private service: ParticipantService,
+    private accountService: AccountService,
+    private eventsService: EventService
+    ) {
   }
 
   /**
@@ -59,10 +65,24 @@ export class EventDetailComponent implements OnInit {
     dialogs.action({
       title: "Opties",
       cancelButtonText: "Annuleer",
-      actions: ["Aanpassen", "Delen"]
+      actions: ["Aanpassen", "Delen", "Verwijderen"]
     }).then(result => {
-      console.log("Dialog result: " + result);
+      switch (result) {
+        case "Verwijderen":
+          this.deleteEvent(this.event.id)
+          break;
+        default:
+          console.log(result);
+          break;
+      } 
     });
+  }
+
+  deleteEvent(id: string) {
+    this.eventsService.deleteEvent(id).subscribe(result => {
+      this.eventsService.getEvents()
+      this.goBack()
+    })
   }
 
   openRegister() {

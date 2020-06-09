@@ -22,7 +22,6 @@ export class HttpService {
     return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
-
   postData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.post(this.apiLocation + endpoint, body, {headers: headers});
 
@@ -34,22 +33,5 @@ export class HttpService {
 
   deleteData(endpoint: string) {
     return this.http.delete(this.apiLocation + endpoint);
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof HttpErrorResponse) {
-      console.log('An error occurred: ', error.error.message);
-    } else {
-      console.log(`API returned code :${error.status}`);
-      console.log(`Body was: ${error.error}`);
-    }
-
-    dialogs.alert({
-      title: "Let op!",
-      message: "Er ging iets mis, probeer het later opnieuw of neem contact op met de systeembeheerder.",
-      okButtonText: "sluit"
-    });
-    return throwError('Something bad happened; please try again later');
-
   }
 }

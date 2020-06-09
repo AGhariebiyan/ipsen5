@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '~/app/shared/models/event.model';
-import { SegmentedBarItem } from 'tns-core-modules/ui'
+import { SegmentedBarItem, Page } from 'tns-core-modules/ui'
 import { EventService } from '~/app/services/event.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EventResponse } from '~/app/shared/models/event-response.model';
@@ -18,23 +18,33 @@ export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
   events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  events$: Observable<EventResponse[]>
-  myEvents$: Observable<EventResponse[]>
+  displayedEvents$ = new BehaviorSubject<EventResponse[]>(null)
+  events$: BehaviorSubject<EventResponse[]>
+  myEvents$ = new BehaviorSubject<EventResponse[]>(null)
   displayingallEvents: boolean = false;
   months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
 
-  constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
+  constructor(
+    private es: EventService, 
+    private router: RouterExtensions, 
+    private activeRoute: ActivatedRoute, 
+    private accountsService: AccountService,
+    ) 
+    {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
-    const myEvents = new SegmentedBarItem()
-    myEvents.title = "Voor Aangemeld"
+    const myEventsTab = new SegmentedBarItem()
+    myEventsTab.title = "Voor Aangemeld"
     this.segmentedBarItems.push(allEventsTab)
-    this.segmentedBarItems.push(myEvents)
+    this.segmentedBarItems.push(myEventsTab)
   }
 
   ngOnInit(): void {
-    this.events$ = this.es.getEvents();
-    this.myEvents$ = this.getMyEvents();
+    this.events$ = this.es.events$;
+    this.es.getEvents()
+
+    this.displayedEvents$ = this.events$
+    this.getMyEvents().subscribe(result => this.myEvents$.next(result))
   }
 
   getMyEvents(): Observable<EventResponse[]> {
@@ -42,17 +52,9 @@ export class EventsListComponent implements OnInit {
       flatMap(account => this.es.getEventsForUserId(account.id))
     )
   }
-
+  
   selectionChanged() {
-    let eventsBackup$ = this.es.getEvents();
-
     this.displayingallEvents = !this.displayingallEvents;
-
-    if (!this.displayingallEvents) {
-      this.events$ = this.myEvents$;
-    } else {
-      this.events$ = eventsBackup$;
-    }
   }
 
     /**
@@ -64,7 +66,7 @@ export class EventsListComponent implements OnInit {
      * @param selectedEvent
      */
   openDetails(selectedEvent: EventResponse) {
-      this.myEvents$.subscribe(events => {
+      this.events$.subscribe(events => {
         if(events.length == 0) {
           this.navigate(selectedEvent, false);
         } else {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { EventResponse } from '../shared/models/event-response.model';
-import { Observable, Subject, forkJoin } from 'rxjs';
+import { Observable, Subject, forkJoin, BehaviorSubject } from 'rxjs';
 import { ParticipantService } from './participant.service';
 import { flatMap, mergeMap, map } from 'rxjs/operators';
 
@@ -12,17 +12,24 @@ export class EventService {
 
   private endpoint = "/Events"
 
-  constructor(private http: HttpService, private participantService: ParticipantService) { }
+  events$ = new BehaviorSubject<EventResponse[]>(null)
 
-  getEvents(): Observable<EventResponse[]> {
-    return this.http.getData<EventResponse[]>(this.endpoint);
+  constructor(private http: HttpService, private participantService: ParticipantService) {
+    this.getEvents()
+  }
+
+  getEvents() {
+    this.http.getData<EventResponse[]>(this.endpoint).subscribe(result => this.events$.next(result));
+  }
+
+  private getEventsInternal(): Observable<EventResponse[]> {
+    return this.http.getData<EventResponse[]>(this.endpoint)
   }
 
   getEventsForUserId(id: string): Observable<EventResponse[]> {
     const participation$ = this.participantService.getAllParticipations();
-    const events$ = this.getEvents();
-
-    return forkJoin([participation$, events$]).pipe(
+    const allEvents$ = this.getEventsInternal()
+    return forkJoin([participation$, allEvents$]).pipe(
       map(result => {
 
         // All Events
@@ -47,6 +54,10 @@ export class EventService {
         return filteredEvents
       })
     )
+  }
+
+  deleteEvent(id: string) {
+    return this.http.deleteData(this.endpoint + "/" + id)
   }
 
 }
