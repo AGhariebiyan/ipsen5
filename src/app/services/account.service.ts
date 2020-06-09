@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpService} from "~/app/services/http.service";
-import {Observable} from "rxjs";
+import { Injectable } from "@angular/core";
+import { HttpService } from "~/app/services/http.service";
 import {genSaltSync, hashSync} from "bcryptjs"
 import has = Reflect.has;
 import {HttpHeaders} from "@angular/common/http";
-import { Account } from '../models/Account.model';
+import { Account } from "../models/Account.model";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
