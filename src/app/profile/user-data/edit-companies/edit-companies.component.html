@@ -2,8 +2,8 @@
 <!--<Label [text]="companyText" wrapText="true"></Label>-->
 
 <StackLayout>
-    <FlexBoxLayout justifyContent="space-between" alignItems="center" class="row" *ngFor="let worksAt of this.accountService.account.jobs">
-        <StackLayout orientation="horizontal">
+    <FlexBoxLayout [nsRouterLink]="[worksAt.id]" justifyContent="space-between" alignItems="center" class="row" *ngFor="let worksAt of this.accountService.account.jobs">
+        <StackLayout orientation="horizontal" >
             <Image [src]="imageService.getImageUrl(worksAt.company.image.id)" class="company-image"></Image>
             <StackLayout orientation="vertical" class="company-content">
                 <Label [text]="worksAt.company.name" class="company-name"></Label>

@@ -26,6 +26,7 @@ import { EditPasswordComponent } from "./profile/user-data/edit-password/edit-pa
 import { ReactiveFormsModule } from "@angular/forms";
 import { AuthInterceptorService } from "~/app/services/auth-interceptor.service";
 import { EditCompaniesComponent } from './profile/user-data/edit-companies/edit-companies.component';
+import { EditCompanyComponent } from './profile/user-data/edit-company/edit-company.component';
 
 @NgModule({
     providers: [
@@ -63,7 +64,8 @@ import { EditCompaniesComponent } from './profile/user-data/edit-companies/edit-
         EditBioComponent,
         EditEmailComponent,
         EditPasswordComponent,
-        EditCompaniesComponent
+        EditCompaniesComponent,
+        EditCompanyComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

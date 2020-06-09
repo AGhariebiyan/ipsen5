@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
             this.loggedIn = !!account;
             if (this.loggedIn) {
                 this.router.navigateByUrl("/loggedin/default").catch(() => {
-                    console.log("Could not navigate");
+                    console.log("Could  not nav igate");
                 });
             }
         });

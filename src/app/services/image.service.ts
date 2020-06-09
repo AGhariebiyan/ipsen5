@@ -5,15 +5,21 @@ import * as bghttp from "nativescript-background-http";
 import { environment } from "~/environments/environment.tns";
 import { Task } from "nativescript-background-http";
 import { JwtService } from "~/app/services/jwt.service";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subscriber } from "rxjs";
 import { isAndroid, isIOS } from "tns-core-modules/platform";
 import { AccountService } from "~/app/services/account.service";
+import { tap } from "rxjs/internal/operators";
 
 export enum UploadStatus {
     PROGRESS,
     ERROR,
     RESPONDED,
     COMPLETE
+}
+
+export interface UploadResponse {
+    state: UploadStatus;
+    data: any;
 }
 
 @Injectable({
@@ -26,9 +32,30 @@ export class ImageService {
                 private accountService: AccountService) {
     }
 
-    uploadProfilePicture(imageSrc: ImageAsset): Subject<UploadStatus> {
+    uploadProfilePicture(imageSrc: ImageAsset): Observable<UploadResponse> {
         const request = {
             url: environment.apiUrl + "/api/images/profile",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/octet-stream",
+                Authorization : "Bearer " + this.jwtService.getToken()
+            },
+            description: "User profile picture"
+        };
+
+        return this.uploadPicture(imageSrc, request, "picture").pipe(
+                tap((state: UploadResponse) => {
+                    if (state.state === UploadStatus.RESPONDED){
+                        this.accountService.account = state.data;
+                        this.accountService.account$.next(state.data);
+                    }
+                })
+            );
+    }
+
+    uploadCompanyProfilePicture(companyId: string, imageSrc: ImageAsset): Observable<UploadResponse> {
+        const request = {
+            url: environment.apiUrl + "/api/images/companies/" + companyId,
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
@@ -55,7 +82,11 @@ export class ImageService {
         });
     }
 
-    private uploadPicture(imageSrc: ImageAsset, request: any, fieldName): Subject<UploadStatus> {
+    getImageUrl(id: string) {
+        return environment.apiUrl + "/api/images/" + id;
+    }
+
+    private uploadPicture(imageSrc: ImageAsset, request: any, fieldName): Observable<UploadResponse> {
         const session = bghttp.session("image-upload");
 
         let params;
@@ -69,20 +100,18 @@ export class ImageService {
             ];
         }
 
-        const uploadStatus = new Subject<UploadStatus>();
+        const uploadStatus = new Observable<UploadResponse>((subscriber: Subscriber<UploadResponse>) => {
+            let task: Task;
+            task = session.multipartUpload(params, request);
+            task.on("progress", () => subscriber.next({state: UploadStatus.PROGRESS, data: null}));
+            task.on("error", () => subscriber.next({state: UploadStatus.ERROR, data: null}));
+            task.on("responded", (data) => {
+                subscriber.next({state: UploadStatus.RESPONDED, data});
+            });
+            task.on("complete", (data) => {
+                subscriber.next({state: UploadStatus.COMPLETE, data});
+            });
 
-        let task: Task;
-        task = session.multipartUpload(params, request);
-        task.on("progress", () => uploadStatus.next(UploadStatus.PROGRESS));
-        task.on("error", () => uploadStatus.next(UploadStatus.ERROR));
-        task.on("responded", (data) => {
-            const image = JSON.parse(data.data);
-            this.accountService.account.image = image;
-            this.accountService.account$.next(this.accountService.account);
-            uploadStatus.next(UploadStatus.RESPONDED);
-        });
-        task.on("complete", (data) => {
-            uploadStatus.next(UploadStatus.COMPLETE);
         });
 
         return uploadStatus;

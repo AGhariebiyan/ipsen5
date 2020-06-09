@@ -14,6 +14,7 @@ import { EditBioComponent } from "~/app/profile/user-data/edit-bio/edit-bio.comp
 import { EditPasswordComponent } from "~/app/profile/user-data/edit-password/edit-password.component";
 import { EditEmailComponent } from "~/app/profile/user-data/edit-email/edit-email.component";
 import { EditCompaniesComponent } from "~/app/profile/user-data/edit-companies/edit-companies.component";
+import { EditCompanyComponent } from "~/app/profile/user-data/edit-company/edit-company.component";
 
 const routes: Routes = [
 
@@ -44,7 +45,8 @@ const routes: Routes = [
             {path: "edit-bio", component: EditBioComponent},
             {path: "edit-password", component: EditPasswordComponent},
             {path: "edit-email", component: EditEmailComponent},
-            {path: "edit-companies", component: EditCompaniesComponent}
+            {path: "edit-companies", component: EditCompaniesComponent},
+            {path: "edit-companies/:id", component: EditCompanyComponent}
         ]
     },
     {

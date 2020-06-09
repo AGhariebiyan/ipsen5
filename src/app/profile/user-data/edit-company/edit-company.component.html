@@ -1,0 +1,7 @@
+<ScrollView height="100%" class="view">
+    <StackLayout class="group">
+        <image [src]="imageService.getImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
+        <Label [text]="worksAt.company.name"></Label>
+    </StackLayout>
+</ScrollView>
+
