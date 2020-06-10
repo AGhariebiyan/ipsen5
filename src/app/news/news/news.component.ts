@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from "~/app/services/http.service";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
-import { Observable } from "rxjs";
-import { Router } from "@angular/router";
+import { Observable, BehaviorSubject } from "rxjs";
+import { Resolve, Router} from "@angular/router";
 import { RouterExtensions } from '@nativescript/angular/router/router.module';
 import { SegmentedBarItem } from "tns-core-modules/ui";
 import { AccountService } from "~/app/services/account.service";
+import { resolve } from "@ngtools/webpack/src/refactor";
+import { Account } from "~/app/models/Account.model";
 
 @Component({
   selector: 'ns-news',
@@ -17,15 +19,17 @@ import { AccountService } from "~/app/services/account.service";
 export class NewsComponent implements OnInit {
   newsItems: Observable<NewsItem[]>;
   featuredNewsItems: Observable<NewsItem[]>;
+  account: Observable<Account>;
   segmentedBarItems: Array<SegmentedBarItem> = [];
   featured: boolean = false;
-  userName: string = "hallo";
+  userName: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   profilePicture: string;
 
 
   constructor(private newsService: NewsService,
-              private accountService: AccountService,
+              private accountService: AccountService, 
               private routerExtensions: RouterExtensions) {
+
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
 
@@ -35,10 +39,15 @@ export class NewsComponent implements OnInit {
     this.segmentedBarItems.push(featuredTab);
     this.segmentedBarItems.push(allNews);
   }
-
   ngOnInit(): void {
     this.newsItems = this.newsService.getItems();
     this.featuredNewsItems = this.getFeaturedNews();
+  }
+
+  printHallo() {
+    console.log("hallloo");
+
+    return "hallo";
   }
 
   getNews() {
@@ -51,11 +60,12 @@ export class NewsComponent implements OnInit {
 
   getUserData(id: string) {
     this.accountService.getUser(id).subscribe((user) => {
-      const userName = user.firstName + user.middleName + user.lastName;
-      console.log(userName);
+      console.log(user.firstName);
 
-      return userName;
+      this.userName.next(user.firstName);
+
     });
+
   }
 
   selectFeatured() {
