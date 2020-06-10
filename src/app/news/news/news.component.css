@@ -41,10 +41,8 @@ StackLayout {
 }
 
 .newsAccount {
-    margin-top: 5%;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
-    padding-left: 75px;
 }
 
 Label{
@@ -62,17 +60,5 @@ Image {
 TextView {
     background-color: transparent;
     border-color: transparent;
-}
-
-.picture{
-    width: 30%;
-    height: 10%;
-    background-color: blue;
-    float: left;
-}
-.titleText{
-    width: 50%;
-    height: 10%;
-
 }
 

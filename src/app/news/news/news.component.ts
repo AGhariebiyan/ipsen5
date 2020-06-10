@@ -5,6 +5,7 @@ import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { SegmentedBarItem } from "tns-core-modules/ui";
+import { AccountService } from "~/app/services/account.service";
 
 @Component({
   selector: 'ns-news',
@@ -17,8 +18,11 @@ export class NewsComponent implements OnInit {
   featuredNewsItems: Observable<NewsItem[]>;
   segmentedBarItems: Array<SegmentedBarItem> = [];
   featured: boolean = false;
+  userName: string = "hallo";
+  profilePicture: string;
 
-  constructor(private newsService: NewsService) {
+  constructor(private newsService: NewsService,
+              private accountService: AccountService) {
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
 
@@ -39,7 +43,16 @@ export class NewsComponent implements OnInit {
   }
 
   getFeaturedNews() {
-    return this.newsService.getFeaturedItems(false);
+    return this.newsService.getFeaturedItems(this.featured);
+  }
+
+  getUserData(id: string) {
+    this.accountService.getUser(id).subscribe((user) => {
+      const userName = user.firstName + user.middleName + user.lastName;
+      console.log(userName);
+
+      return userName;
+    });
   }
 
   selectFeatured() {
