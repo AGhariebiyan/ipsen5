@@ -86,7 +86,7 @@ export class AccountService {
   }
 
   getUser(id: string): Observable<Account> {
-    console.log("/api/accounts/" + id);
+    // console.log("/api/accounts/" + id);
 
     return this.httpService.getDataWithArgs("/accounts/", id);
   }
