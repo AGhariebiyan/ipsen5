@@ -27,8 +27,8 @@ export class RoleGuard implements CanActivate {
             return of(false);
         }
 
-        if (this.accountService.account !== null) {
-            const allowed = roles.filter((role) => role === this.accountService.account.role.internalName).length > 0
+        if (!!this.accountService.account) {
+            const allowed = roles.filter((role) => role === this.accountService.account.role.internalName).length > 0;
             if (!allowed) {
                 this.dialogService.showDialog(this.title, this.message);
             }
@@ -41,7 +41,6 @@ export class RoleGuard implements CanActivate {
             if (!allowed) {
                 this.dialogService.showDialog(this.title, this.message);
             }
-
             return allowed;
         }));
     }

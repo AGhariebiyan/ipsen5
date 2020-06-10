@@ -20,15 +20,15 @@ export class EventsListComponent implements OnInit {
   events$: BehaviorSubject<EventResponse[]>
   myEvents$: BehaviorSubject<EventResponse[]>
   displayingallEvents: boolean = false;
-  
+
   months = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AUG", "SEP", "OKT", "NOV", "DEC"]
 
   constructor(
-    private es: EventService, 
-    private router: RouterExtensions, 
+    private es: EventService,
+    private router: RouterExtensions,
     private activeRoute: ActivatedRoute,
     private accountsService: AccountService
-    ) 
+    )
     {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
@@ -45,7 +45,7 @@ export class EventsListComponent implements OnInit {
     this.myEvents$ = this.es.myEvents$
     this.es.getUserEvents()
   }
-  
+
   /**
      * @author Waly Kerkeboom
      *
@@ -89,7 +89,7 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras).then( () => {
+    this.router.navigate(['..','details'], navigateExtras).then( () => {
       if(!this.displayingallEvents) {
         this.events$ = this.myEvents$;
       }

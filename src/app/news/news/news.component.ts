@@ -3,7 +3,6 @@ import { HttpService } from "~/app/services/http.service";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable } from "rxjs";
-import { Router } from "@angular/router";
 import { RouterExtensions } from '@nativescript/angular/router/router.module';
 import { SegmentedBarItem } from "tns-core-modules/ui";
 
