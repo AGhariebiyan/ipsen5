@@ -3,7 +3,8 @@ import { HttpService } from "~/app/services/http.service";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable, BehaviorSubject } from "rxjs";
-import { Resolve, Router } from "@angular/router";
+import { Resolve, Router} from "@angular/router";
+import { RouterExtensions } from '@nativescript/angular/router/router.module';
 import { SegmentedBarItem } from "tns-core-modules/ui";
 import { AccountService } from "~/app/services/account.service";
 import { resolve } from "@ngtools/webpack/src/refactor";
@@ -24,8 +25,11 @@ export class NewsComponent implements OnInit {
   userName: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   profilePicture: string;
 
+
   constructor(private newsService: NewsService,
-              private accountService: AccountService) {
+              private accountService: AccountService, 
+              private routerExtensions: RouterExtensions) {
+
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
 
@@ -35,7 +39,6 @@ export class NewsComponent implements OnInit {
     this.segmentedBarItems.push(featuredTab);
     this.segmentedBarItems.push(allNews);
   }
-
   ngOnInit(): void {
     this.newsItems = this.newsService.getItems();
     this.featuredNewsItems = this.getFeaturedNews();
@@ -78,4 +81,8 @@ export class NewsComponent implements OnInit {
     }
   }
 
+
+  openProfile() {
+    this.routerExtensions.navigate(['profile']);
+  }
 }

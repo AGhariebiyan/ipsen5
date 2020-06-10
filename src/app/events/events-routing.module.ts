@@ -5,23 +5,7 @@ import { EventsComponent } from "./events/events.component";
 import { EventsListComponent } from "./events-list/events-list.component";
 import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
 import { EventEditComponent } from "~/app/events/event-edit/event-edit.component";
-
-// const routes: Routes = [
-//     {
-//         path: "",
-//         component:
-//         EventsComponent,
-//         children: [
-//             {
-//                 path: "",
-//                 component: EventsListComponent
-//             },
-//             {
-//                 path: "details",
-//                 component: EventDetailComponent
-//             }
-//     ]}
-// ];
+import { NewEventComponent } from "./new-event/new-event.component";
 
 const routes: Routes = [
     {
@@ -40,6 +24,10 @@ const routes: Routes = [
     {
         path: "edit",
         component: EventEditComponent
+    },
+    {
+        path: "new",
+        component: NewEventComponent
     }
 ];
 

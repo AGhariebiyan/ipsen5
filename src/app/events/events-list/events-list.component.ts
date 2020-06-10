@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '~/app/shared/models/event.model';
-import { SegmentedBarItem } from 'tns-core-modules/ui'
+import { Event } from '~/app/models/event.model';
+import { SegmentedBarItem, Page } from 'tns-core-modules/ui'
 import { EventService } from '~/app/services/event.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
-import { EventResponse } from '~/app/shared/models/event-response.model';
+import { EventResponse } from '~/app/models/event-response.model';
 import { AccountService } from '~/app/services/account.service';
-import { flatMap, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-events-list',
@@ -16,45 +15,46 @@ import { flatMap, map, filter } from 'rxjs/operators';
 })
 export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
-  events: Array<Event> = [];
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  events$: Observable<EventResponse[]>
-  myEvents$: Observable<EventResponse[]>
+  isPrivileged = this.accountsService.account.role.internalName == "admin" || this.accountsService.account.role.internalName == "board-member"
+  events$: BehaviorSubject<EventResponse[]>
+  myEvents$: BehaviorSubject<EventResponse[]>
   displayingallEvents: boolean = false;
-  months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"]
+  
+  months = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AUG", "SEP", "OKT", "NOV", "DEC"]
 
-  constructor(private es: EventService, private router: RouterExtensions, private activeRoute: ActivatedRoute, private accountsService: AccountService) {
+  constructor(
+    private es: EventService, 
+    private router: RouterExtensions, 
+    private activeRoute: ActivatedRoute,
+    private accountsService: AccountService
+    ) 
+    {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
-    const myEvents = new SegmentedBarItem()
-    myEvents.title = "Voor Aangemeld"
+    const myEventsTab = new SegmentedBarItem()
+    myEventsTab.title = "Voor Aangemeld"
     this.segmentedBarItems.push(allEventsTab)
-    this.segmentedBarItems.push(myEvents)
+    this.segmentedBarItems.push(myEventsTab)
   }
 
   ngOnInit(): void {
-    this.es.changedEvent.subscribe(() => this.ngOnInit());
-    this.events$ = this.es.getEvents();
-    this.myEvents$ = this.getMyEvents();
-  }
+    this.events$ = this.es.events$;
+    this.es.getEvents()
 
-  getMyEvents(): Observable<EventResponse[]> {
-    return this.es.getEventsForUserId(this.accountsService.account.id);
-    // return this.accountsService.account$.pipe(
-    //   flatMap(account => this.es.getEventsForUserId(account.id))
-    // )
+    this.myEvents$ = this.es.myEvents$
+    this.es.getUserEvents()
   }
-
+  
+  /**
+     * @author Waly Kerkeboom
+     *
+     * Changes the boolean value that determines
+     * whether the all events or just the user's
+     * events are being displayed on the page
+     */
   selectionChanged() {
-    let eventsBackup$ = this.es.getEvents();
-
     this.displayingallEvents = !this.displayingallEvents;
-
-    if (!this.displayingallEvents) {
-      this.events$ = this.myEvents$;
-    } else {
-      this.events$ = eventsBackup$;
-    }
   }
 
     /**
@@ -91,19 +91,35 @@ export class EventsListComponent implements OnInit {
     };
     this.router.navigate(['../details'], navigateExtras).then( () => {
       if(!this.displayingallEvents) {
-        this.myEvents$ = this.getMyEvents();
         this.events$ = this.myEvents$;
       }
     });
   }
 
+   /**
+     * @author Waly Kerkeboom
+     *
+     * Takes a dateString and returns the day number (1-31)
+     * @param dateString
+     */
   getDateDay(dateString: string): number {
     const date = new Date(dateString);
     return date.getDate();
   }
 
+  /**
+     * @author Waly Kerkeboom
+     *
+     * Takes a dateString, converts it into a number (0-11) and uses subscripts to pull
+     * month name out of the months array
+     * @param dateString
+     */
   getDateMonth(dateString: string): string {
     const date = new Date(dateString);
     return this.months[date.getMonth()]
+  }
+
+  addEventPressed() {
+    this.router.navigate(['new'])
   }
 }

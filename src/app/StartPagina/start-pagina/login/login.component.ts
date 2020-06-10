@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.isValidEmail(this.email)) {
       this.authService.login(this.email, this.password).subscribe((success) => {
-        this.routerExtensions.navigateByUrl("/loggedIn");
+        //this.routerExtensions.navigateByUrl("/loggedIn");
       });
     } else {
       const dialogs = require("tns-core-modules/ui/dialogs");
