@@ -4,6 +4,7 @@ import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { RouterExtensions } from '@nativescript/angular/router/router.module';
 import { SegmentedBarItem } from "tns-core-modules/ui";
 import { AccountService } from "~/app/services/account.service";
 
@@ -21,8 +22,10 @@ export class NewsComponent implements OnInit {
   userName: string = "hallo";
   profilePicture: string;
 
+
   constructor(private newsService: NewsService,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private routerExtensions: RouterExtensions) {
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
 
@@ -68,4 +71,8 @@ export class NewsComponent implements OnInit {
     }
   }
 
+
+  openProfile() {
+    this.routerExtensions.navigate(['profile']);
+  }
 }

@@ -1,0 +1,27 @@
+/* Add mobile styles for the component here.  */
+
+.row{
+    margin-left: 20em;
+    margin-right: 20em;
+    margin-top: 20em;
+    padding-left: 20em;
+    padding-right: 20em;
+    background-color: white;
+    border-radius: 6em;
+}
+
+.company-image {
+    width: 40;
+    height: 40;
+    border-radius: 20;
+}
+
+.company-name {
+    font-size: 20;
+    font-weight: bold;
+    color: black;
+}
+
+.company-content {
+    margin-left: 20em;
+}

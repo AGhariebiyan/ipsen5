@@ -154,7 +154,12 @@ export class NewsEditComponent implements OnInit {
     };
 
     confirm(options).then((result: boolean) => {
-      this.deleteNewsPost();
+      if (result === true){
+        this.deleteNewsPost();
+      } else {
+        console.log("niet verwijderd");
+      }
+
     });
   }
 
