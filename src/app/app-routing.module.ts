@@ -13,6 +13,7 @@ import { EditNameComponent } from "~/app/profile/user-data/edit-name/edit-name.c
 import { EditBioComponent } from "~/app/profile/user-data/edit-bio/edit-bio.component";
 import { EditPasswordComponent } from "~/app/profile/user-data/edit-password/edit-password.component";
 import { EditEmailComponent } from "~/app/profile/user-data/edit-email/edit-email.component";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 const routes: Routes = [
 
@@ -44,6 +45,11 @@ const routes: Routes = [
             {path: "edit-password", component: EditPasswordComponent},
             {path: "edit-email", component: EditEmailComponent}
         ]
+    },
+
+    {
+        path: "userprofile/:id",
+        component: UserProfileComponent,
     },
     {
         path: "loggedin",
