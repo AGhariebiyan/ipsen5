@@ -35,10 +35,8 @@ export class JwtService {
         }).pipe(
             catchError(this.handleAuthError)
         ).subscribe((account: {account: Account}) => {
-            // console.log("Account: ", account.account);
             this.accountService.setUser(account.account);
-        // new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)
-    });
+       });
 
     }
 
