@@ -87,6 +87,6 @@ export class NewsComponent implements OnInit {
     }
 
     openUserProfile() {
-        this.routerExtensions.navigate(['userprofile', "c81c4054-dd94-45b4-a144-614be078198f"])
+        this.routerExtensions.navigate(['userprofile', this.accountService.account.id])
     }
 }
