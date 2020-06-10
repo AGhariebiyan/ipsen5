@@ -82,7 +82,12 @@ export class NewsEditComponent implements OnInit {
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
-      if (result === true && this.newsTitle !== "" && this.newsDescription !== "" && this.userType !== "") {
+      if (result === true
+          && this.form.get("newsTitle").value !== ""
+          && this.form.get("newsTitle").value !== null
+          && this.form.get("newsDescription").value !== ""
+          && this.form.get("newsDescription").value !== null
+          && this.userType !== "") {
         this.onSubmit();
         this.routerExtensions.back();
         this.routerExtensions.back();
