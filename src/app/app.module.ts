@@ -25,6 +25,8 @@ import { EditEmailComponent } from "./profile/user-data/edit-email/edit-email.co
 import { EditPasswordComponent } from "./profile/user-data/edit-password/edit-password.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AuthInterceptorService } from "~/app/services/auth-interceptor.service";
+import { EditCompaniesComponent } from './profile/user-data/edit-companies/edit-companies.component';
+import { EditCompanyComponent } from './profile/user-data/edit-company/edit-company.component';
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @NgModule({
@@ -63,6 +65,8 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
         EditBioComponent,
         EditEmailComponent,
         EditPasswordComponent,
+        EditCompaniesComponent,
+        EditCompanyComponent,
         UserProfileComponent
     ],
     schemas: [

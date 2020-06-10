@@ -1,0 +1,17 @@
+/* Add mobile styles for the component here.  */
+.group {
+    margin: 20em;
+    border-radius: 6em;
+    background-color: white;
+    color: black;
+}
+
+.company-image{
+    width: 120em;
+    height: 120em;
+    border-radius: 60em;
+}
+
+.company-title {
+    font-size: 30em;
+}

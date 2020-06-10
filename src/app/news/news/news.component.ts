@@ -4,6 +4,7 @@ import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { RouterExtensions } from '@nativescript/angular/router/router.module';
 import { SegmentedBarItem } from "tns-core-modules/ui";
 
 @Component({
@@ -18,7 +19,7 @@ export class NewsComponent implements OnInit {
   segmentedBarItems: Array<SegmentedBarItem> = [];
   featured: boolean = false;
 
-  constructor(private newsService: NewsService) {
+  constructor(private newsService: NewsService, private routerExtensions: RouterExtensions) {
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
 
@@ -28,7 +29,6 @@ export class NewsComponent implements OnInit {
     this.segmentedBarItems.push(featuredTab);
     this.segmentedBarItems.push(allNews);
   }
-
   ngOnInit(): void {
     this.newsItems = this.newsService.getItems();
     this.featuredNewsItems = this.getFeaturedNews();
@@ -55,4 +55,8 @@ export class NewsComponent implements OnInit {
     }
   }
 
+
+  openProfile() {
+    this.routerExtensions.navigate(['profile']);
+  }
 }
