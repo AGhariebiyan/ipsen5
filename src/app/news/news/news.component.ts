@@ -4,6 +4,7 @@ import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { RouterExtensions } from '@nativescript/angular/router/router.module';
 
 @Component({
   selector: 'ns-news',
@@ -14,10 +15,15 @@ import { Router } from "@angular/router";
 export class NewsComponent implements OnInit {
   newsItems: Observable<NewsItem[]>;
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService,
+              private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
     this.newsItems = this.newsService.getItems();
   }
 
+
+  openProfile() {
+    this.routerExtensions.navigate(['profile']);
+  }
 }

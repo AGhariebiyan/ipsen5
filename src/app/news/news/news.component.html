@@ -1,4 +1,6 @@
-<ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
+<ActionBar title="Nieuws">
+    <ActionItem icon="font://&#xf007;" class="fas" ios.position="right" (tap)="openProfile()"></ActionItem>
+</ActionBar>
 <!--<StackLayout>-->
 <!--    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>-->
 <!--</StackLayout>-->
@@ -6,7 +8,6 @@
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
         <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
-        <Button text="Mijn Profiel" nsRouterLink="/profile" class="btn btn-primary"></Button>
         <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
             <Image src="font://&#xF2b9;" horizontalAlignment="left"></Image>
             <Label class="newsText newsTitle" [text]="newsitem.title"></Label>
