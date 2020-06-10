@@ -168,4 +168,9 @@ export class NewsEditComponent implements OnInit {
     this.routerExtensions.back();
     this.routerExtensions.back();
   }
+
+  goBack() {
+      console.log("Going back!");
+      this.routerExtensions.back();
+  }
 }
