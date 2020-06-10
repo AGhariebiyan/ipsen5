@@ -8,6 +8,7 @@ import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
 import { Image } from "~/app/models/image.model";
 import { environment } from "~/environments/environment.tns";
+import { RouterExtensions } from '@nativescript/angular/router/router.module';
 
 @Component({
   selector: 'ns-news-detail',
@@ -37,7 +38,8 @@ export class NewsDetailComponent implements OnInit {
       private newsService: NewsService,
       private accountService: AccountService,
       private page: Page,
-      private activatedRoute: ActivatedRoute) { }
+      private activatedRoute: ActivatedRoute,
+      private router: RouterExtensions) { }
 
   ngOnInit(): void {
     this.getNewsItem();
@@ -77,4 +79,7 @@ export class NewsDetailComponent implements OnInit {
     });
   }
 
+  back() {
+    this.router.back();
+  }
 }

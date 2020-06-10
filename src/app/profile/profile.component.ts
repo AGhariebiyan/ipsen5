@@ -4,6 +4,7 @@ import { Event } from "~/app/models/event.model";
 import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
 import { environment } from "~/environments/environment.tns";
+import { AuthenticationService } from "~/app/services/authentication.service";
 
 export interface ClickItem {
   icon: string;
@@ -23,7 +24,8 @@ export class ProfileComponent implements OnInit {
   placeholder = "https://randomuser.me/api/portraits/men/78.jpg";
 
   constructor(private routerExtensions: RouterExtensions,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private authService: AuthenticationService) {
 
   }
 
@@ -33,5 +35,9 @@ export class ProfileComponent implements OnInit {
 
   goBack() {
     this.routerExtensions.back();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

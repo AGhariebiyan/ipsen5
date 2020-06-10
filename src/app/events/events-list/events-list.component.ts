@@ -89,11 +89,7 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras).then( () => {
-      if(!this.displayingallEvents) {
-        this.events$ = this.myEvents$;
-      }
-    });
+    this.router.navigate(['../details'], navigateExtras);
   }
 
    /**
@@ -120,6 +116,6 @@ export class EventsListComponent implements OnInit {
   }
 
   addEventPressed() {
-    this.router.navigate(['new'])
+    this.router.navigate(['new']);
   }
 }

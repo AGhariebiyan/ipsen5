@@ -46,3 +46,10 @@
     width: 90%;
     padding: 5%;
 }
+
+.expired-label {
+    color: red;
+    font-size: 15em;
+    width: 92%;
+    padding: 4%;
+}

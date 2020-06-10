@@ -20,7 +20,7 @@ const routes: Routes = [
 
     {
         path: "",
-        redirectTo: "/start",
+        redirectTo: "loggedin/default",
         pathMatch: "full"
     },
     {
@@ -44,7 +44,9 @@ const routes: Routes = [
             {path: "edit-name", component: EditNameComponent},
             {path: "edit-bio", component: EditBioComponent},
             {path: "edit-password", component: EditPasswordComponent},
-            {path: "edit-email", component: EditEmailComponent}
+            {path: "edit-email", component: EditEmailComponent},
+            {path: "edit-companies", component: EditCompaniesComponent},
+            {path: "edit-companies/:id", component: EditCompanyComponent}
         ]
     },
 
@@ -66,13 +68,5 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule {
-    //
-    // constructor(private accountService: AccountService, private router: Router) {
-    //     accountService.user$.subscribe((user) => {
-    //         if (user == null) {
-    //             console.log("routing to start");
-    //             // this.router.navigateByUrl('/start');
-    //         } else { this.router.navigate(["loggedIn"]); }
-    //     });
-    // }
+
 }
