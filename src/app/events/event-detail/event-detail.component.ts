@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
-import { Event } from "~/app/shared/models/event.model";
+import { Event } from "~/app/models/event.model";
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { ParticipantService } from "~/app/services/participant.service";
-import { Participant } from "~/app/shared/models/participant";
-import { EventResponse } from "~/app/shared/models/event-response.model";
+import { Participant } from "~/app/models/participant";
+import { EventResponse } from "~/app/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
 import { DialogService } from "~/app/services/dialog.service";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { EventService } from "~/app/services/event.service";
 import { PermissionRole } from "~/app/models/PermissionRole.model";
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-event-detail',
@@ -76,16 +77,45 @@ export class EventDetailComponent implements OnInit {
     let actions = [];
     if(this.accountService.account.role.internalName == 'admin' ||
         this.accountService.account.role.internalName == 'board-member') {
-      actions = ["Aanpassen", "Delen"];
+      actions = ["Aanpassen", "Delen", "Verwijderen"];
     } else {
-      actions = ["Delen"];
+      actions = ["Delen", "Aanpassen", "Verwijderen"];
     }
-    this.dialogService.showActions("Opties", "", actions)
+    this.dialogService.showActions("Opties", null, actions)
     .then(result => {
-      if(result === "Aanpassen"){
-        this.editEvent();
+      switch (result) {
+        case "Aanpassen":
+          this.editEvent();
+          break;
+        case "Verwijderen":
+          this.confirmDeletion();
+          break;
+        default:
+          break;
       }
     });
+  }
+
+  confirmDeletion() {
+    this.dialogService.showConfirm("Evenement Verwijderen", "Weet u zeker dat u dit evenement wil verwijderen?")
+    .then(result => {
+      if (result) {
+        this.deleteEvent()
+      }
+    });
+  }
+
+  deleteEvent() {
+    // this.eventService.deleteEvent(this.event.id).subscribe((result) => {
+    //   this.eventService.getEvents().then(() => this.goBack())
+    // }, error => {
+    //   this.dialogService.showDialog("Er is iets fout gegaan", "Probeer het later opnieuw")
+    // })
+    // this.eventService.deleteEvent(this.event.id).subscribe(() => this.eventService.refreshAllEvents().then(() => this.goBack()),
+    // () => this.dialogService.showDialog("Er is iets fout gegaan", "Probeer het later opnieuw"))
+    this.eventService.deleteEvent(this.event.id).then(() => {
+      this.eventService.refreshAllEvents().then(() => this.goBack())
+    }, () => this.dialogService.showDialog("Er is een fout opgetreden", "Deze actie kon niet worden voltooid. Probeer later opnieuw."))
   }
 
   openRegister() {
@@ -104,6 +134,7 @@ export class EventDetailComponent implements OnInit {
       this.isRegistered = true;
       this.getRegistrations().then(() => this.updateButton());
       this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
+      this.eventService.getUserEvents()
     }).catch(() => {
       this.dialogService.showDialog("Let op!", "Er ging iets mis tijdens het inschrijven, " +
           "probeer het later opnieuw of neem contact op met de systeembeheerder.")
@@ -137,6 +168,7 @@ export class EventDetailComponent implements OnInit {
       this.isRegistered = false;
       this.getRegistrations().then(() => this.updateButton());
       this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
+      this.eventService.getUserEvents()
     }).catch(() => {
       this.dialogService.showDialog("Let op!", "Er ging iets mis, probeer het later opnieuw of " +
           "neem contact op met de systeembeheerder.");

@@ -12,6 +12,7 @@ import { CommonModule } from "@angular/common";
 import { NativeScriptFormsModule } from "nativescript-angular";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NewsDetailComponent } from './news-detail/news-detail.component';
+import { ShortenPipe } from "~/app/news/news-pipe/shorten.pipe";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
       NewsAddComponent,
       NewsEditComponent,
       ActionBarNewsComponent,
-      NewsDetailComponent
+      NewsDetailComponent,
+      ShortenPipe
   ],
   imports: [
         NativeScriptCommonModule,

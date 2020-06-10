@@ -2,15 +2,15 @@ import { Injectable } from "@angular/core";
 import { HttpService } from "~/app/services/http.service";
 import { Observable } from "rxjs";
 import { NewsItem } from "~/app/models/NewsItem.model";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Event } from "~/app/shared/models/event.model";
-import { EventResponse } from "~/app/shared/models/event-response.model";
+import { HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root"
 })
 export class NewsService {
+    apiLocation = environment.apiUrl;
 
     private endpoint = "/news";
     private endpointItem = "/news/";
@@ -20,6 +20,16 @@ export class NewsService {
     getItems(): Observable<NewsItem[]> {
         return this.http.getData(this.endpoint);
     }
+    
+    getFeaturedItems(featured: boolean): Observable<NewsItem[]> {
+        const allNews = this.getItems();
+
+        return allNews.pipe(map((result) => {
+            return result.filter((newsItem) => newsItem.featured === featured);
+
+        }));
+        
+    }
 
     getItem(id: string): Observable<NewsItem> {
         return this.http.getDataWithArgs(this.endpointItem, id);
@@ -27,16 +37,16 @@ export class NewsService {
 
     makePostRequest(body: any) {
 
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json'
+        const headers = new HttpHeaders({
+            "Content-Type": "application/json"
         });
 
         return this.http.postData(this.endpoint, body, headers).subscribe();
     }
 
     makePutRequest(id: string, body: any) {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json'
+        const headers = new HttpHeaders({
+            "Content-Type": "application/json"
         });
 
         return this.http.putData(this.endpointItem + id, body, headers).subscribe();

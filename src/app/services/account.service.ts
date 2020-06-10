@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import {genSaltSync, hashSync} from "bcryptjs"
+import has = Reflect.has;
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Account } from "../models/Account.model";
 import { environment } from "~/environments/environment.tns";
 import { catchError, map, tap } from "rxjs/internal/operators";

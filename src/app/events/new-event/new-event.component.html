@@ -1,11 +1,7 @@
-<ActionBar title="Evenement aanpassen">
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
-    <ActionItem (tap)="openSave()" ios.systemIcon="3" android.systemIcon="ic_menu_save" ios.position="right"></ActionItem>
+<ActionBar title="Evenement Plaatsen">
+    <ActionItem (tap)="confirm()" text="Aanmaken" ios.position="right"></ActionItem>
 </ActionBar>
-
-<RadDataForm [source]="event" name="form">
-    <TKEntityProperty tkDataFormProperty name="id" hidden="true" index="0">
-    </TKEntityProperty>
+<RadDataForm name="form" [source]="event" #newEventForm>
     <TKEntityProperty tkDataFormProperty name="eventName" displayName="Naam:" index="1" required="true">
     </TKEntityProperty>
     <TKEntityProperty tkDataFormProperty name="eventDescription" displayName="Omschrijving:" index="2"
@@ -23,7 +19,7 @@
     <TKEntityProperty tkDataFormProperty name="eventLocationRegion" displayName="Regio:" index="6" required="true" [valuesProvider]="regions">
         <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
     </TKEntityProperty>
-    <TKEntityProperty tkDataFormProperty name="eventLocationCountry" displayName="Land:" index="7" required="true">
+    <TKEntityProperty tkDataFormProperty name="eventLocationCountry" displayName="Land:" index="7" required="true" readOnly="true">
     </TKEntityProperty>
     <TKEntityProperty tkDataFormProperty name="eventDate" displayName="Datum:" index="8" required="true">
         <TKPropertyEditor tkEntityPropertyEditor type="DatePicker"></TKPropertyEditor>
