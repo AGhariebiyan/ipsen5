@@ -120,6 +120,6 @@ export class EventsListComponent implements OnInit {
   }
 
   addEventPressed() {
-    this.router.navigate(['new'])
+    this.router.navigate(['new']);
   }
 }

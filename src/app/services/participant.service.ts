@@ -62,6 +62,13 @@ export class ParticipantService {
         });
     }
 
+    /**
+     * @author Valerie Timmerman
+     * @param participants
+     * @param thisParticipant
+     *
+     * Searches for the correct participant in the list of participants.
+     */
     searchThisParticipant(participants: Participant[], thisParticipant: Participant): Participant {
         for (let participant of participants) {
             if (participant.accountId === thisParticipant.accountId && participant.eventId === thisParticipant.eventId) {
@@ -71,6 +78,12 @@ export class ParticipantService {
         return null;
     }
 
+    /**
+     * @author Valerie Timmerman
+     * @param participant the participant model of the user from the event he/she wants to unregister from.
+     *
+     *
+     */
     private handleRemove(participant: Participant): Promise<void> {
         return new Promise<void>((accept, reject) => {
             this.http.deleteData(this.endpoint + "/" + participant.id).subscribe(() => {
@@ -81,6 +94,14 @@ export class ParticipantService {
         });
     }
 
+    /**
+     * @author Valerie Timmerman
+     * @param eventId id of the event to get participants for
+     *
+     * Gets all the participants and then check if the event id is the same as the event id we want participants for,
+     * if this happens the participant is added to a list of participant for this event. It then returns this list in a
+     * promise when everything is done.
+     */
     getParticipantsForEvent(eventId): Promise<Participant[]> {
         return new Promise<Participant[]>((accept, reject) => {
             let participants = [];
