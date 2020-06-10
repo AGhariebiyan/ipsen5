@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page";
-import { Router } from "@angular/router";
 import { RegisterService } from "~/app/services/register/register.service";
+import { RouterExtensions } from "@nativescript/angular/router/router.module";
 
 @Component({
   selector: "ns-registreren",
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     repeatPassword: string = "";
     dialogs = require("tns-core-modules/ui/dialogs");
 
-    constructor(private page: Page, private registerService: RegisterService, private router: Router) {
+    constructor(private page: Page, private registerService: RegisterService, private router: RouterExtensions) {
       page.actionBarHidden = true;
     }
 

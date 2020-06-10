@@ -27,7 +27,7 @@ export class NewsComponent implements OnInit {
 
 
   constructor(private newsService: NewsService,
-              private accountService: AccountService, 
+              private accountService: AccountService,
               private routerExtensions: RouterExtensions) {
 
     const featuredTab = new SegmentedBarItem();

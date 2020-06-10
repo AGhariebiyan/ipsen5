@@ -20,7 +20,7 @@ const routes: Routes = [
 
     {
         path: "",
-        redirectTo: "/start",
+        redirectTo: "loggedin/default",
         pathMatch: "full"
     },
     {
@@ -63,14 +63,5 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule {
-    //
-    // constructor(private accountService: AccountService, private router: Router) {
-    //     accountService.user$.subscribe((user) => {
-    //         if (user == null) {
-    //             console.log("routing to start");
-    //             // this.router.navigateByUrl('/start');
-    //         } else { this.router.navigate(["loggedIn"]); }
-    //     });
-    // }
-}
 
+}

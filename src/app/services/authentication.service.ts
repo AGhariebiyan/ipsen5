@@ -37,6 +37,7 @@ export class AuthenticationService {
 
   logout() {
     this.accountService.resetUser();
+    this.jwtService.removeJWTToken();
   }
 
   logInUser(item: any) {
