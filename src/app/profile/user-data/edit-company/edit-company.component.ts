@@ -7,6 +7,7 @@ import { RouterExtensions } from "nativescript-angular";
 import { ImageAsset } from "@nativescript/core/image-asset/image-asset";
 import { DialogService } from "~/app/services/dialog.service";
 import { Image } from "~/app/models/image.model";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "ns-edit-company",
@@ -15,7 +16,9 @@ import { Image } from "~/app/models/image.model";
 })
 export class EditCompanyComponent implements OnInit {
 
+  form: FormGroup;
   worksAt: WorksAt;
+  editing: boolean;
 
   constructor(private route: ActivatedRoute,
               private companyService: CompanyService,
@@ -26,8 +29,20 @@ export class EditCompanyComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.worksAt = this.companyService.getWorksAt(params.id);
+      this.createForm();
+    });
+
+  }
+
+  createForm(){
+    this.form = new FormGroup({
+      companyName: new FormControl(this.worksAt.company.name, [
+        Validators.required
+      ]),
+      jobDescription: new FormControl(this.worksAt.role.title)
     });
   }
+
 
   editImage() {
     this.imageService.selectSingleImage().then((imageAsset: ImageAsset) => {
@@ -49,7 +64,19 @@ export class EditCompanyComponent implements OnInit {
     });
   }
 
+  toggleEdit() {
+    this.editing = !this.editing;
+  }
+
   goBack() {
     this.routerExtensions.back();
+  }
+
+  save() {
+    this.worksAt.role.title = this.form.value.jobDescription;
+    this.companyService.updateJobDescription(this.worksAt).subscribe(() => {
+      this.dialogService.showDialog("Succesvol bijgewerkt", "Succesvol bijgewerkt");
+      this.editing = false;
+    });
   }
 }

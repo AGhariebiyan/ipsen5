@@ -27,4 +27,9 @@ export class CompanyService {
             return jobs[0];
         }
     }
+
+    updateJobDescription(worksAt: WorksAt) {
+
+        return this.http.put(environment.apiUrl + "/api/accounts/" + this.accountService.account.id + "/jobs/" + worksAt.id, worksAt);
+    }
 }

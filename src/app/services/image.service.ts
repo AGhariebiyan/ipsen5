@@ -9,6 +9,7 @@ import { Observable, Subscriber } from "rxjs";
 import { isAndroid, isIOS } from "tns-core-modules/platform";
 import { AccountService } from "~/app/services/account.service";
 import { tap } from "rxjs/internal/operators";
+import { Account } from "~/app/models/Account.model";
 
 export enum UploadStatus {
     PROGRESS,
@@ -44,13 +45,13 @@ export class ImageService {
         };
 
         return this.uploadPicture(imageSrc, request, "picture").pipe(
-                tap((state: UploadResponse) => {
-                    if (state.state === UploadStatus.RESPONDED){
-                        this.accountService.account = state.data;
-                        this.accountService.account$.next(state.data);
-                    }
-                })
-            );
+            tap((data) => {
+                if (data.state === UploadStatus.RESPONDED) {
+                    this.accountService.account.image = JSON.parse(data.data.data);
+                    this.accountService.updateObservable(this.accountService.account);
+                }
+            })
+        );
     }
 
     uploadCompanyProfilePicture(companyId: string, imageSrc: ImageAsset): Observable<UploadResponse> {

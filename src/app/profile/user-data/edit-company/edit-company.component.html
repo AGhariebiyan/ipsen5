@@ -1,7 +1,18 @@
 <ScrollView height="100%" class="view">
     <StackLayout class="group">
         <image [src]="imageService.getImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
-        <Label [text]="worksAt.company.name"></Label>
+
+        <FlexBoxLayout *ngIf="!editing" flexDirection="column" alignItems="center">
+            <Label [text]="worksAt.company.name" class="company-title"></Label>
+            <Label [text]="worksAt.role.title" class="company-job-title"></Label>
+        </FlexBoxLayout>
+        <FlexBoxLayout [formGroup]="form" *ngIf="editing" flexDirection="column" alignItems="center">
+            <Button *ngIf="worksAt.role.canEdit" text="Bewerk bedrijfsfoto" type="button" (tap)="editImage()"></Button>
+            <TextField *ngIf="worksAt.role.canEdit" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
+            <TextField hint="Baan" editable="true" width="80%" formControlName="jobDescription"></TextField>
+        </FlexBoxLayout>
+        <Button *ngIf="editing" text="Opslaan" (tap)="save()" [disabled]="form.invalid"></Button>
+        <Button *ngIf="!editing" text="&#xf4ff; Bewerk Gegevens" class="fas icon" (tap)="toggleEdit()"></Button>
     </StackLayout>
 </ScrollView>
 
