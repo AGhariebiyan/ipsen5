@@ -1,3 +1,4 @@
+
 import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
@@ -13,8 +14,6 @@ import { EditNameComponent } from "~/app/profile/user-data/edit-name/edit-name.c
 import { EditBioComponent } from "~/app/profile/user-data/edit-bio/edit-bio.component";
 import { EditPasswordComponent } from "~/app/profile/user-data/edit-password/edit-password.component";
 import { EditEmailComponent } from "~/app/profile/user-data/edit-email/edit-email.component";
-import { EditCompaniesComponent } from "~/app/profile/user-data/edit-companies/edit-companies.component";
-import { EditCompanyComponent } from "~/app/profile/user-data/edit-company/edit-company.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 const routes: Routes = [
@@ -45,9 +44,7 @@ const routes: Routes = [
             {path: "edit-name", component: EditNameComponent},
             {path: "edit-bio", component: EditBioComponent},
             {path: "edit-password", component: EditPasswordComponent},
-            {path: "edit-email", component: EditEmailComponent},
-            {path: "edit-companies", component: EditCompaniesComponent},
-            {path: "edit-companies/:id", component: EditCompanyComponent}
+            {path: "edit-email", component: EditEmailComponent}
         ]
     },
 

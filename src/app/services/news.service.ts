@@ -31,6 +31,14 @@ export class NewsService {
         
     }
 
+    getItemsByUser(id: string): Observable<NewsItem[]> {
+        const allNews = this.getItems();
+        return allNews.pipe(map((result) => {
+            return result.filter((newsItem) => newsItem.accountId == id);
+
+        }));
+    }
+
     getItem(id: string): Observable<NewsItem> {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }

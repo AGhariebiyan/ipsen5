@@ -58,5 +58,9 @@ export class NewsComponent implements OnInit {
 
   openProfile() {
     this.routerExtensions.navigate(['profile']);
-  }
+    }
+
+    openUserProfile() {
+        this.routerExtensions.navigate(['userprofile', "c81c4054-dd94-45b4-a144-614be078198f"])
+    }
 }
