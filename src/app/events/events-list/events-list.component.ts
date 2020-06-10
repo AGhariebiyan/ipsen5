@@ -89,11 +89,7 @@ export class EventsListComponent implements OnInit {
         isRegistered: isRegistered
       }
     };
-    this.router.navigate(['../details'], navigateExtras).then( () => {
-      if(!this.displayingallEvents) {
-        this.events$ = this.myEvents$;
-      }
-    });
+    this.router.navigate(['../details'], navigateExtras);
   }
 
    /**
