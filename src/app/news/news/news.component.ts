@@ -27,9 +27,8 @@ export class NewsComponent implements OnInit {
 
 
   constructor(private newsService: NewsService,
-              private accountService: AccountService, 
-              private routerExtensions: RouterExtensions,
-              private activeRoute: ActivatedRoute) {
+              private accountService: AccountService,
+              private routerExtensions: RouterExtensions) {
 
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
@@ -85,5 +84,9 @@ export class NewsComponent implements OnInit {
 
   openProfile() {
     this.routerExtensions.navigate(['profile']);
-  }
+    }
+
+    openUserProfile() {
+        this.routerExtensions.navigate(['userprofile', this.accountService.account.id])
+    }
 }

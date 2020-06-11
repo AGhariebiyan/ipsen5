@@ -3,14 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\events",
-    "\\src\\app\\events\\events-list",
-    "\\src\\app\\services",
+    "\\src\\app\\kbase",
+    "\\src\\app\\kbase\\kbase",
+    "\\src\\app\\logged-in",
     "\\src\\app\\StartPagina",
     "\\src\\app\\StartPagina\\start-pagina",
     "\\src\\app\\StartPagina\\start-pagina\\login",
-    "\\src\\app\\StartPagina\\start-pagina\\register"
+    "\\src\\app\\user-profile"
   ],
-  "SelectedNode": "\\src\\app\\services\\register.service.ts",
+  "SelectedNode": "\\src\\app\\app-routing.module.ts",
   "PreviewInSolutionExplorer": false
 }

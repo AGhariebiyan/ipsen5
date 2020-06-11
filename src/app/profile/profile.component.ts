@@ -4,7 +4,7 @@ import { Event } from "~/app/models/event.model";
 import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
 import { environment } from "~/environments/environment.tns";
-import { ActivatedRoute } from "@angular/router";
+import { AuthenticationService } from "~/app/services/authentication.service";
 
 export interface ClickItem {
   icon: string;
@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private routerExtensions: RouterExtensions,
               private accountService: AccountService,
-              private activeRoute: ActivatedRoute) {
+              private authService: AuthenticationService) {
 
   }
 
@@ -35,5 +35,9 @@ export class ProfileComponent implements OnInit {
 
   goBack() {
     this.routerExtensions.navigate(['loggedin/default']);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

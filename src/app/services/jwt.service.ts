@@ -42,7 +42,7 @@ export class JwtService {
 
   removeJWTToken() {
         this.appSettings.remove("JWTToken");
-    }
+  }
 
   getDecodedAccessToken(token: string): any {
     try {

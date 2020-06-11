@@ -26,6 +26,10 @@ export class KbaseService {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
 
+    getItemsByUser(id:string): Observable<KBase[]> {
+        return this.http.getDataWithArgs(this.endpointItem + "user/", id);
+    }
+
     makePostRequest(body: any) {
 
         let headers = new HttpHeaders({
