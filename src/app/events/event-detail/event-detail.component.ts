@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterExtensions } from 'nativescript-angular';
-import { Event } from "~/app/models/event.model";
+import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { ParticipantService } from "~/app/services/participant.service";
 import { Participant } from "~/app/models/participant";
 import { EventResponse } from "~/app/models/event-response.model";
 import { AccountService } from '~/app/services/account.service';
 import { DialogService } from "~/app/services/dialog.service";
-import * as dialogs from "tns-core-modules/ui/dialogs";
 import { EventService } from "~/app/services/event.service";
-import { PermissionRole } from "~/app/models/PermissionRole.model";
-import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ns-event-detail',
@@ -47,7 +43,7 @@ export class EventDetailComponent implements OnInit {
 
     this.setEvent();
     this.checkExpiration();
-    this.getRegistrations().then(() => this.setButtons());
+    this.setButtons();
 
   }
 
@@ -148,13 +144,6 @@ export class EventDetailComponent implements OnInit {
   }
 
   deleteEvent() {
-    // this.eventService.deleteEvent(this.event.id).subscribe((result) => {
-    //   this.eventService.getEvents().then(() => this.goBack())
-    // }, error => {
-    //   this.dialogService.showDialog("Er is iets fout gegaan", "Probeer het later opnieuw")
-    // })
-    // this.eventService.deleteEvent(this.event.id).subscribe(() => this.eventService.refreshAllEvents().then(() => this.goBack()),
-    // () => this.dialogService.showDialog("Er is iets fout gegaan", "Probeer het later opnieuw"))
     this.eventService.deleteEvent(this.event.id).then(() => {
       this.eventService.refreshAllEvents().then(() => this.goBack())
     }, () => this.dialogService.showDialog("Er is een fout opgetreden", "Deze actie kon niet worden voltooid. Probeer later opnieuw."))
@@ -182,8 +171,7 @@ export class EventDetailComponent implements OnInit {
    * in the event-list component and then shows a popup to show the user if the registration was successful or not.
    */
   private registerForEvent() {
-    let participant = new Participant(this.event.id, this.accountService.account.id);
-    this.service.registerParticipant(participant).then(() => {
+    this.service.registerParticipant(this.event.id).then(() => {
       this.isRegistered = true;
       this.getRegistrations().then(() => this.updateButton());
       this.dialogService.showDialog("Inschrijven","U bent nu ingeschreven voor het evenement.");
@@ -232,8 +220,7 @@ export class EventDetailComponent implements OnInit {
    * Handles unregistering the user from the event and then resets everything related to this.
    */
   private unRegister() {
-    let participant = new Participant(this.event.id, this.accountService.account.id);
-    this.service.deleteParticipant(participant, this.registrations).then(() => {
+    this.service.deleteParticipant(this.event.id).then(() => {
       this.isRegistered = false;
       this.getRegistrations().then(() => this.updateButton());
       this.dialogService.showDialog("Uitschrijven", "U bent nu succesvol uitgeschreven.");
@@ -260,7 +247,7 @@ export class EventDetailComponent implements OnInit {
    * This sets the buttons in the list with information.
    */
   private setButtons() {
-    let button1 = new InformationButton("Aanmeldingen", this.registrations.length);
+    let button1 = new InformationButton("Aanmeldingen", this.event.participants.length);
     let button2 = new InformationButton("Gastenlijst", '>');
     let button3 = new InformationButton("Plaats", "ⓘ");
     this.options.push(button1, button2, button3);
