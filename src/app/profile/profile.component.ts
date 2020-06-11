@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { RouterExtensions } from "nativescript-angular";
+import { RouterExtensions } from "@nativescript/angular";
 import { Event } from "~/app/models/event.model";
 import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
 import { environment } from "~/environments/environment.tns";
+import { ActivatedRoute } from "@angular/router";
 
 export interface ClickItem {
   icon: string;
@@ -23,7 +24,8 @@ export class ProfileComponent implements OnInit {
   placeholder = "https://randomuser.me/api/portraits/men/78.jpg";
 
   constructor(private routerExtensions: RouterExtensions,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private activeRoute: ActivatedRoute) {
 
   }
 
@@ -32,6 +34,6 @@ export class ProfileComponent implements OnInit {
   }
 
   goBack() {
-    this.routerExtensions.back();
+    this.routerExtensions.navigate(['loggedin/default']);
   }
 }

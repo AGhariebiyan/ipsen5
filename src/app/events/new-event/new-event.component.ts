@@ -6,7 +6,7 @@ import { DialogService } from '~/app/services/dialog.service';
 import { EventService } from '~/app/services/event.service';
 import { ThrowStmt } from '@angular/compiler';
 import { goBack } from 'tns-core-modules/ui/frame/frame';
-import { RouterExtensions } from 'nativescript-angular';
+import { RouterExtensions } from '@nativescript/angular';
 
 @Component({
   selector: 'ns-new-event',

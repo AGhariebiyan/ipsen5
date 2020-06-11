@@ -3,7 +3,7 @@ import { HttpService } from "~/app/services/http.service";
 import { NewsService } from "~/app/services/news.service";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { Observable, BehaviorSubject } from "rxjs";
-import { Resolve, Router} from "@angular/router";
+import { ActivatedRoute, Resolve, Router } from "@angular/router";
 import { RouterExtensions } from '@nativescript/angular/router/router.module';
 import { SegmentedBarItem } from "tns-core-modules/ui";
 import { AccountService } from "~/app/services/account.service";
@@ -28,7 +28,8 @@ export class NewsComponent implements OnInit {
 
   constructor(private newsService: NewsService,
               private accountService: AccountService, 
-              private routerExtensions: RouterExtensions) {
+              private routerExtensions: RouterExtensions,
+              private activeRoute: ActivatedRoute) {
 
     const featuredTab = new SegmentedBarItem();
     const allNews = new SegmentedBarItem();
