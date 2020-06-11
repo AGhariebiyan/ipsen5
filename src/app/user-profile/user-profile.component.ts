@@ -4,7 +4,7 @@ import { Account } from "~/app/models/Account.model";
 import { environment } from "~/environments/environment.tns";
 import { UsersService } from "../services/users.service";
 import { HttpClient, HttpResponse, HttpErrorResponse } from "@angular/common/http";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { AccountService } from "../services/account.service";
 import { KBase } from "../models/KBase.model";
 import { NewsItem } from "../models/NewsItem.model";
@@ -24,58 +24,52 @@ export class UserProfileComponent implements OnInit {
     kbase: KBase;
     news: NewsItem;
 
-    private sub: any;
-
-
-  baseUrl = environment.apiUrl + "/";
+    baseUrl = environment.apiUrl + "/";
     placeholder = "https://randomuser.me/api/portraits/men/78.jpg";
 
-
-    
+    private sub: any;
 
     constructor(
         private newsService: NewsService,
         private kbaseService: KbaseService,
         private routerExtensions: RouterExtensions,
         private route: ActivatedRoute,
-        private accountService: AccountService,
+        private accountService: AccountService
     ) {
 
   }
 
-  ngOnInit(): void {
-      this.sub = this.route.params.subscribe(params => {
-          this.accountService.getUser(params["id"]).subscribe((account: Account) => {
+    ngOnInit(): void {
+      this.sub = this.route.params.subscribe((params) => {
+          this.accountService.getUser(params.id).subscribe((account: Account) => {
               this.userAccount = account;
               if (this.userAccount) {
                   this.setFirstKBase();
                   this.setFirstNews();
               }
           });
-      })
+      });
 
     }
 
     getJobName() {
-        if (this.userAccount.jobs.length == 0) {
+        if (this.userAccount.jobs.length === 0) {
             return "Geen bedrijf";
-        }
-        else {
+        } else {
             this.userAccount.jobs[0].company.name;
         }
     }
 
     getJobFunction() {
-        if (this.userAccount.jobs.length == 0) {
+        if (this.userAccount.jobs.length === 0) {
             return "Geen functies";
-        }
-        else {
+        } else {
             this.userAccount.jobs[0].role;
         }
     }
 
     getFirstName() {
-        return this.userAccount ? this.userAccount.firstName : "Person"
+        return this.userAccount ? this.userAccount.firstName : "Person";
     }
 
     setFirstKBase() {
@@ -83,14 +77,14 @@ export class UserProfileComponent implements OnInit {
             .pipe(catchError(this.handleError))
             .subscribe((items: KBase[]) => {
             this.kbase = items[0];
-        })
+        });
     }
 
     setFirstNews() {
         this.newsService.getItemsByUser(this.userAccount.id)
             .pipe(catchError(this.handleError))
             .subscribe((items: NewsItem[]) => {
-                this.news = items[0]
+                this.news = items[0];
             });
     }
 
@@ -98,11 +92,10 @@ export class UserProfileComponent implements OnInit {
         this.routerExtensions.back();
     }
 
-
     handleError(error: any, item: any): ObservableInput<any> {
         const dialogs = require("tns-core-modules/ui/dialogs");
 
-        if (error.status == "404") return;
+        if (error.status === "404") { return; }
         dialogs.alert({
             title: "Something went wrong",
             message: "We were unable to get data from the server",

@@ -1,6 +1,6 @@
-<ns-action-bar-news titleText="Nieuws"></ns-action-bar-news>
+<ns-action-bar-news titleText="Nieuws" (onSave)="displayConfirmDialogSave()"></ns-action-bar-news>
 <StackLayout [formGroup]="form">
-    <Button text="Toevoegen" class="btn btn-primary" (tap)="displayConfirmDialogSave()"></Button>
+<!--    <Button text="Toevoegen" class="btn btn-primary" (tap)="displayConfirmDialogSave()"></Button>-->
     <TextField
             formControlName="newsTitle"
             class="marginTopField"

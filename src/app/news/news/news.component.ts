@@ -21,7 +21,7 @@ export class NewsComponent implements OnInit {
   featuredNewsItems: Observable<NewsItem[]>;
   account: Observable<Account>;
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  featured: boolean = false;
+  featured: boolean = true;
   userName: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   profilePicture: string;
 
@@ -73,7 +73,7 @@ export class NewsComponent implements OnInit {
 
     this.featured = !this.featured;
 
-    if (!this.featured) {
+    if (this.featured) {
       this.newsItems = newsItems;
 
     } else {

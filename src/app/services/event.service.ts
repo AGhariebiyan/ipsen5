@@ -60,7 +60,7 @@ export class EventService {
 
   private getEventsForCurrentUserInternal(): Observable<EventResponse[]> {
     const participation$ = this.participantService.getAllParticipations();
-    const allEvents$ = this.getEventsInternal()
+    const allEvents$ = this.getEventsInternal();
     return forkJoin([participation$, allEvents$]).pipe(
       map(result => {
         // All Events
@@ -112,5 +112,5 @@ export class EventService {
     return this.http.postData(this.endpoint, eventJson, this.http.jsonHeader)
   }
 
-  
+
 }
