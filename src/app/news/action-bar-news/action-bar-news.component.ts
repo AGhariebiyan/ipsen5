@@ -42,7 +42,7 @@ export class ActionBarNewsComponent implements OnInit {
     });
   }
 
-  goBack(){
+  goBack() {
     this.router.back();
   }
 

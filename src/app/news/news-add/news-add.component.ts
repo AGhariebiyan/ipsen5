@@ -55,7 +55,7 @@ export class NewsAddComponent implements OnInit {
     const newsDescription = this.form.get('newsDescription').value;
 
     const newsItem = new NewsItem(newsTitle, newsDescription, new Date(), false,
-        true, this.userId, false);
+        true, this.userId, true);
 
     const body = JSON.stringify(newsItem);
 
