@@ -4,9 +4,7 @@ import { EventResponse } from '../models/event-response.model';
 import { Observable, Subject, forkJoin, BehaviorSubject } from 'rxjs';
 import { ParticipantService } from './participant.service';
 import { flatMap, mergeMap, map } from 'rxjs/operators';
-import { HttpHeaders } from "@angular/common/http";
 import { Event } from "~/app/models/event.model";
-import { stringify } from "@angular/compiler/src/util";
 import { AccountService } from './account.service';
 
 @Injectable({
@@ -98,8 +96,8 @@ export class EventService {
 
   updateEvent(event: Event): Promise<void> {
     return new Promise<void>((accept, reject) => {
-        this.http.putData(this.endpoint + "/" + event.id, event, this.http.jsonHeader).subscribe( () => {
-            let emitEvent = JSON.stringify(event);
+        this.http.putData(this.endpoint + "/" + event.id, event, this.http.jsonHeader).subscribe( result => {
+            let emitEvent = JSON.stringify(result);
             this.changedEvent.emit(JSON.parse(emitEvent));
             accept();
         }, () => {

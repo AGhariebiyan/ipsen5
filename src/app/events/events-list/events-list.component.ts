@@ -16,19 +16,19 @@ import { AccountService } from '~/app/services/account.service';
 export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  isPrivileged = this.accountsService.account.role.internalName === "admin" || this.accountsService.account.role.internalName === "board-member"
+  isPrivileged = this.accountsService.account.role.internalName == "admin" || this.accountsService.account.role.internalName == "board-member";
   events$: BehaviorSubject<EventResponse[]>
   myEvents$: BehaviorSubject<EventResponse[]>
   displayingallEvents: boolean = false;
-
+  
   months = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AUG", "SEP", "OKT", "NOV", "DEC"]
 
   constructor(
-    private es: EventService,
-    private router: RouterExtensions,
+    private es: EventService, 
+    private router: RouterExtensions, 
     private activeRoute: ActivatedRoute,
     private accountsService: AccountService
-    )
+    ) 
     {
     const allEventsTab = new SegmentedBarItem()
     allEventsTab.title = "Alle Evenementen"
@@ -45,7 +45,7 @@ export class EventsListComponent implements OnInit {
     this.myEvents$ = this.es.myEvents$
     this.es.getUserEvents()
   }
-
+  
   /**
      * @author Waly Kerkeboom
      *
@@ -116,6 +116,6 @@ export class EventsListComponent implements OnInit {
   }
 
   addEventPressed() {
-    this.router.navigate(['new']);
+    this.router.navigate(['../new'], {relativeTo: this.activeRoute});
   }
 }

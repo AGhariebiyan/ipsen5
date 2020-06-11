@@ -1,3 +1,5 @@
+import { Participant } from "~/app/models/participant";
+
 export interface EventResponse {
     id: string;
     eventName: string;
@@ -8,4 +10,5 @@ export interface EventResponse {
     eventLocationRegion: string;
     eventLocationCountry: string;
     eventDate: string;
+    participants: Participant[];
 }
