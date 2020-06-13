@@ -7,11 +7,13 @@ import { Event } from "~/app/shared/models/event.model";
 import { EventResponse } from "~/app/shared/models/event-response.model";
 import { map } from "rxjs/operators";
 import { KBase } from "~/app/models/KBase.model";
+import { environment } from "~/environments/environment.tns";
 
 @Injectable({
     providedIn: 'root'
 })
 export class KbaseService {
+    apiLocation = environment.apiUrl;
 
     private endpoint = "/articles";
     private endpointItem = "/articles/";
