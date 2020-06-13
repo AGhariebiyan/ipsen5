@@ -1,1 +1,4 @@
-<Button text="kbase-detail works!" class="btn btn-primary"></Button>
+<ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <ActionItem [nsRouterLink]="['../../kbase-edit/' + articleId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+</ActionBar>
