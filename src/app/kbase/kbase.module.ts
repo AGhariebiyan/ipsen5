@@ -8,11 +8,12 @@ import { NativeScriptFormsModule } from "nativescript-angular";
 import { ReactiveFormsModule } from "@angular/forms";
 import { KbaseEditComponent } from './kbase-edit/kbase-edit.component';
 import { CommonModule } from "@angular/common";
+import { KbaseDetailComponent } from './kbase-detail/kbase-detail.component';
 
 
 
 @NgModule({
-  declarations: [KbaseComponent, KbaseAddComponent, KbaseEditComponent],
+  declarations: [KbaseComponent, KbaseAddComponent, KbaseEditComponent, KbaseDetailComponent],
   imports: [
     NativeScriptCommonModule,
     NativeScriptFormsModule,
