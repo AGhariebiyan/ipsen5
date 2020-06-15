@@ -30,9 +30,6 @@ export class UserProfileComponent implements OnInit {
   baseUrl = environment.apiUrl + "/";
     placeholder = "https://randomuser.me/api/portraits/men/78.jpg";
 
-
-    
-
     constructor(
         private newsService: NewsService,
         private kbaseService: KbaseService,
@@ -95,7 +92,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     goBack() {
-        this.routerExtensions.back();
+        this.routerExtensions.navigate(['loggedin/default']);
     }
 
 

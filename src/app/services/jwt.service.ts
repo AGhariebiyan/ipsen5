@@ -32,9 +32,9 @@ export class JwtService {
         const token = this.appSettings.getString("JWTToken");
         this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
             headers: new HttpHeaders().append("auth", "false")
-        }).pipe(
-            catchError(this.handleAuthError)
-        ).subscribe((account: {account: Account}) => {
+        }).pipe(catchError((error) => {
+            return this.handleAuthError(error)
+        })).subscribe((account: { account: Account }) => {
             this.accountService.setUser(account.account);
        });
 
@@ -63,7 +63,6 @@ export class JwtService {
   private handleAuthError(error: HttpErrorResponse) {
         console.log(error);
         this.removeJWTToken();
-
         return throwError("jwt token not validated");
     }
 }

@@ -42,9 +42,6 @@ export class AuthenticationService {
 
   logInUser(item: any) {
     this.jwtService.setNewJWT(item.token);
-
-    // testing
-    // this.jwtService.setNewJWT(item);
   }
 
   // Todo Change to dialogservice
