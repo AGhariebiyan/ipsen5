@@ -16,7 +16,7 @@ import { AccountService } from '~/app/services/account.service';
 export class EventsListComponent implements OnInit {
   sectionTitle = "Evenementen"
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  isPrivileged = this.accountsService.account.role.internalName == "admin" || this.accountsService.account.role.internalName == "board-member"
+  isPrivileged = this.accountsService.account.role.internalName == "admin" || this.accountsService.account.role.internalName == "board-member";
   events$: BehaviorSubject<EventResponse[]>
   myEvents$: BehaviorSubject<EventResponse[]>
   displayingallEvents: boolean = false;
@@ -116,6 +116,6 @@ export class EventsListComponent implements OnInit {
   }
 
   addEventPressed() {
-    this.router.navigate(['new']);
+    this.router.navigate(['../new'], {relativeTo: this.activeRoute});
   }
 }

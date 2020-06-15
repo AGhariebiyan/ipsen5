@@ -3,6 +3,7 @@ import { HttpService } from "~/app/services/http.service";
 import { Participant } from "~/app/models/participant";
 import { Observable } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
+import { AccountService } from "~/app/services/account.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,18 +12,20 @@ export class ParticipantService {
 
     private endpoint = "/Participants";
 
-    constructor(private http: HttpService) {
+    constructor(private http: HttpService, private accountService: AccountService) {
     }
 
     /**
-     * @param participant
+     * @param eventId
      *
      * Registers the user and returns if it was successful or not in the shape of a promise.
      */
-    registerParticipant(participant: Participant): Promise<void> {
+    registerParticipant(eventId: string): Promise<void> {
         let httpHeaders = new HttpHeaders({
             'Content-Type': 'application/json'
         });
+
+        let participant = new Participant(eventId, this.accountService.account.id);
 
         return new Promise<void>((accept, reject) => {
             this.http.postData(this.endpoint, participant, httpHeaders)
@@ -39,58 +42,16 @@ export class ParticipantService {
     }
 
     /**
-     * @param thisParticipant
      *
      * Gets all the participants in the backend and then searches for the participants that has to be deleted
      * via searchThisParticipant. After that handleRemove will delete the participant and tell if
-     * @param participants
+     * @param eventId
      */
-    deleteParticipant(thisParticipant, participants): Promise<void> {
+    deleteParticipant(eventId: string): Promise<void> {
+        let participant = new Participant(eventId, this.accountService.account.id);
         return new Promise<void>((accept, reject) => {
-            this.getAllParticipations().subscribe(result => {
-                if (result.length == 0) {
-                    reject();
-                } else {
-                    thisParticipant = this.searchThisParticipant(result, thisParticipant);
-                    this.handleRemove(thisParticipant).then(() => {
-                        accept();
-                    }).catch(() => {
-                        reject();
-                    });
-                }
-            });
-        });
-    }
-
-    /**
-     * @author Valerie Timmerman
-     * @param participants
-     * @param thisParticipant
-     *
-     * Searches for the correct participant in the list of participants.
-     */
-    searchThisParticipant(participants: Participant[], thisParticipant: Participant): Participant {
-        for (let participant of participants) {
-            if (participant.accountId === thisParticipant.accountId && participant.eventId === thisParticipant.eventId) {
-                return participant;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @author Valerie Timmerman
-     * @param participant the participant model of the user from the event he/she wants to unregister from.
-     *
-     *
-     */
-    private handleRemove(participant: Participant): Promise<void> {
-        return new Promise<void>((accept, reject) => {
-            this.http.deleteData(this.endpoint + "/" + participant.id).subscribe(() => {
-                accept();
-            }, () => {
-                 reject();
-            });
+            this.http.deleteData(this.endpoint + "/deleteThisParticipant/" + participant.eventId + "/" +
+                participant.accountId).subscribe(() => accept(), () => reject());
         });
     }
 
@@ -104,18 +65,16 @@ export class ParticipantService {
      */
     getParticipantsForEvent(eventId): Promise<Participant[]> {
         return new Promise<Participant[]>((accept, reject) => {
-            let participants = [];
-            this.getAllParticipations().subscribe(result => {
-                for(let participant of result) {
-                    if(participant.eventId == eventId) {
-                        participants.push(participant);
-                    }
-                }
-                accept(participants);
-            }, () => {
-                reject(participants);
-            });
+            this.http.getData<Participant[]>(this.endpoint + "/getForEvent/" + eventId).subscribe(result => {
+                accept(result);
+            }, error => {
+                reject(error);
+            })
         });
+
+    }
+
+    isInThisEvent(event) {
 
     }
 
