@@ -47,6 +47,7 @@ export class KbaseDetailComponent implements OnInit {
     }
   }
 
+  // get article from kbase.
   getKbaseItem() {
     this.kbaseService.getItem(this.articleId).subscribe((kBaseItem) => {
       this.kBaseItemId = kBaseItem.id;
