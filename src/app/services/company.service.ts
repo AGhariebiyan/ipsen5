@@ -29,7 +29,10 @@ export class CompanyService {
     }
 
     updateJobDescription(worksAt: WorksAt) {
-
         return this.http.put(environment.apiUrl + "/api/accounts/" + this.accountService.account.id + "/jobs/" + worksAt.id, worksAt);
+    }
+
+    updateCompany(company: Company) {
+        return this.http.put<Company>(environment.apiUrl + "/api/companies/" + company.id, company);
     }
 }
