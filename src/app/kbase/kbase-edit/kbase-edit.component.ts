@@ -79,6 +79,7 @@ export class KbaseEditComponent implements OnInit {
           && this.form.get("articleDescription").value !== null) {
         this.onSubmit();
         this.routerExtensions.back();
+        this.routerExtensions.back();
 
       } else {
         dialogs.alert({
@@ -110,6 +111,30 @@ export class KbaseEditComponent implements OnInit {
     const body = JSON.stringify(requestBody);
 
     this.kbaseService.makePutRequest(this.articleId, body);
+  }
+
+  // Dialoog voor de controle van de gebruiker voor het verwijderen.
+  displayConfirmDialogDelete() {
+    const options = {
+      title: "Weet u zeker dat u dit artikel wilt verwijderen?",
+      okButtonText: "Verwijder",
+      cancelButtonText: "Annuleer"
+    };
+
+    confirm(options).then((result: boolean) => {
+      if (result === true) {
+        this.deleteNewsPost();
+      } else {
+        console.log("niet verwijderd");
+      }
+
+    });
+  }
+
+  deleteNewsPost() {
+    this.kbaseService.deleteArticle(this.articleId);
+    this.routerExtensions.back();
+    this.routerExtensions.back();
   }
 
 }
