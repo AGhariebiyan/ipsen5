@@ -7,8 +7,8 @@
             <Label [text]="worksAt.role.title" class="company-job-title"></Label>
         </FlexBoxLayout>
         <FlexBoxLayout [formGroup]="form" *ngIf="editing" flexDirection="column" alignItems="center">
-            <Button *ngIf="worksAt.role.canEdit" text="Bewerk bedrijfsfoto" type="button" (tap)="editImage()"></Button>
-            <TextField *ngIf="worksAt.role.canEdit" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
+            <Button *ngIf="worksAt.role.canEditCompany" text="Bewerk bedrijfsfoto" type="button" (tap)="editImage()"></Button>
+            <TextField *ngIf="worksAt.role.canEditCompany" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
             <TextField hint="Baan" editable="true" width="80%" formControlName="jobDescription"></TextField>
         </FlexBoxLayout>
         <Button *ngIf="editing" text="Opslaan" (tap)="save()" [disabled]="form.invalid"></Button>
