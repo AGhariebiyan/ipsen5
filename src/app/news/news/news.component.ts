@@ -80,13 +80,4 @@ export class NewsComponent implements OnInit {
       this.newsItems = this.featuredNewsItems;
     }
   }
-
-
-  openProfile() {
-    this.routerExtensions.navigate(['profile']);
-    }
-
-    openUserProfile() {
-        this.routerExtensions.navigate(['userprofile', this.accountService.account.id])
-    }
 }

@@ -89,7 +89,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     goBack() {
-        this.routerExtensions.back();
+        this.routerExtensions.navigate(['loggedin/default']);
     }
 
     handleError(error: any, item: any): ObservableInput<any> {
