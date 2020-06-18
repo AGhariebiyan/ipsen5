@@ -1,6 +1,24 @@
-<ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
-<StackLayout>
-    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
+<ActionBar title="Nieuws">
+    <ActionItem icon="font://&#xf007;" class="fas" ios.position="right" [nsRouterLink]="['/profile']" pageTransition="slideBottom"></ActionItem>
+    <ActionItem icon="font://&#xf500;" class="fas" ios.position="right" [nsRouterLink]="['/userprofile/'+ this.accountService.account.id]" pageTransition="slideBottom"></ActionItem>
+</ActionBar>
+<!--<StackLayout>-->
+<!--    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>-->
+<!--</StackLayout>-->
 
-    <Button *ngFor="let newsitem of (newsItems | async)" [text]="newsitem.title" [nsRouterLink]="['../news-edit/' + newsitem.id]"></Button>
-</StackLayout>
+<ScrollView scrollBarIndicatorVisible="false">
+    <StackLayout>
+        <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
+        <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectFeatured()"></SegmentedBar>
+        <StackLayout>
+            <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
+                <Label class="newsText newsTitle" [text]="newsitem.title" textWrap="true"></Label>
+                <Label class="newsText" [text]="newsitem.date | date : 'longDate'"fontSize="10"></Label>
+                <TextView class="newsText" [text]="newsitem.content | shorten" editable="false"></TextView>
+                <Label class="newsText newsExtra" text="Lees meer >" [nsRouterLink]="['../news-detail/' + newsitem.id]" verticalAlignment="bottom"></Label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
+
+

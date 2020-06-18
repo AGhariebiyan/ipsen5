@@ -6,18 +6,24 @@ import { SharedModule } from "../shared/shared.module";
 import { EventsListComponent } from "./events-list/events-list.component";
 import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
 import { CommonModule } from "@angular/common";
+import { EventEditComponent } from './event-edit/event-edit.component';
+import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
+import { NewEventComponent } from './new-event/new-event.component';
 
 @NgModule({
     declarations: [
         EventsComponent,
         EventsListComponent,
-        EventDetailComponent
+        EventDetailComponent,
+        EventEditComponent,
+        NewEventComponent
     ],
     imports: [
         NativeScriptCommonModule,
         EventsRoutingModule,
         SharedModule,
-        CommonModule
+        CommonModule,
+        NativeScriptUIDataFormModule
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

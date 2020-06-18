@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import * as jwt_decode from "jwt-decode";
 import { AccountService } from "~/app/services/account.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
 import { environment } from "~/environments/environment.tns";
-import { Account } from '../models/Account.model';
+import { Account } from "../models/Account.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class JwtService {
 
@@ -29,38 +29,40 @@ export class JwtService {
   }
 
   updateUserFromJWT() {
-        const token = this.appSettings.getString("JWTToken")
+        const token = this.appSettings.getString("JWTToken");
         this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
             headers: new HttpHeaders().append("auth", "false")
-        }).pipe(
-        catchError(this.handleAuthError)
-        ).subscribe((account: any) => {
-            console.log(account.account)
+        }).pipe(catchError((error) => {
+            return this.handleAuthError(error)
+        })).subscribe((account: { account: Account }) => {
             this.accountService.setUser(account.account);
-        //new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)
-    });
+       });
 
     }
 
-    private handleAuthError(error: HttpErrorResponse) {
-        console.log(error)
-        return throwError("jwt token not validated");
-    }
-
-    removeJWTToken() {
+  removeJWTToken() {
         this.appSettings.remove("JWTToken");
-    }
+  }
 
   getDecodedAccessToken(token: string): any {
-    try{
+    try {
       return jwt_decode(token);
-    }
-    catch(Error){
+    } catch (Error) {
       return null;
     }
   }
 
-  setAutoLogout(){
+  setAutoLogout() {
     // code to make user automatically logout when jwt is expired
   }
+
+  getToken(): string {
+      return this.appSettings.getString("JWTToken");
+  }
+
+  private handleAuthError(error: HttpErrorResponse) {
+        console.log(error);
+        this.removeJWTToken();
+        return throwError("jwt token not validated");
+    }
 }

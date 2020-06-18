@@ -1,2 +1,7 @@
-<lg-main-action-bar [titleText]="sectionTitle"></lg-main-action-bar>
-<Button text="kbase works!" class="btn btn-primary"></Button>
+<ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
+<StackLayout>
+    <Button text="artikel toevoegen" nsRouterLink="../kbase-add" class="btn btn-primary"></Button>
+    <Button *ngFor="let article of (articles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]"></Button>
+</StackLayout>
+
+<!--[nsRouterLink]="['../news-detail/' + newsitem.id]"-->

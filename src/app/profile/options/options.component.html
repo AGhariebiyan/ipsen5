@@ -1,0 +1,52 @@
+
+<ScrollView height="100%" class="view">
+    <StackLayout>
+
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['edit-name']">
+                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
+                <Label text="Wijzig naam" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['edit-bio']">
+                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
+                <Label text="Wijzig bio" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row" (tap)="selectImage()">
+                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
+                <Label text="Verander profielfoto" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['edit-companies']">
+                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
+                <Label text="Mijn Bedrijven" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+        <StackLayout class="group">
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['edit-email']">
+                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
+                <Label text="Wijzig email-addres" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row"  [nsRouterLink]="['edit-password']">
+                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
+                <Label text="Wijzig wachtwoord" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
+
