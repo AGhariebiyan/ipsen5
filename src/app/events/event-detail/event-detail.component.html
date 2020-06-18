@@ -27,8 +27,9 @@
         </ng-template>
     </ListView>
 
-    <Button *ngIf="!isRegistered" text="Inschrijven" (tap)="openRegister()"></Button>
-    <Button *ngIf="isRegistered" text="Uitschrijven" (tap)="openUnRegister()"></Button><Button [visibility]="isRegistered == 'true' ? 'visible': 'hidden' " text="Uitschrijven" (tap)="openUnRegister()"></Button>
+    <Label *ngIf="isExpired" text="Dit evenement is al verlopen!" class="expired-label"></Label>
+    <Button *ngIf="!isRegistered && !isExpired" text="Inschrijven" (tap)="openRegister()"></Button>
+    <Button *ngIf="isRegistered && !isExpired" text="Uitschrijven" (tap)="openUnRegister()"></Button>
 
 </StackLayout>
 

@@ -8,6 +8,7 @@ import { environment } from "~/environments/environment.tns";
 import { catchError, map, tap } from "rxjs/internal/operators";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpService } from "~/app/services/http.service";
+import { RouterExtensions } from "@nativescript/angular/router/router.module";
 
 @Injectable({
   providedIn: "root"
@@ -26,7 +27,7 @@ export class AccountService {
   // });
 
 
-  constructor(private http: HttpClient, private httpService: HttpService) {
+  constructor(private http: HttpClient, private httpService: HttpService, private router: RouterExtensions) {
   }
 
   updateObservable(account: Account) {
@@ -80,12 +81,12 @@ export class AccountService {
   }
 
   resetUser() {
-    this.account = null;
-    this.updateObservable(null);
+    this.setUser(null);
+    this.router.navigate(["start"], {clearHistory: true})
   }
 
   getUser(id: string): Observable<Account> {
-    console.log("/api/accounts/" + id);
+    // console.log("/api/accounts/" + id);
 
     return this.httpService.getDataWithArgs("/accounts/", id);
   }

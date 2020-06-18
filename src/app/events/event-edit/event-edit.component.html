@@ -20,7 +20,8 @@
     </TKEntityProperty>
     <TKEntityProperty tkDataFormProperty name="eventLocationPostalCode" displayName="Postcode:" index="5" required="true">
     </TKEntityProperty>
-    <TKEntityProperty tkDataFormProperty name="eventLocationRegion" displayName="Regio:" index="6" required="true">
+    <TKEntityProperty tkDataFormProperty name="eventLocationRegion" displayName="Regio:" index="6" required="true" [valuesProvider]="regions">
+        <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
     </TKEntityProperty>
     <TKEntityProperty tkDataFormProperty name="eventLocationCountry" displayName="Land:" index="7" required="true">
     </TKEntityProperty>

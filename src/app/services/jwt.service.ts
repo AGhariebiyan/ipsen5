@@ -32,19 +32,17 @@ export class JwtService {
         const token = this.appSettings.getString("JWTToken");
         this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
             headers: new HttpHeaders().append("auth", "false")
-        }).pipe(
-            catchError(this.handleAuthError)
-        ).subscribe((account: {account: Account}) => {
-            // console.log("Account: ", account.account);
+        }).pipe(catchError((error) => {
+            return this.handleAuthError(error)
+        })).subscribe((account: { account: Account }) => {
             this.accountService.setUser(account.account);
-        // new Account(decodedToken.nameid, decodedToken.email, decodedToken.role, decodedToken.firstName, decodedToken.middleName, decodedToken.lastName)
-    });
+       });
 
     }
 
   removeJWTToken() {
         this.appSettings.remove("JWTToken");
-    }
+  }
 
   getDecodedAccessToken(token: string): any {
     try {
@@ -65,7 +63,6 @@ export class JwtService {
   private handleAuthError(error: HttpErrorResponse) {
         console.log(error);
         this.removeJWTToken();
-
         return throwError("jwt token not validated");
     }
 }
