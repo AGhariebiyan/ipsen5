@@ -18,7 +18,7 @@
             <Label [text]="'Bewerk Rol:'"></Label>
             <TextField hint="Baan" editable="true" width="80%" formControlName="jobDescription"></TextField>
             <FlexBoxLayout flexDirecton="row">
-                <Button *ngIf="editingRole" text="Opslaan" (tap)="saveRole()" [disabled]="roleForm.invalid || worksAt.role.title === roleForm.value.jobDescription"></Button>
+                <Button *ngIf="editingRole" text="Opslaan" (tap)="saveRole()" [isEnabled]="roleForm.valid || worksAt.role.title !== roleForm.value.jobDescription"></Button>
                 <Button *ngIf="editingRole" text="Cancel" (tap)="toggleEditRole()"></Button>
             </FlexBoxLayout>
 
@@ -29,7 +29,7 @@
             <Label [text]="'Bewerk Bedrijfsnaam:'"></Label>
             <TextField *ngIf="worksAt.role.canEditCompany" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
             <FlexBoxLayout flexDirecton="row">
-                <Button *ngIf="editingCompany" text="Opslaan" (tap)="saveCompany()" [disabled]="companyForm.invalid || worksAt.company.name === companyForm.value.companyName"></Button>
+                <Button *ngIf="editingCompany" text="Opslaan" (tap)="saveCompany()" [isEnabled]="companyForm.valid && worksAt.company.name !== companyForm.value.companyName"></Button>
                 <Button *ngIf="editingCompany" text="Cancel" (tap)="toggleEditCompany()"></Button>
             </FlexBoxLayout>
         </FlexBoxLayout>
