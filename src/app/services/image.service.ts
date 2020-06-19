@@ -83,8 +83,20 @@ export class ImageService {
         });
     }
 
-    getImageUrl(id: string) {
-        return environment.apiUrl + "/api/images/" + id;
+    getCompanyImageUrl(id: string) {
+        if (id !== null) {
+            return environment.apiUrl + "/api/images/" + id;
+        } else {
+            return "~/assets/default-company-image.png";
+        }
+    }
+
+    getUserImageUrl(id: string) {
+        if (id !== null) {
+            return environment.apiUrl + "/api/images/" + id;
+        } else {
+            return "~/assets/default-user-image.png";
+        }
     }
 
     private uploadPicture(imageSrc: ImageAsset, request: any, fieldName): Observable<UploadResponse> {

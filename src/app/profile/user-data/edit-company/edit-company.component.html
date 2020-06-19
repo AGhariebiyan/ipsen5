@@ -1,6 +1,6 @@
 <ScrollView height="100%" class="view">
     <StackLayout class="group">
-        <image [src]="imageService.getImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
+        <image [src]="imageService.getCompanyImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
 
         <!-- Bewerk bedrijffoto knop -->
         <FlexBoxLayout flexDirection="column" alignItems="center">
