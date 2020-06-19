@@ -59,5 +59,9 @@ export class CompanyService {
 
     }
 
+    createCompany(company: Company) {
+        return this.http.postData(this.endpoint, company, this.http.jsonHeader);
+    }
+
 
 }

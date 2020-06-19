@@ -13,7 +13,6 @@ import { Company } from "~/app/models/Company.model";
 export class EditCompaniesComponent implements OnInit {
   private companies: Company[];
 
-
   constructor(private accountService: AccountService,
               private imageService: ImageService,
               private dialogService: DialogService,
