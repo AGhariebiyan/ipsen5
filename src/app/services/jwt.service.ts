@@ -6,6 +6,7 @@ import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { environment } from "~/environments/environment.tns";
 import { Account } from "../models/Account.model";
+import { AuthenticationService } from "~/app/services/authentication.service";
 
 @Injectable({
   providedIn: "root"
@@ -14,7 +15,7 @@ export class JwtService {
 
   appSettings = require("tns-core-modules/application-settings");
 
-  constructor(private accountService: AccountService, private http: HttpClient) {
+  constructor(private accountService: AccountService, private http: HttpClient, private authService: AuthenticationService) {
     }
 
   checkForJWT() {
@@ -62,7 +63,8 @@ export class JwtService {
 
   private handleAuthError(error: HttpErrorResponse) {
         console.log(error);
-        this.removeJWTToken();
+        this.authService.logout();
+
         return throwError("jwt token not validated");
     }
 }

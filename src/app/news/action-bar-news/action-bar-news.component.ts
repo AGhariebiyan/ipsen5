@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { isIOS } from "tns-core-modules/platform";
 import { ActionBar } from "tns-core-modules/ui/action-bar";
 import { Page } from 'tns-core-modules/ui/page';
@@ -12,6 +12,8 @@ import { RouterExtensions } from '@nativescript/angular/router/router.module';
 })
 export class ActionBarNewsComponent implements OnInit {
   // titleText="wijzig bericht"
+
+  @Output("onSave") onSave = new EventEmitter();
 
   constructor(private page: Page,
               private router: RouterExtensions) { }
@@ -35,11 +37,12 @@ export class ActionBarNewsComponent implements OnInit {
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
+      this.onSave.emit();
       console.log(result);
     });
   }
 
-  goBack(){
+  goBack() {
     this.router.back();
   }
 

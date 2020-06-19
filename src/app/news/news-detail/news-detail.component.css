@@ -10,7 +10,7 @@ StackLayout {
 .newspostAuthor{
     color: #364498;
     font-weight: bold;
-    font-size: 50pt;
+    font-size: 30pt;
 }
 
 .newspostDate{
