@@ -6,7 +6,7 @@
         <!--     User object-->
         <StackLayout class="group">
             <FlexBoxLayout  justifyContent="space-between" class="row" alignItems="center" [nsRouterLink]="['../mydata']" >
-                <Image [src]="account.image?.url ? baseUrl + account.image.url : placeholder" class="user-image"></Image>
+                <Image [src]="imageService.getUserImageUrl(account.image?.id)" class="user-image"></Image>
                 <StackLayout>
                     <Label [text]="
                     this.account.firstName + ' ' +

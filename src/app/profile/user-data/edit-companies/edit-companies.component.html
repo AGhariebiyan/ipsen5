@@ -4,12 +4,15 @@
 <StackLayout>
     <FlexBoxLayout [nsRouterLink]="[worksAt.id]" justifyContent="space-between" alignItems="center" class="row" *ngFor="let worksAt of this.accountService.account.jobs">
         <StackLayout orientation="horizontal" >
-            <Image [src]="imageService.getImageUrl(worksAt.company.image.id)" class="company-image"></Image>
+            <Image [src]="imageService.getCompanyImageUrl(worksAt.company.image?.id)" class="company-image"></Image>
             <StackLayout orientation="vertical" class="company-content">
                 <Label [text]="worksAt.company.name" class="company-name"></Label>
                 <Label [text]="worksAt.role.title" class="company-drole"></Label>
             </StackLayout>
         </StackLayout>
         <Label text="&#xf054;" class="fas icon"></Label>
+    </FlexBoxLayout>
+    <FlexBoxLayout  justifyContent="space-between" alignItems="center" class="row" *ngIf="this.accountService.account.jobs.length === 0">
+        <Label [text]="'Je staat niet ingeschreven voor een bedrijf.'"></Label>
     </FlexBoxLayout>
 </StackLayout>
