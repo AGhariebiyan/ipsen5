@@ -12,4 +12,7 @@
         </StackLayout>
         <Label text="&#xf054;" class="fas icon"></Label>
     </FlexBoxLayout>
+    <FlexBoxLayout  justifyContent="space-between" alignItems="center" class="row" *ngIf="this.accountService.account.jobs.length === 0">
+        <Label [text]="'Je staat niet ingeschreven voor een bedrijf.'"></Label>
+    </FlexBoxLayout>
 </StackLayout>

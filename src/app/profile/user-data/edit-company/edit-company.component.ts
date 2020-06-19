@@ -106,4 +106,18 @@ export class EditCompanyComponent implements OnInit {
       this.dialogService.showDialog("Something went wrong", error);
     });
   }
+
+  deleteCompany(id: string) {
+    this.dialogService.showConfirm("Weet je zeker",
+        "Het verwijderen van een bedrijf kan niet ongedaan worden gemaakt!\n Alle werknemers worden verwijderd.").then((accept: boolean) => {
+          if (accept) {
+            this.companyService.deleteCompany(id).subscribe((data) => {
+                this.dialogService.showConfirm("Bedrijf verwijderd", "Het bedrijf is verwijderd");
+                this.routerExtensions.back();
+            }, (error) => {
+                this.dialogService.showAlert("Mislukt", "Het is niet gelukt het bedrijf te verwijdern");
+            });
+          }
+    });
+  }
 }

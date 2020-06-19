@@ -1,5 +1,6 @@
 <ScrollView height="100%" class="view">
     <StackLayout class="group">
+
         <image [src]="imageService.getCompanyImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
 
         <!-- Bewerk bedrijffoto knop -->
@@ -16,20 +17,31 @@
         <FlexBoxLayout [formGroup]="roleForm" *ngIf="editingRole" flexDirection="column" alignItems="center">
             <Label [text]="'Bewerk Rol:'"></Label>
             <TextField hint="Baan" editable="true" width="80%" formControlName="jobDescription"></TextField>
-            <Button *ngIf="editingRole" text="Opslaan" (tap)="saveRole()" [disabled]="roleForm.invalid"></Button>
+            <FlexBoxLayout flexDirecton="row">
+                <Button *ngIf="editingRole" text="Opslaan" (tap)="saveRole()" [disabled]="roleForm.invalid || worksAt.role.title === roleForm.value.jobDescription"></Button>
+                <Button *ngIf="editingRole" text="Cancel" (tap)="toggleEditRole()"></Button>
+            </FlexBoxLayout>
+
         </FlexBoxLayout>
 
         <!-- Bewerk Bedrijf knop -->
         <FlexBoxLayout [formGroup]="companyForm" *ngIf="editingCompany" flexDirection="column" alignItems="center">
             <Label [text]="'Bewerk Bedrijfsnaam:'"></Label>
             <TextField *ngIf="worksAt.role.canEditCompany" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
-            <Button *ngIf="editingCompany" text="Opslaan" (tap)="saveCompany()" [disabled]="companyForm.invalid"></Button>
+            <FlexBoxLayout flexDirecton="row">
+                <Button *ngIf="editingCompany" text="Opslaan" (tap)="saveCompany()" [disabled]="companyForm.invalid || worksAt.company.name === companyForm.value.companyName"></Button>
+                <Button *ngIf="editingCompany" text="Cancel" (tap)="toggleEditCompany()"></Button>
+            </FlexBoxLayout>
         </FlexBoxLayout>
 
 
-        <FlexBoxLayout [formGroup]="companyForm" *ngIf="!editingCompany && !editingRole" flexDirection="column" alignItems="center">
+        <FlexBoxLayout [formGroup]="companyForm" *ngIf="!editingCompany && !editingRole" flexDirection="row" alignItems="center">
             <Button  text="&#xf4ff; Verander titel." class="fas icon" (tap)="toggleEditRole()"></Button>
             <Button *ngIf="worksAt.role.canEditCompany" text="&#xf4ff; Verander Bedrijfsnaam" class="fas icon" (tap)="toggleEditCompany()"></Button>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout flexDirection="column" alignItems="center" *ngIf="worksAt.role.canEditCompany && !editingRole && !editingCompany">
+            <Button [text]="'Verwijder bedrijf'" (tap)="deleteCompany(worksAt.company.id)"></Button>
         </FlexBoxLayout>
 
 

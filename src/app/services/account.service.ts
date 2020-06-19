@@ -9,14 +9,18 @@ import { catchError, map, tap } from "rxjs/internal/operators";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpService } from "~/app/services/http.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
+import { WorksAt } from "~/app/models/WorksAt.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class AccountService {
-  account: Account;
 
+
+
+  account: Account;
   account$ = new Subject<Account>();
+
   // account$ = new Observable<Account>((observer) => {
   //   observer.next(this.account);
   //   this.updateObservable =  function(newValue: Account) {
@@ -82,13 +86,22 @@ export class AccountService {
 
   resetUser() {
     this.setUser(null);
-    this.router.navigate(["start"], {clearHistory: true})
+    this.router.navigate(["start"], {clearHistory: true});
   }
 
   getUser(id: string): Observable<Account> {
     // console.log("/api/accounts/" + id);
 
     return this.httpService.getDataWithArgs("/accounts/", id);
+  }
+
+  removeJobFromList(companyId: string) {
+    if (companyId === null) {
+      return;
+    }
+    const jobs: WorksAt[] = this.account.jobs.filter(j => j.company.id !== companyId);
+    this.account.jobs = jobs;
+    this.setUser(this.account);
   }
 
   private updateAccount(): Observable<Account> {
