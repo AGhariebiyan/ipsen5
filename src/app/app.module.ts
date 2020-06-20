@@ -28,6 +28,7 @@ import { AuthInterceptorService } from "~/app/services/auth-interceptor.service"
 import { EditCompaniesComponent } from './profile/user-data/edit-companies/edit-companies.component';
 import { EditCompanyComponent } from './profile/user-data/edit-company/edit-company.component';
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { UserListComponent } from "./admin/user-list/user-list.component";
 
 @NgModule({
     providers: [
@@ -67,7 +68,8 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
         EditPasswordComponent,
         EditCompaniesComponent,
         EditCompanyComponent,
-        UserProfileComponent
+        UserProfileComponent,
+        UserListComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

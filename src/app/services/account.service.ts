@@ -14,17 +14,11 @@ import { RouterExtensions } from "@nativescript/angular/router/router.module";
   providedIn: "root"
 })
 export class AccountService {
+
   account: Account;
 
   account$ = new Subject<Account>();
-  // account$ = new Observable<Account>((observer) => {
-  //   observer.next(this.account);
-  //   this.updateObservable =  function(newValue: Account) {
-  //     this.account = newValue;
-  //     observer.next(newValue);
-  //     console.log("updated account value");
-  //   };
-  // });
+
 
 
   constructor(private http: HttpClient, private httpService: HttpService, private router: RouterExtensions) {
@@ -37,7 +31,12 @@ export class AccountService {
 
   subscriptionUser(): Observable<Account> {
     return this.account$;
-  }
+    }
+
+    deleteAccount(id: string): Observable<Account> {
+
+        return this.httpService.deleteData<Account>("/accounts/" + id);
+    }
 
   checkLoginResponse(response: any): boolean {
     return response.correct;
@@ -89,7 +88,11 @@ export class AccountService {
     // console.log("/api/accounts/" + id);
 
     return this.httpService.getDataWithArgs("/accounts/", id);
-  }
+    }
+
+    getAllUsersAdmin(): Observable<Account[]> {
+        return this.httpService.getData("/accounts/admin");
+    }
 
   private updateAccount(): Observable<Account> {
     return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(

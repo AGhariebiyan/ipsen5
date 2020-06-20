@@ -35,7 +35,7 @@ export class HttpService {
     return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
   }
 
-  deleteData(endpoint: string) {
+    deleteData<T>(endpoint: string): Observable<T> {
     return this.http.delete(this.apiLocation + endpoint);
   }
 }

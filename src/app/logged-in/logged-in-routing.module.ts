@@ -4,6 +4,7 @@ import { NSEmptyOutletComponent } from "nativescript-angular";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { LoggedInComponent } from "~/app/logged-in/logged-in/logged-in.component";
+import { UserListComponent } from "../admin/user-list/user-list.component";
 
 const routes: Routes = [
   {
@@ -33,7 +34,8 @@ const routes: Routes = [
         component: NSEmptyOutletComponent,
         loadChildren: () => import("~/app/search/search.module").then((m) => m.SearchModule),
         outlet: "searchTab"
-      }
+        }
+
     ]
   }
 
