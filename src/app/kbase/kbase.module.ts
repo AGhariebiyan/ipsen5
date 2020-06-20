@@ -9,19 +9,21 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { KbaseEditComponent } from './kbase-edit/kbase-edit.component';
 import { CommonModule } from "@angular/common";
 import { KbaseDetailComponent } from './kbase-detail/kbase-detail.component';
+import { NewsModule } from "~/app/news/news.module";
 
 
 
 @NgModule({
   declarations: [KbaseComponent, KbaseAddComponent, KbaseEditComponent, KbaseDetailComponent],
-  imports: [
-    NativeScriptCommonModule,
-    NativeScriptFormsModule,
-    ReactiveFormsModule,
-    KbaseRoutingModule,
-    SharedModule,
-    CommonModule
-  ],
+    imports: [
+        NativeScriptCommonModule,
+        NativeScriptFormsModule,
+        ReactiveFormsModule,
+        KbaseRoutingModule,
+        SharedModule,
+        CommonModule,
+        NewsModule
+    ],
   schemas: [NO_ERRORS_SCHEMA]
 })
 
