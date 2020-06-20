@@ -36,6 +36,6 @@ export class HttpService {
   }
 
     deleteData<T>(endpoint: string): Observable<T> {
-    return this.http.delete(this.apiLocation + endpoint);
+    return this.http.delete<T>(this.apiLocation + endpoint);
   }
 }
