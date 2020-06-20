@@ -22,4 +22,12 @@
             formControlName="articleDescription"
             [text]="articleDescription"
     ></TextView>
+
+    <Button
+            [disabled]="true"
+            text="Verwijderen"
+            class="btn btn-primary"
+            (tap)="displayConfirmDialogDelete()"
+    ></Button>
+
 </StackLayout>

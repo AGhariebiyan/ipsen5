@@ -33,6 +33,20 @@ export class DialogService {
         });
     }
 
+    showAlert(title: string, message: string): Promise<boolean>{
+       return new Promise<boolean>((accept, reject) => {
+           dialogs.alert({
+               title,
+               message,
+               okButtonText: "Ok"
+           }).then((result) => {
+               accept();
+           }).catch((reason) => {
+               reject();
+           });
+       });
+    }
+
     showActions(title: string, message: string, actions: string[]): Promise<string> {
         return new Promise<string>((accept, reject) => {
 

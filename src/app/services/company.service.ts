@@ -4,12 +4,15 @@ import { HttpClient } from "@angular/common/http";
 import { Company } from "~/app/models/Company.model";
 import { AccountService } from "~/app/services/account.service";
 import { WorksAt } from "~/app/models/WorksAt.model";
+import { BehaviorSubject } from "rxjs";
+import { tap } from "rxjs/internal/operators";
 
 @Injectable({
     providedIn: "root"
 })
 
 export class CompanyService {
+
 
     constructor(private http: HttpClient,
                 private accountService: AccountService) {
@@ -23,13 +26,24 @@ export class CompanyService {
         const jobs: WorksAt[] = this.accountService.account.jobs.filter((job) => {
             return job.id === id;
         });
-        if(jobs.length === 1) {
+        if (jobs.length === 1) {
             return jobs[0];
         }
     }
 
     updateJobDescription(worksAt: WorksAt) {
-
         return this.http.put(environment.apiUrl + "/api/accounts/" + this.accountService.account.id + "/jobs/" + worksAt.id, worksAt);
     }
+
+    updateCompany(company: Company) {
+        return this.http.put<Company>(environment.apiUrl + "/api/companies/" + company.id, company);
+    }
+
+    deleteCompany(companyId: string) {
+        return this.http.delete(environment.apiUrl + "/api/companies/" + companyId).pipe(tap((data) => {
+            this.accountService.removeJobFromList(companyId);
+        }));
+    }
+
+
 }
