@@ -36,7 +36,10 @@ export class CreateCompanyComponent implements OnInit {
 
     confirm() {
         if (this.validateData()) {
-            this.companyService.createCompany(this._company).subscribe( () => {
+            this.companyService.createCompany(this._company).subscribe( result => {
+                let company = new Company(null, "", false, "");
+                Object.assign(company, result);
+                this.imageService.uploadCompanyProfilePicture(company.id, this.imageSrc);
                 this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {
                    this.goBack()
                 });
@@ -55,8 +58,12 @@ export class CreateCompanyComponent implements OnInit {
     }
 
     setImage(image: Image, error) {
-        CreateCompanyComponent.instance._company.image = image;
-        CreateCompanyComponent.instance.imageSet = true;
+        if(error) {
+            this.dialogService.showAlert("Let op!", "De opgegeven afbeelding werd niet gevonden.")
+        } else {
+            CreateCompanyComponent.instance._company.image = image;
+            CreateCompanyComponent.instance.imageSet = true;
+        }
     }
 
     goBack() {
