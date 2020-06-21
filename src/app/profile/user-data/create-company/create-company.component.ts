@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NewEvent } from "~/app/models/new-event.model";
 import { RouterExtensions } from '@nativescript/angular';
 import { Image } from "~/app/models/image.model";
 import { ImageAsset } from "@nativescript/core/image-asset";
@@ -26,7 +25,7 @@ export class CreateCompanyComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._company = new Company(null, "", false, "");
+        this._company = new Company(null, "", true, "");
         this.imageSet = false;
     }
 
@@ -36,10 +35,10 @@ export class CreateCompanyComponent implements OnInit {
 
     confirm() {
         if (this.validateData()) {
-            this.companyService.createCompany(this._company).subscribe( () => {
-                this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {
-                   this.goBack()
-                });
+            this.companyService.createCompany(this._company).subscribe( result => {
+                let company = new Company(null, "", true, "");
+                Object.assign(company, result);
+                this.uploadPicture(company);
             }, () => {
                 this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.")
             });
@@ -55,8 +54,12 @@ export class CreateCompanyComponent implements OnInit {
     }
 
     setImage(image: Image, error) {
-        CreateCompanyComponent.instance._company.image = image;
-        CreateCompanyComponent.instance.imageSet = true;
+        if(error) {
+            this.dialogService.showAlert("Let op!", "De opgegeven afbeelding werd niet gevonden.")
+        } else {
+            CreateCompanyComponent.instance._company.image = image;
+            CreateCompanyComponent.instance.imageSet = true;
+        }
     }
 
     goBack() {
@@ -75,6 +78,22 @@ export class CreateCompanyComponent implements OnInit {
                 return false;
             }
         } return true;
+    }
+
+    uploadPicture(company: Company) {
+        this.imageService.uploadCompanyProfilePicture(company.id, this.imageSrc).subscribe((status: UploadResponse) => {
+            console.log(status);
+            if (status.state === UploadStatus.COMPLETE) {
+                this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {
+                    this.goBack()
+                });
+            }
+        }, () => {
+            this.dialogService.showAlert("Let op!", "Het bedrijf is geregistreerd, maar de afbeelding kon niet " +
+                "correct worden geupload.").then(() => {
+                this.goBack()
+            });
+        });
     }
 
 }
