@@ -3,18 +3,21 @@
     <ActionItem icon="font://&#xf500;" class="fas" ios.position="right" [nsRouterLink]="['/userprofile/'+ 5]" pageTransition="slideBottom"></ActionItem>
 </ActionBar>
 
+
+
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
-        <Label class="extraText" text="Meest recente artikelen"></Label>
+        <SearchBar hint="Zoeken"></SearchBar>
+        <Label class="topText" text="Meest recente artikelen"></Label>
         <StackLayout>
             <StackLayout class="articleBorder" *ngFor="let article of (featuredArticles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
                 <Label class="articleText articleTitle" [text]="article.title" textWrap="true"></Label>
                 <TextView class="articleText" [text]="article.content | shorten" editable="false"></TextView>
-                <Label class="articleText newsExtra" text="Lees meer >" [nsRouterLink]="['../news-detail/' + article.id]" verticalAlignment="bottom"></Label>
+                <Label class="articleText extraText" text="Lees meer >" [nsRouterLink]="['../news-detail/' + article.id]" verticalAlignment="bottom"></Label>
             </StackLayout>
-            <Button text="Alle artikelen" nsRouterLink="../kbase-all" class="btn btn-primary"></Button>
+            <Label text="Alle artikelen >" nsRouterLink="../kbase-all" class="btn btn-primary"></Label>
         </StackLayout>
-        <Button text=" ⨁ Voeg eigen contributie toe" nsRouterLink="../kbase-add" class="btn btn-primary"></Button>
+        <Label text=" ⨁ Voeg eigen contributie toe" nsRouterLink="../kbase-add" class="btn btn-primary"></Label>
     </StackLayout>
 </ScrollView>
 

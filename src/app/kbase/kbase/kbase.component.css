@@ -10,8 +10,7 @@ StackLayout {
 }
 
 .articleBorder {
-    border-radius: 50px;
-    border-width: 2px ;
+    border-width: 0 0 2px 0 ;
     border-color: gray;
     margin-top: 10em;
     margin-bottom: 10em;
@@ -36,12 +35,23 @@ StackLayout {
 
 }
 
+.topText{
+    border-width: 0 0 2px 0 ;
+}
+
 .extraText {
-    text-align: center;
+    text-align: left;
 }
 
 TextView {
     background-color: transparent;
     border-color: transparent;
+}
+
+Label {
+    border:none;
+    color: blue;
+    text-align: center;
+    padding: 10%;
 }
 
