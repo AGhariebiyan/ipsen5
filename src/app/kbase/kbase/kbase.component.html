@@ -11,7 +11,7 @@
         <Label class="topText" text="Meest recente artikelen"></Label>
         <StackLayout>
             <StackLayout class="articleBorder" *ngFor="let article of (featuredArticles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
-                <Label class="articleText articleTitle" [text]="article.title" textWrap="true"></Label>
+                <Label class="articleText articleTitle" [text]="article.title" textWrap="true" style="margin: 0"></Label>
                 <TextView class="articleText" [text]="article.content | shorten" editable="false"></TextView>
                 <Label class="articleText extraText" text="Lees meer >" [nsRouterLink]="['../news-detail/' + article.id]" verticalAlignment="bottom"></Label>
             </StackLayout>

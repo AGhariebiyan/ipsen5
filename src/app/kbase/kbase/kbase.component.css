@@ -37,6 +37,8 @@ StackLayout {
 
 .topText{
     border-width: 0 0 2px 0 ;
+    color: gray;
+    font-size: 12px;
 }
 
 .extraText {
