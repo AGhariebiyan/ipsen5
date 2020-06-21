@@ -10,11 +10,12 @@ import { KbaseEditComponent } from './kbase-edit/kbase-edit.component';
 import { CommonModule } from "@angular/common";
 import { KbaseDetailComponent } from './kbase-detail/kbase-detail.component';
 import { NewsModule } from "~/app/news/news.module";
+import { KbaseAllComponent } from './kbase-all/kbase-all.component';
 
 
 
 @NgModule({
-  declarations: [KbaseComponent, KbaseAddComponent, KbaseEditComponent, KbaseDetailComponent],
+  declarations: [KbaseComponent, KbaseAddComponent, KbaseEditComponent, KbaseDetailComponent, KbaseAllComponent],
     imports: [
         NativeScriptCommonModule,
         NativeScriptFormsModule,
