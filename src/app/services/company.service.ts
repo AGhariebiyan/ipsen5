@@ -20,7 +20,7 @@ export class CompanyService {
                 private accountService: AccountService) {
     }
 
-    getCompany(id: string){
+    getCompany(id: string) {
         return this.http.getData<Company>(this.endpoint);
     }
 
@@ -51,8 +51,8 @@ export class CompanyService {
         return new Promise<Company[]>((accept, reject) => {
             this.http.getData<Company[]>(this.endpoint)
                 .subscribe(companies => {
-                accept(companies);
-            }, error => {
+                    accept(companies);
+                }, error => {
                     reject(error);
                 });
         });
@@ -62,6 +62,5 @@ export class CompanyService {
     createCompany(company: Company) {
         return this.http.postData(this.endpoint, company, this.http.jsonHeader);
     }
-
 
 }

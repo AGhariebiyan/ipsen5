@@ -26,6 +26,7 @@ export class EditCompaniesComponent implements OnInit {
     this.companyService.getCompanies().then(companies => {
       this.companies = companies;
       let companyNames = [];
+      console.log(companies);
 
       if(companies.length == 0) {
         this.dialogService.showAlert("Let op!", "We konden geen bedrijven vinden, probeer het later opnieuw");
