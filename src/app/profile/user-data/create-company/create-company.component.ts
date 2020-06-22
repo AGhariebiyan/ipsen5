@@ -34,6 +34,11 @@ export class CreateCompanyComponent implements OnInit {
         return this._company;
     }
 
+    /**
+     * @author Valerie Timmerman
+     *
+     * Handles the creation of the company.
+     */
     confirm() {
         this.inProgress = true;
         if (this.validateData()) {
@@ -56,6 +61,13 @@ export class CreateCompanyComponent implements OnInit {
         });
     }
 
+    /**
+     * @author Valerie Timmerman
+     * @param image
+     * @param error
+     *
+     * Callback for getImageAsync, this will set the image for the preview as long as there are no errors.
+     */
     setImage(image: Image, error) {
         if(error) {
             this.dialogService.showAlert("Let op!", "De opgegeven afbeelding werd niet gevonden.")
@@ -73,6 +85,11 @@ export class CreateCompanyComponent implements OnInit {
         return this._company.image;
     }
 
+    /**
+     * @author Valerie Timmerman
+     *
+     * Checks if none of the data within the company model is empty
+     */
     validateData(): boolean {
         for (const key of Object.keys(this._company)) {
             const value = this._company[key];
