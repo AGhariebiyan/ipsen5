@@ -46,7 +46,7 @@ export class EventsListComponent implements OnInit {
     this.es.getUserEvents()
   }
   
-  /**
+    /**
      * @author Waly Kerkeboom
      *
      * Changes the boolean value that determines
