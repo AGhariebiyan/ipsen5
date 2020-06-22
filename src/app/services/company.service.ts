@@ -68,7 +68,16 @@ export class CompanyService {
         let account = this.accountService.account;
         let role = new Role("CEO", "Eigenaar van het bedrijf.", true);
         let worksAt = new WorksAt(company, account, role);
-        this.http.postData("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader).subscribe();
+        this.http.postData("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader).subscribe(result => {
+            this.updateJobs(result);
+        }, error => {
+            console.log("Error: \n"+ error);
+        });
     }
 
+    private updateJobs(result) {
+        let worksAt = null;
+        Object.assign(worksAt, result);
+        this.accountService.account.jobs.push(worksAt);
+    }
 }
