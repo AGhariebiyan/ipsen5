@@ -5,7 +5,7 @@
     <StackLayout *ngIf="users.length != 0">
         <StackLayout  *ngFor="let account of users">
             <GridLayout columns="auto, *, auto" rows="auto, 25" verticalAlignment="top" class="user">
-                <Image [src]="account.image ? baseurl + account.image.url : placeholder" rowSpan="2" class="user-image" (tap)="goToProfile(account.id)"></Image>
+                <Image [src]="imageService.getUserImageUrl(account.image?.id)" rowSpan="2" class="user-image" (tap)="goToProfile(account.id)"></Image>
                 <Label [text]="
                     account.firstName + ' ' +
                     (account.middleName? account.middleName + ' ' : '') +
@@ -14,8 +14,8 @@
                 <FlexBoxLayout col="1" margin="3" row="1">
                     <StackLayout orientation="horizontal" class="email group">
                         <label text="EMAIL" class="type"></label>
-                        <Label [text]="account.email" class="value"></Label>
-                        <Label text="&#xf00c;" class="fas verified-email"></Label>
+                        <Label [text]="account.email" class="email-value"></Label>
+                        <Label *ngIf="account.verifiedEmail" text="&#xf00c;" class="fas verified-email"></Label>
                     </StackLayout>
                     <StackLayout orientation="horizontal" class="role group">
                         <label text="ROLE" class="type content"></label>

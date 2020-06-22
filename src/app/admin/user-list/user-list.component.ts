@@ -7,6 +7,7 @@ import { DialogService } from '../../services/dialog.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'ns-user-list',
@@ -22,7 +23,8 @@ export class UserListComponent implements OnInit {
         private page: Page,
         private accountService: AccountService,
         private router: RouterExtensions,
-        private dialog: DialogService
+        private dialog: DialogService,
+        private imageService: ImageService
     ) { }
 
     ngOnInit(): void {
@@ -42,13 +44,20 @@ export class UserListComponent implements OnInit {
     }
 
     deleteUser(id: string) {
-        this.accountService.deleteAccount(id).pipe(catchError((error) => {
-            return this.handleDeleteError(error)
-        })).subscribe(item => {
-            let index = 0;
-            this.updateUsers();
-            this.dialog.showDialog("Gelukt", "Gebruiker is verwijderd");
+        if (id == this.accountService.account.id) {
+            this.dialog.showDialog("Eigen account verwijderen", "Je kan je eigen account niet verwijderen");
+            return;
+        }
+        this.dialog.showConfirm("Verwijder gebruiker", "Weet u zeker dat u deze gebruiker wilt verwijderen?").then(confirm => {
+            if (!confirm) return;
+            this.accountService.deleteAccount(id).pipe(catchError((error) => {
+                return this.handleDeleteError(error)
+            })).subscribe(item => {
+                this.updateUsers();
+                this.dialog.showDialog("Gelukt", "Gebruiker is verwijderd");
+            });
         });
+        
     }
 
     goToProfile(id: string) {
@@ -57,10 +66,10 @@ export class UserListComponent implements OnInit {
 
     handleDeleteError(error: HttpErrorResponse) {
         this.dialog.showDialog("Verwijderen van gebruiker is niet gelukt", "Probeer opnieuw");
-        return throwError("jwt token not validated");
+        return throwError("User not deleted");
     }
 
     goBack() {
-        this.router.back();
+        this.router.navigate(['loggedin/default']);
     }
 }

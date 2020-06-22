@@ -3,14 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\logged-in",
+    "\\src\\app\\logged-in\\logged-in",
+    "\\src\\app\\models",
     "\\src\\app\\news",
-    "\\src\\app\\news\\news",
+    "\\src\\app\\news\\news-detail",
     "\\src\\app\\profile",
-    "\\src\\app\\StartPagina\\start-pagina",
-    "\\src\\app\\StartPagina\\start-pagina\\login",
-    "\\src\\app\\user-profile"
+    "\\src\\app\\profile\\user-data\\edit-email",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\user-profile\\user-profile.component.ts",
+  "SelectedNode": "\\src\\app\\app.component.ts",
   "PreviewInSolutionExplorer": false
 }
