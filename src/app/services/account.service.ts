@@ -10,6 +10,7 @@ import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpService } from "~/app/services/http.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
 import { WorksAt } from "~/app/models/WorksAt.model";
+import { PermissionRole } from "~/app/models/PermissionRole.model";
 
 @Injectable({
   providedIn: "root"
@@ -100,6 +101,14 @@ export class AccountService {
     const jobs: WorksAt[] = this.account.jobs.filter(j => j.company.id !== companyId);
     this.account.jobs = jobs;
     this.setUser(this.account);
+  }
+
+  setUserRole(id: string, roleId: string) {
+    return this.http.put(environment.apiUrl + "/api/accounts/" + id + "/roles/" + roleId, {});
+  }
+
+  getRoleOptions() {
+    return this.http.get<PermissionRole[]>(environment.apiUrl + "/api/accounts/roles");
   }
 
   private updateAccount(): Observable<Account> {
