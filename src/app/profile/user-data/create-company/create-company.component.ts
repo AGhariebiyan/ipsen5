@@ -17,6 +17,7 @@ export class CreateCompanyComponent implements OnInit {
     private imageSrc: ImageAsset;
     private imageSet: boolean;
     private static instance;
+    private inProgress: boolean = false;
 
     constructor(private routerExtensions: RouterExtensions,
                 private imageService: ImageService,
@@ -34,11 +35,13 @@ export class CreateCompanyComponent implements OnInit {
     }
 
     confirm() {
+        this.inProgress = true;
         if (this.validateData()) {
             this.companyService.createCompany(this._company).subscribe( result => {
                 let company = new Company(null, "", true, "");
                 Object.assign(company, result);
                 this.uploadPicture(company);
+                this.companyService.registerCEO(company);
             }, () => {
                 this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.")
             });
@@ -82,7 +85,6 @@ export class CreateCompanyComponent implements OnInit {
 
     uploadPicture(company: Company) {
         this.imageService.uploadCompanyProfilePicture(company.id, this.imageSrc).subscribe((status: UploadResponse) => {
-            console.log(status);
             if (status.state === UploadStatus.COMPLETE) {
                 this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {
                     this.goBack()

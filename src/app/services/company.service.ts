@@ -7,6 +7,7 @@ import { WorksAt } from "~/app/models/WorksAt.model";
 import { BehaviorSubject } from "rxjs";
 import { tap } from "rxjs/internal/operators";
 import { HttpService } from "~/app/services/http.service";
+import { Role } from "~/app/models/role.model";
 
 @Injectable({
     providedIn: "root"
@@ -61,6 +62,13 @@ export class CompanyService {
 
     createCompany(company: Company) {
         return this.http.postData(this.endpoint, company, this.http.jsonHeader);
+    }
+
+    registerCEO(company) {
+        let account = this.accountService.account;
+        let role = new Role("CEO", "Eigenaar van het bedrijf.", true);
+        let worksAt = new WorksAt(company, account, role);
+        this.http.postData("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader).subscribe();
     }
 
 }
