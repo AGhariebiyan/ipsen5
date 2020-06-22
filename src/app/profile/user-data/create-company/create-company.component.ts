@@ -41,16 +41,10 @@ export class CreateCompanyComponent implements OnInit {
      */
     confirm() {
         this.inProgress = true;
-        if (this.validateData()) {
-            this.companyService.createCompany(this._company).subscribe( result => {
-                let company = new Company(null, "", true, "");
-                Object.assign(company, result);
-                this.uploadPicture(company);
-                this.companyService.registerCEO(company);
-            }, () => {
-                this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.")
+        this.dialogService.showConfirm("Bedrijf registeren", "Weet u zeker dat dit bedrijf wilt aanmaken?")
+            .then(result => {
+                if(result) this.processConfirmation();
             });
-        }
     }
 
     selectImage() {
@@ -115,4 +109,16 @@ export class CreateCompanyComponent implements OnInit {
         });
     }
 
+    private processConfirmation() {
+        if (this.validateData()) {
+            this.companyService.createCompany(this._company).subscribe( result => {
+                let company = new Company(null, "", true, "");
+                Object.assign(company, result);
+                this.uploadPicture(company);
+                this.companyService.registerCEO(company);
+            }, () => {
+                this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.")
+            });
+        }
+    }
 }
