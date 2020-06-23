@@ -28,6 +28,7 @@ export class NewsDetailComponent implements OnInit {
   accountId: string;
   companyId: string;
   featured: boolean;
+  loggedInUserId: string;
 
   firstName: string;
   middleName: string;
@@ -42,6 +43,7 @@ export class NewsDetailComponent implements OnInit {
       private router: RouterExtensions) { }
 
   ngOnInit(): void {
+    this.loggedInUserId = this.accountService.account.id;
     this.getNewsItem();
   }
 

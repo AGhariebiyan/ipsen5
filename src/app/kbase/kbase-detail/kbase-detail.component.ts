@@ -21,6 +21,7 @@ export class KbaseDetailComponent implements OnInit {
   date: Date;
   published: boolean;
   accountId: string;
+  loggedInUserId: string;
 
   firstName: string;
   middleName: string;
@@ -34,6 +35,7 @@ export class KbaseDetailComponent implements OnInit {
       private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.loggedInUserId = this.accountService.account.id;
     this.getKbaseItem();
   }
 
