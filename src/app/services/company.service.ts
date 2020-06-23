@@ -8,6 +8,8 @@ import { BehaviorSubject } from "rxjs";
 import { tap } from "rxjs/internal/operators";
 import { HttpService } from "~/app/services/http.service";
 import { Role } from "~/app/models/role.model";
+import { migrateLegacyGlobalConfig } from "@angular/cli/utilities/config";
+import { JobRequest } from "~/app/models/JobRequest";
 
 @Injectable({
     providedIn: "root"
@@ -51,9 +53,9 @@ export class CompanyService {
     getCompanies(): Promise<Company[]> {
         return new Promise<Company[]>((accept, reject) => {
             this.http.getData<Company[]>(this.endpoint)
-                .subscribe((companies) => {
+                .subscribe(companies => {
                     accept(companies);
-                }, (error) => {
+                }, error => {
                     reject(error);
                 });
         });
@@ -67,7 +69,7 @@ export class CompanyService {
     registerCEO(company) {
         const account = this.accountService. account;
         const role = new Role("CEO", "Eigenaar van het bedrijf.", true);
-        const worksAt = new WorksAt(company, account, role);
+        const worksAt = new WorksAt(company, account, role, true);
         this.http.postData<WorksAt>("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader).subscribe((result) => {
             result.company.image = company.image;
             this.updateJobs(result);
@@ -77,19 +79,27 @@ export class CompanyService {
     }
 
     private updateJobs(result) {
+        console.log(result);
         this.accountService.account.jobs.push(result);
         this.accountService.updateObservable(this.accountService.account);
     }
 
     getCompaniesForRegistration(): Promise<Company[]> {
-            return new Promise<Company[]>((accept, reject) => {
-                this.http.getData<Company[]>(this.endpoint + "/" + this.accountService.account.id + "/forRegistration")
-                    .subscribe((companies) => {
-                        accept(companies);
-                    }, (error) => {
-                        reject(error);
-                    });
-            });
+        return new Promise<Company[]>((accept, reject) => {
+            this.http.getData<Company[]>(this.endpoint + "/" + this.accountService.account.id + "/forRegistration")
+                .subscribe((companies) => {
+                    accept(companies);
+                }, (error) => {
+                    reject(error);
+                });
+        });
 
+    }
+
+    requestJob(jobRequest: JobRequest) {
+        let account = this.accountService.account;
+        let role = new Role(jobRequest.title, jobRequest.description, jobRequest.canEditCompany);
+        let worksAt = new WorksAt(jobRequest.company, account, role, false);
+        return this.http.postData<JobRequest>("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader);
     }
 }

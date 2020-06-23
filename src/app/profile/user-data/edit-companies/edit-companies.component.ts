@@ -4,6 +4,8 @@ import { ImageService } from "~/app/services/image.service";
 import { DialogService } from "~/app/services/dialog.service";
 import { CompanyService } from "~/app/services/company.service";
 import { Company } from "~/app/models/Company.model";
+import { RouterExtensions } from '@nativescript/angular';
+import { NavigationExtras } from "@angular/router";
 
 @Component({
   selector: 'ns-edit-companies',
@@ -16,7 +18,8 @@ export class EditCompaniesComponent implements OnInit {
   constructor(private accountService: AccountService,
               private imageService: ImageService,
               private dialogService: DialogService,
-              private companyService: CompanyService) { }
+              private companyService: CompanyService,
+              private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
 
@@ -48,7 +51,12 @@ export class EditCompaniesComponent implements OnInit {
 
   private processResult(result: string) {
       let company = this.findCompany(result);
-    console.log(company);
+      let navigateExtras: NavigationExtras = {
+          queryParams: {
+          company: JSON.stringify(company)
+        }
+      };
+      this.routerExtensions.navigate(['mydata/register-job'], navigateExtras);
   }
 
   private findCompany(result): Company {

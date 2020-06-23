@@ -19,6 +19,7 @@ import { EditCompaniesComponent } from "./profile/user-data/edit-companies/edit-
 import { EditCompanyComponent } from "./profile/user-data/edit-company/edit-company.component";
 import { CreateCompanyComponent } from "~/app/profile/user-data/create-company/create-company.component";
 import { UserListComponent } from "./admin/user-list/user-list.component";
+import { RegisterJobComponent } from "~/app/profile/user-data/register-job/register-job.component";
 
 const routes: Routes = [
 
@@ -51,7 +52,8 @@ const routes: Routes = [
             { path: "edit-email", component: EditEmailComponent },
             { path: "edit-companies", component: EditCompaniesComponent },
             { path: "edit-companies/:id", component: EditCompanyComponent },
-            {path: "create-company", component: CreateCompanyComponent }
+            {path: "create-company", component: CreateCompanyComponent },
+            {path: "register-job", component: RegisterJobComponent}
         ]
     },
 
