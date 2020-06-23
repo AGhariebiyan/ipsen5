@@ -39,11 +39,11 @@ export class CompanyService {
     }
 
     updateCompany(company: Company) {
-        return this.http.putData(this.endpoint + company.id, company, this.http.jsonHeader);
+        return this.http.putData(this.endpoint + "/" +  company.id, company, this.http.jsonHeader);
     }
 
     deleteCompany(companyId: string) {
-        return this.http.deleteData(this.endpoint + companyId).pipe(tap((data) => {
+        return this.http.deleteData(this.endpoint + "/" + companyId).pipe(tap((data) => {
             this.accountService.removeJobFromList(companyId);
         }));
     }
