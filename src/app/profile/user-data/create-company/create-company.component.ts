@@ -101,7 +101,6 @@ export class CreateCompanyComponent implements OnInit {
                 if (status.state === UploadStatus.RESPONDED) {
                     const image: Image = JSON.parse(status.data.data);
                     subscriber.next(image);
-                    this.goBack();
                 }
                 if (status.state === UploadStatus.COMPLETE) {
                     this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {

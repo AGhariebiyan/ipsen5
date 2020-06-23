@@ -77,9 +77,7 @@ export class CompanyService {
     }
 
     private updateJobs(result) {
-        const worksAt = null;
-        Object.assign(worksAt, result);
-        this.accountService.account.jobs.push(worksAt);
+        this.accountService.account.jobs.push(result);
         this.accountService.updateObservable(this.accountService.account);
     }
 }
