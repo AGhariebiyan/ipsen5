@@ -73,10 +73,14 @@ export class KbaseEditComponent implements OnInit {
       cancelButtonText: "Annuleer"
     };
     confirm(options).then((result: boolean) => {
-      if (result === true && this.articleTitle !== "" && this.articleDescription !== "") {
+      if (result === true
+          && this.form.get("articleTitle").value !== ""
+          && this.form.get("articleTitle").value !== null && this.form.get("articleDescription").value !== ""
+          && this.form.get("articleDescription").value !== null) {
         this.onSubmit();
         this.routerExtensions.back();
         this.routerExtensions.back();
+
       } else {
         dialogs.alert({
           title: "vul alle invoervelden in",

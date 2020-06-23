@@ -37,13 +37,11 @@ export class AuthenticationService {
 
   logout() {
     this.accountService.resetUser();
+    this.jwtService.removeJWTToken();
   }
 
   logInUser(item: any) {
     this.jwtService.setNewJWT(item.token);
-
-    // testing
-    // this.jwtService.setNewJWT(item);
   }
 
   // Todo Change to dialogservice

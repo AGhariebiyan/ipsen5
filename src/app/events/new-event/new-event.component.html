@@ -1,0 +1,27 @@
+<ActionBar title="Evenement Plaatsen">
+    <ActionItem (tap)="confirm()" text="Aanmaken" ios.position="right"></ActionItem>
+</ActionBar>
+<RadDataForm name="form" [source]="event" #newEventForm>
+    <TKEntityProperty tkDataFormProperty name="eventName" displayName="Naam:" index="1" required="true">
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventDescription" displayName="Omschrijving:" index="2"
+                      required="true">
+        <TKPropertyEditor tkEntityPropertyEditor type="MultilineText"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationName" displayName="Plaats:" index="3"
+                      required="true">
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationStreet" displayName="Straat:" index="4"
+                      required="true">
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationPostalCode" displayName="Postcode:" index="5" required="true">
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationRegion" displayName="Regio:" index="6" required="true" [valuesProvider]="regions">
+        <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventLocationCountry" displayName="Land:" index="7" required="true" readOnly="true">
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="eventDate" displayName="Datum:" index="8" required="true">
+        <TKPropertyEditor tkEntityPropertyEditor type="DatePicker"></TKPropertyEditor>
+    </TKEntityProperty>
+</RadDataForm>

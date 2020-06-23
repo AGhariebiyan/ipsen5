@@ -3,8 +3,8 @@ import { HttpService } from "~/app/services/http.service";
 import { Observable } from "rxjs";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Event } from "~/app/shared/models/event.model";
-import { EventResponse } from "~/app/shared/models/event-response.model";
+import { Event } from "~/app/models/event.model";
+import { EventResponse } from "~/app/models/event-response.model";
 import { map } from "rxjs/operators";
 import { KBase } from "~/app/models/KBase.model";
 import { environment } from "~/environments/environment.tns";
@@ -26,6 +26,10 @@ export class KbaseService {
 
     getItem(id: string): Observable<KBase> {
         return this.http.getDataWithArgs(this.endpointItem, id);
+    }
+
+    getItemsByUser(id:string): Observable<KBase[]> {
+        return this.http.getDataWithArgs(this.endpointItem + "user/", id);
     }
 
     makePostRequest(body: any) {

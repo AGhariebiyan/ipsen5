@@ -3,6 +3,7 @@ import { isIOS } from "tns-core-modules/platform";
 import { ActionBar } from "tns-core-modules/ui/action-bar";
 import { Page } from 'tns-core-modules/ui/page';
 import { confirm } from "tns-core-modules/ui/dialogs";
+import { RouterExtensions } from '@nativescript/angular/router/router.module';
 
 @Component({
   selector: 'ns-action-bar-news',
@@ -12,7 +13,8 @@ import { confirm } from "tns-core-modules/ui/dialogs";
 export class ActionBarNewsComponent implements OnInit {
   // titleText="wijzig bericht"
 
-  constructor(private page: Page) { }
+  constructor(private page: Page,
+              private router: RouterExtensions) { }
 
   ngOnInit(): void {}
 
@@ -35,6 +37,10 @@ export class ActionBarNewsComponent implements OnInit {
     confirm(options).then((result: boolean) => {
       console.log(result);
     });
+  }
+
+  goBack(){
+    this.router.back();
   }
 
 }

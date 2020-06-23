@@ -1,0 +1,116 @@
+/* Add mobile styles for the component here.  */
+
+scrollview{
+    background-color: white;
+}
+
+stacklayout{
+    background-color: white;
+}
+
+.icon{
+    font-size: 16;
+}
+
+.indicator-icon {
+    color: royalblue;
+}
+
+.row {
+    padding-left: 20;
+    padding-right: 20;
+    margin-top: 5;
+    margin-bottom: 5;
+}
+
+.user-image {
+    width: 23%;
+    border-radius: 100;
+}
+
+.information {
+    align-content: center;
+    text-align: center;
+}
+
+.picture-container {
+    margin-top: 100px;
+}
+
+.info-text{
+    color: black;
+}
+
+.description{
+    font-size: 12em;
+}
+
+.content {
+    overflow: hidden;
+    max-height: 100px;
+    font-size: 12em;
+}
+
+.not-found{
+    margin-top: 50px;
+    color: lightgray;
+    font-size: 12em;
+}
+
+.title{
+    color: black;
+    font-size: 17em;
+    margin: 10px 0;
+}
+
+.text-link {
+    margin: 40px 0;
+    color: blue;
+    font-size: 12em;
+    cursor: pointer;
+}
+
+.KBase-container{
+
+}
+
+.entry {
+    text-align: left;
+    border-color: gray;
+    border-width: .1 0 .5 0;
+    margin-top: 30px;
+}
+
+.list{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.list-label{
+    color: gray;
+    font-size: 12em;
+}
+
+.description-container{
+    margin-top: 120px;
+    text-align: left;
+}
+
+.name-container {
+    margin-top: 60px;
+}
+
+.container{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.view {
+    background-color: #ebebeb;
+}
+
+.name {
+    font-weight: bold;
+    color: black;
+    font-size: 17em;
+}

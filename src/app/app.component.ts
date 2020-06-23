@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {Page} from "@nativescript/core/ui/page";
+import { Page } from "@nativescript/core/ui/page";
 import { JwtService } from "./services/jwt.service";
 import { AccountService } from "./services/account.service";
-import { Router } from "@angular/router";
+import { RouterExtensions } from "@nativescript/angular/router/router.module";
 
 @Component({
     selector: "ns-app",
@@ -11,21 +11,30 @@ import { Router } from "@angular/router";
 export class AppComponent implements OnInit {
 
     loggedIn = false;
-
-    constructor(private page: Page, private jwtService: JwtService, private account: AccountService, private router: Router) {
+    wasLoggedIn = false;
+    constructor(private page: Page,
+                private jwtService: JwtService,
+                private account: AccountService,
+                private router: RouterExtensions) {
         this.page.actionBarHidden = true;
     }
 
     ngOnInit(): void {
-
         this.account.account$.subscribe((account) => {
-            this.loggedIn = !!account;
-            if (this.loggedIn) {
-                this.router.navigateByUrl("/loggedin/default").catch(() => {
-                    console.log("Could not navigate");
+            this.loggedIn = account != null;
+
+            if (this.loggedIn && !this.wasLoggedIn) {
+                this.wasLoggedIn = true;
+                this.router.navigate(["loggedin", "default"], {clearHistory: true}).then((success) => {
+                }).catch(() => {
+                    console.log("Could  not navigate");
                 });
+            } else if (!this.loggedIn && this.wasLoggedIn) {
+                this.wasLoggedIn = false;
+                this.router.navigate(["start"]);
             }
         });
+
         // Init your component properties here.
         // setting of the app can be placed here, but needs to be a service
 

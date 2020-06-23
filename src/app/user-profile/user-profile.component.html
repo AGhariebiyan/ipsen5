@@ -1,0 +1,60 @@
+<ActionBar title="{{getFirstName()}}'s Profiel">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+<ScrollView height="100%" class="view">
+    <StackLayout class="container" *ngIf="this.userAccount">
+        <StackLayout class="information">
+            <!--     User object-->
+            <StackLayout class="picture-container">
+                <Image [src]="userAccount.image ? baseUrl + userAccount.image.url : placeholder " class="user-image"></Image>
+
+            </StackLayout>
+            <StackLayout class="name-container">
+                <Label [text]="
+                    this.userAccount.firstName + ' ' +
+                    (this.userAccount.middleName? this.userAccount.middleName + ' ' : '') +
+                    this.userAccount.lastName"
+                       textWrap="true" class="name info-text"></Label>
+            </StackLayout>
+            <StackLayout class="function-container">
+                <Label [text]="getJobName()"
+                       textWrap="true" class="function info-text"></Label>
+            </StackLayout>
+            <StackLayout class="company-container">
+                <Label [text]="getJobFunction()"
+                       textWrap="true" class="company info-text"></Label>
+            </StackLayout>
+
+            <StackLayout class="description-container">
+                <Label [text]="this.userAccount.description"
+                       textWrap="true" class="description info-text"></Label>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout class="KBase-container list">
+            <Label text="Recente KBase contributies"
+                   textWrap="true" class="list-label"></Label>
+            <StackLayout class="KBase-entry entry" *ngIf="kbase">
+                <Label [text]="this.kbase.title"
+                       textWrap="true" class="title"></Label>
+                <Label [text]="this.kbase.content"
+                       textWrap="true" class="content"></Label>
+                <Label class="text-link" [nsRouterLink]="['/loggedin/kbase-edit/' + kbase.id]" text="Lees meer >"></Label>
+            </StackLayout>
+            <Label *ngIf="!kbase" text="Er zijn geen artikelen geschreven door {{this.userAccount.firstName}}" class="not-found"></Label>
+        </StackLayout>
+
+        <StackLayout class="News-container list">
+            <Label text="Recente geschreven nieuws berichten"
+                   textWrap="true" class="list-label"></Label>
+            <StackLayout class="news-entry entry" *ngIf="news">
+                <Label [text]="this.news.title"
+                       textWrap="true" class="title"></Label>
+                <Label [text]="this.news.content"
+                       textWrap="true" class="content"></Label>
+                <Label class="text-link" [nsRouterLink]="['/loggedin/news-detail/' + news.id]" text="Lees meer >"></Label>
+            </StackLayout>
+            <Label *ngIf="!news" text="Er zijn geen nieuws berichten geschreven door {{this.userAccount.firstName}}" class="not-found"></Label>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
+

@@ -1,42 +1,24 @@
 <ActionBar title="Nieuws">
+    <ActionItem icon="font://&#xf007;" class="fas" ios.position="right" [nsRouterLink]="['/profile']" pageTransition="slideBottom"></ActionItem>
+    <ActionItem icon="font://&#xf500;" class="fas" ios.position="right" [nsRouterLink]="['/userprofile/'+ this.accountService.account.id]" pageTransition="slideBottom"></ActionItem>
 </ActionBar>
+<!--<StackLayout>-->
+<!--    <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>-->
+<!--</StackLayout>-->
+
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
         <Button text="bericht toevoegen!" nsRouterLink="../news-add" class="btn btn-primary"></Button>
         <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectFeatured()"></SegmentedBar>
-
-<!--            <GridLayout class="newsBorder" rows="30, 30" columns="100,100" *ngFor="let newsitem of newsItems | async">-->
-<!--                <StackLayout row="0" col="0" class="picture" horizontalAlignment="left">-->
-<!--                    <Image [text]="newsitem.title"></Image>-->
-<!--                </StackLayout>-->
-<!--                <StackLayout row="0" col="1" class="titleText" horizontalAligment="right">-->
-<!--                    <Label [text]="newsitem.title" backgroundColor="red"></Label>-->
-<!--                    <Label [text]="newsitem.date" backgroundColor="blue"></Label>-->
-<!--                </StackLayout>-->
-<!--                <StackLayout row="1" col="0" class="titleText" horizontalAligment="right">-->
-<!--                    <Label [text]="newsitem.content" backgroundColor="red"></Label>-->
-<!--                </StackLayout>-->
-<!--            </GridLayout>-->
-
-<!--        <GridLayout columns="auto, *, auto" rows="auto, 25" verticalAlignment="top" backgroundColor="lightgray" *ngFor="let newsitem of newsItems | async">-->
-<!--            <Image src="font://&#xF2b9;" rowSpan="2" width="72" height="72" margin="3" verticalAlignment="top"></Image>-->
-<!--            <Label [text]="newsitem.title" textWrap="true" col="1" colSpan="2" minHeight="50" fontSize="20" margin="3"></Label>-->
-<!--            <Label [text]="newsitem.date" col="1" row="1" fontSize="14" horizontalAlignment="left" verticalAlignment="bottom" margin="3"></Label>-->
-<!--            <Label [text]="newsitem.content" col="1" row="2" fontSize="14" verticalAlignment="bottom" margin="3"></Label>-->
-<!--            <Label text="lees meer" col="1" row="3" fontSize="14" verticalAlignment="bottom" margin="3"></Label>-->
-<!--        </GridLayout>-->
-
-    <StackLayout>
-        <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
-            <Image dock="left" width="10%"  src="font://&#xF2b9;" horizontalAlignment="left"></Image>
-            <Label class="newsAccount" [text]="newsitem.title"></Label>
-            <Label class="newsText" [text]="newsitem.date | date : 'longDate'"></Label>
-            <Label class="newsText newsTitle" [text]="newsitem.title"></Label>
-            <TextView class="newsText" [text]="newsitem.content | shorten" editable="false"></TextView>
-            <Label class="newsText newsExtra" text="Lees meer >" [nsRouterLink]="['../news-detail/' + newsitem.id]" verticalAlignment="bottom"></Label>
+        <StackLayout>
+            <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
+                <Label class="newsText newsTitle" [text]="newsitem.title" textWrap="true"></Label>
+                <Label class="newsText" [text]="newsitem.date | date : 'longDate'"fontSize="10"></Label>
+                <TextView class="newsText" [text]="newsitem.content | shorten" editable="false"></TextView>
+                <Label class="newsText newsExtra" text="Lees meer >" [nsRouterLink]="['../news-detail/' + newsitem.id]" verticalAlignment="bottom"></Label>
+            </StackLayout>
         </StackLayout>
-
-     </StackLayout>
     </StackLayout>
 </ScrollView>
+
 
