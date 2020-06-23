@@ -23,10 +23,9 @@ export class EditCompaniesComponent implements OnInit {
   }
 
   addCompany() {
-    this.companyService.getCompanies().then(companies => {
+    this.companyService.getCompaniesForRegistration().then(companies => {
       this.companies = companies;
       let companyNames = [];
-      console.log(companies);
 
       if(companies.length == 0) {
         this.dialogService.showAlert("Let op!", "We konden geen bedrijven vinden, probeer het later opnieuw");
@@ -48,7 +47,15 @@ export class EditCompaniesComponent implements OnInit {
   }
 
   private processResult(result: string) {
-
+      let company = this.findCompany(result);
+    console.log(company);
   }
 
+  private findCompany(result): Company {
+      for(let company of this.companies) {
+        if(company.name === result) {
+            return company;
+        }
+      }
+  }
 }

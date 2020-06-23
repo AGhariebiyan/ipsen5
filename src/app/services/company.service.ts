@@ -80,4 +80,16 @@ export class CompanyService {
         this.accountService.account.jobs.push(result);
         this.accountService.updateObservable(this.accountService.account);
     }
+
+    getCompaniesForRegistration(): Promise<Company[]> {
+            return new Promise<Company[]>((accept, reject) => {
+                this.http.getData<Company[]>(this.endpoint + "/" + this.accountService.account.id + "/forRegistration")
+                    .subscribe((companies) => {
+                        accept(companies);
+                    }, (error) => {
+                        reject(error);
+                    });
+            });
+
+    }
 }
