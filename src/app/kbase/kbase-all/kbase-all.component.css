@@ -35,14 +35,12 @@ StackLayout {
 
 }
 
-.topText{
+
+.extraText {
+    text-align: center;
     border-width: 0 0 1px 0 ;
     color: gray;
     font-size: 12px;
-}
-
-.extraText {
-    text-align: left;
 }
 
 TextView {
@@ -51,9 +49,9 @@ TextView {
 }
 
 Label {
-    border:none;
     color: blue;
-    text-align: center;
     padding: 10%;
 }
+
+
 
