@@ -28,8 +28,9 @@ import { AuthInterceptorService } from "~/app/services/auth-interceptor.service"
 import { EditCompaniesComponent } from './profile/user-data/edit-companies/edit-companies.component';
 import { EditCompanyComponent } from './profile/user-data/edit-company/edit-company.component';
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { CreateCompanyComponent } from './profile/user-data/create-company/create-company.component';
+import { CommonModule } from "@angular/common";
 import { UserListComponent } from "./admin/user-list/user-list.component";
-
 @NgModule({
     providers: [
         AccountService,
@@ -51,7 +52,9 @@ import { UserListComponent } from "./admin/user-list/user-list.component";
         AppRoutingModule,
         LoggedInModule,
         ReactiveFormsModule,
-        NativeScriptFormsModule
+        NativeScriptFormsModule,
+        NativeScriptUIDataFormModule,
+        CommonModule
     ],
     declarations: [
         AppComponent,
@@ -69,6 +72,7 @@ import { UserListComponent } from "./admin/user-list/user-list.component";
         EditCompaniesComponent,
         EditCompanyComponent,
         UserProfileComponent,
+        CreateCompanyComponent,
         UserListComponent
     ],
     schemas: [

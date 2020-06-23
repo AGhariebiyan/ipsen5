@@ -6,6 +6,10 @@ import { NewsItem } from "~/app/models/NewsItem.model";
 import { AccountService } from "~/app/services/account.service";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from "nativescript-angular/router";
+import { ActionBar } from "tns-core-modules/ui/action-bar";
+import { isIOS } from "tns-core-modules/platform";
+import { ActivatedRoute } from "@angular/router";
+import { Page } from "tns-core-modules/ui/page";
 
 @Component({
   selector: 'ns-news-add',
@@ -19,6 +23,7 @@ export class NewsAddComponent implements OnInit {
   form: FormGroup;
   constructor(private newsService: NewsService,
               private accountService: AccountService,
+              private page: Page,
               private routerExtensions: RouterExtensions) { }
   ngOnInit(): void {
 
@@ -27,6 +32,15 @@ export class NewsAddComponent implements OnInit {
       newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
       userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
     });
+  }
+
+  onBarLoaded($event) {
+    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
+    let navigationBar = bar.nativeView;
+
+    if (isIOS) {
+      navigationBar.prefersLargeTitles = false;
+    }
   }
 
   displayActionDialog() {
@@ -64,7 +78,7 @@ export class NewsAddComponent implements OnInit {
   }
 
   // Dialoog voor de controle van de gebruiker voor het wijzigen.
-  displayConfirmDialogSave() {
+  displayConfirmAdd() {
     const options = {
       title: "Weet u zeker dat u dit bericht wilt toevoegen?",
       okButtonText: "Toevoegen",
