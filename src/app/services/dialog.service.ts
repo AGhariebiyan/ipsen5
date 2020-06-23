@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as dialogs from "tns-core-modules/ui/dialogs" ;
+import { Company } from "~/app/models/Company.model";
 @Injectable({
     providedIn: "root"
 })
