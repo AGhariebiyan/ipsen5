@@ -101,7 +101,7 @@ export class KbaseEditComponent implements OnInit {
       Content: article.content,
       Date: this.date,
       Published: article.published,
-      AccountId: this.accountService.account.id,
+      AccountId: this.accountService.account.id
     };
 
     const body = JSON.stringify(requestBody);
