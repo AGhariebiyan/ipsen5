@@ -31,7 +31,15 @@ export class KbaseService {
             return result.filter((kbase) => kbase.published === true);
 
         }));
+    }
 
+    getSearchedItems(query: string): Observable<KBase[]> {
+        const allNews = this.getItems();
+
+        return allNews.pipe(map((result) => {
+            return result.filter((kbase) => kbase.title === query);
+
+        }));
     }
 
     getItem(id: string): Observable<KBase> {

@@ -7,7 +7,7 @@
 
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
-        <SearchBar hint="Zoeken"></SearchBar>
+        <SearchBar hint="Zoeken" (clear)="onClear()" (submit)="searchKbase($event) "></SearchBar>
         <Label class="topText" text="Meest recente artikelen"></Label>
         <StackLayout>
             <StackLayout class="articleBorder" *ngFor="let article of (featuredArticles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
