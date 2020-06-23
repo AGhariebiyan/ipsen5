@@ -30,7 +30,7 @@ import { EditCompanyComponent } from './profile/user-data/edit-company/edit-comp
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { CreateCompanyComponent } from './profile/user-data/create-company/create-company.component';
 import { CommonModule } from "@angular/common";
-
+import { UserListComponent } from "./admin/user-list/user-list.component";
 @NgModule({
     providers: [
         AccountService,
@@ -72,7 +72,8 @@ import { CommonModule } from "@angular/common";
         EditCompaniesComponent,
         EditCompanyComponent,
         UserProfileComponent,
-        CreateCompanyComponent
+        CreateCompanyComponent,
+        UserListComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

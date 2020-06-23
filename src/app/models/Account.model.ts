@@ -14,7 +14,9 @@ export class Account {
         public description: string,
         public role: PermissionRole,
         public jobs: WorksAt[],
+        public verifiedEmail?: boolean,
         public image?: Image
+
 
     ) {
     }

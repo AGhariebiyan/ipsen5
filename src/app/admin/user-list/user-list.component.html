@@ -1,0 +1,31 @@
+<ActionBar title="gebruikers">
+    <NavigationButton text="go back" android.systemicon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+<ScrollView height="100%" class="view">
+    <StackLayout *ngIf="users.length != 0">
+        <StackLayout  *ngFor="let account of users">
+            <GridLayout columns="auto, *, auto" rows="auto, 25" verticalAlignment="top" class="user">
+                <Image [src]="imageService.getUserImageUrl(account.image?.id)" rowSpan="2" class="user-image" (tap)="goToProfile(account.id)"></Image>
+                <Label [text]="
+                    account.firstName + ' ' +
+                    (account.middleName? account.middleName + ' ' : '') +
+                    account.lastName"
+                       textwrap="true" col="1" margin="3" class="user-name"></Label>
+                <FlexBoxLayout col="1" margin="3" row="1">
+                    <StackLayout orientation="horizontal" class="email group">
+                        <label text="EMAIL" class="type"></label>
+                        <Label [text]="account.email" class="email-value"></Label>
+                        <Label *ngIf="account.verifiedEmail" text="&#xf00c;" class="fas verified-email"></Label>
+                    </StackLayout>
+                    <StackLayout orientation="horizontal" class="role group">
+                        <label text="ROLE" class="type content"></label>
+                        <Label [text]="account.role.displayName" class="value content"></Label>
+                    </StackLayout>
+                </FlexBoxLayout>
+                <GridLayout rows="auto" verticalAlignment="center" columns="*" col="2" rowSpan="2" class="options" (tap)="deleteUser(account.id)">
+                        <Label horizontalAlignment="center" text="&#xf1f8;" class="fas delete"></Label>
+                </GridLayout>
+            </GridLayout>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
