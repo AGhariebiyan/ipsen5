@@ -6,6 +6,7 @@ import { ImageService, UploadResponse, UploadStatus } from "~/app/services/image
 import { DialogService } from "~/app/services/dialog.service";
 import { Company } from "~/app/models/Company.model";
 import { CompanyService } from "~/app/services/company.service";
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'ns-create-company',
@@ -94,19 +95,30 @@ export class CreateCompanyComponent implements OnInit {
         } return true;
     }
 
-    uploadPicture(company: Company) {
-        this.imageService.uploadCompanyProfilePicture(company.id, this.imageSrc).subscribe((status: UploadResponse) => {
-            if (status.state === UploadStatus.COMPLETE) {
-                this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {
-                    this.goBack()
+    uploadPicture(company: Company): Observable<Image> {
+        return new Observable((subscriber) => {
+            this.imageService.uploadCompanyProfilePicture(company.id, this.imageSrc).subscribe((status: UploadResponse) => {
+                if (status.state === UploadStatus.RESPONDED) {
+                    const image: Image = JSON.parse(status.data.data);
+                    subscriber.next(image);
+                    this.goBack();
+                }
+                if (status.state === UploadStatus.COMPLETE) {
+                    this.dialogService.showAlert("Bedrijf registreren", "Het registreren is geslaagd.").then(() => {
+                        this.goBack();
+                    });
+                }
+            }, () => {
+                this.dialogService.showAlert("Let op!", "Het bedrijf is geregistreerd, maar de afbeelding kon niet " +
+                    "correct worden geupload.").then(() => {
+                    subscriber.next(null);
+                    this.goBack();
                 });
-            }
-        }, () => {
-            this.dialogService.showAlert("Let op!", "Het bedrijf is geregistreerd, maar de afbeelding kon niet " +
-                "correct worden geupload.").then(() => {
-                this.goBack()
             });
         });
+
+
+
     }
 
     private processConfirmation() {
@@ -114,8 +126,11 @@ export class CreateCompanyComponent implements OnInit {
             this.companyService.createCompany(this._company).subscribe( result => {
                 let company = new Company(null, "", true, "");
                 Object.assign(company, result);
-                this.uploadPicture(company);
-                this.companyService.registerCEO(company);
+                this.uploadPicture(company).subscribe((image: Image) => {
+                    company.image = image;
+                    this.companyService.registerCEO(company);
+                });
+
             }, () => {
                 this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.")
             });

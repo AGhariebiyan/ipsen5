@@ -51,9 +51,9 @@ export class CompanyService {
     getCompanies(): Promise<Company[]> {
         return new Promise<Company[]>((accept, reject) => {
             this.http.getData<Company[]>(this.endpoint)
-                .subscribe(companies => {
+                .subscribe((companies) => {
                     accept(companies);
-                }, error => {
+                }, (error) => {
                     reject(error);
                 });
         });
@@ -61,23 +61,25 @@ export class CompanyService {
     }
 
     createCompany(company: Company) {
-        return this.http.postData(this.endpoint, company, this.http.jsonHeader);
+        return this.http.postData<Company>(this.endpoint, company, this.http.jsonHeader);
     }
 
     registerCEO(company) {
-        let account = this.accountService.account;
-        let role = new Role("CEO", "Eigenaar van het bedrijf.", true);
-        let worksAt = new WorksAt(company, account, role);
-        this.http.postData("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader).subscribe(result => {
+        const account = this.accountService. account;
+        const role = new Role("CEO", "Eigenaar van het bedrijf.", true);
+        const worksAt = new WorksAt(company, account, role);
+        this.http.postData<WorksAt>("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader).subscribe((result) => {
+            result.company.image = company.image;
             this.updateJobs(result);
-        }, error => {
-            console.log("Error: \n"+ error);
+        }, (error) => {
+            console.log("Error: \n" + error);
         });
     }
 
     private updateJobs(result) {
-        let worksAt = null;
+        const worksAt = null;
         Object.assign(worksAt, result);
         this.accountService.account.jobs.push(worksAt);
+        this.accountService.updateObservable(this.accountService.account);
     }
 }
