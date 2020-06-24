@@ -1,5 +1,4 @@
 <ActionBar  title="Bericht toevoegen" id="bar" (loaded)="onBarLoaded($event)">
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
     <ActionItem (tap)="displayConfirmAdd()" tap="onSave" ios.systemIcon="3" android.systemIcon="ic_menu_add" ios.position="right"></ActionItem>
 </ActionBar>
 <StackLayout [formGroup]="form">
@@ -8,6 +7,7 @@
             formControlName="newsTitle"
             class="marginTopField"
             hint="Titel"
+            [text]="newsTitle"
     ></TextField>
 
     <TextView
@@ -15,19 +15,20 @@
             class="marginTopField"
             id="textDescription"
             hint="Bericht"
+            [text]="newsDescription"
     ></TextView>
 
-<!--    <Label-->
-<!--            text="Plaatsen als"-->
-<!--    ></Label>-->
+    <Label
+            text="Plaatsen als"
+    ></Label>
 
-<!--    <TextField-->
-<!--            formControlName="userType"-->
-<!--            [text]="userType"-->
-<!--            hint="Plaatsen als...."-->
-<!--            editable="false"-->
-<!--            (tap)="displayActionDialog()"-->
-<!--    ></TextField>-->
+    <TextField
+            formControlName="userType"
+            [text]="userType"
+            hint="Plaatsen als...."
+            editable="false"
+            (tap)="displayActionDialog()"
+    ></TextField>
 
 
 </StackLayout>

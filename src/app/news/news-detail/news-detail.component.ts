@@ -44,8 +44,7 @@ export class NewsDetailComponent implements OnInit {
       private page: Page,
       private activatedRoute: ActivatedRoute,
       private router: RouterExtensions,
-      private imageService: ImageService,
-      private routerExtensions: RouterExtensions) { }
+      private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.account = this.accountService.account;
@@ -87,9 +86,7 @@ export class NewsDetailComponent implements OnInit {
     });
   }
 
-  // Voor in de actionbar om terug te navigeren.
-  goBack() {
-    console.log("Going back!");
-    this.routerExtensions.back();
+  back() {
+    this.router.back();
   }
 }

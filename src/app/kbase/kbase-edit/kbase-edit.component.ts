@@ -141,9 +141,4 @@ export class KbaseEditComponent implements OnInit {
     this.routerExtensions.back();
   }
 
-  // Voor in de actionbar om terug te navigeren.
-  goBack() {
-    console.log("Going back!");
-    this.routerExtensions.back();
-  }
 }
