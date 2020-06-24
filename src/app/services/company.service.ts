@@ -72,7 +72,7 @@ export class CompanyService {
             result.company.image = company.image;
             this.updateJobs(result);
         }, (error) => {
-            console.log("Error: \n" + error);
+            console.log("Error:  \n" + error);
         });
     }
 
