@@ -41,11 +41,11 @@ export class CompanyService {
     }
 
     updateCompany(company: Company) {
-        return this.http.putData(this.endpoint + company.id, company, this.http.jsonHeader);
+        return this.http.putData(this.endpoint + "/" +  company.id, company, this.http.jsonHeader);
     }
 
     deleteCompany(companyId: string) {
-        return this.http.deleteData(this.endpoint + companyId).pipe(tap((data) => {
+        return this.http.deleteData(this.endpoint + "/" + companyId).pipe(tap((data) => {
             this.accountService.removeJobFromList(companyId);
         }));
     }
@@ -74,7 +74,7 @@ export class CompanyService {
             result.company.image = company.image;
             this.updateJobs(result);
         }, (error) => {
-            console.log("Error: \n" + error);
+            console.log("Error:  \n" + error);
         });
     }
 

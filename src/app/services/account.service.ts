@@ -10,6 +10,7 @@ import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpService } from "~/app/services/http.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
 import { WorksAt } from "~/app/models/WorksAt.model";
+import { PermissionRole } from "~/app/models/PermissionRole.model";
 
 @Injectable({
   providedIn: "root"
@@ -26,6 +27,19 @@ export class AccountService {
   updateObservable(account: Account) {
     this.account = account;
     this.account$.next(this.account);
+  }
+
+  hasRole(roles: string[]) {
+    if (this.account === null) {
+      return false;
+    }
+    for (const role of roles) {
+      if (this.account.role.internalName === role) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   subscriptionUser(): Observable<Account> {
@@ -74,8 +88,8 @@ export class AccountService {
     // Todo fill in
   }
 
-  setUser(account: Account) {
-    this.updateObservable(account);
+    setUser(account: Account) {
+        this.updateObservable(account);
   }
 
   resetUser() {
@@ -100,6 +114,14 @@ export class AccountService {
     const jobs: WorksAt[] = this.account.jobs.filter(j => j.company.id !== companyId);
     this.account.jobs = jobs;
     this.setUser(this.account);
+  }
+
+  setUserRole(id: string, roleId: string) {
+    return this.http.put(environment.apiUrl + "/api/accounts/" + id + "/roles/" + roleId, {});
+  }
+
+  getRoleOptions() {
+    return this.http.get<PermissionRole[]>(environment.apiUrl + "/api/accounts/roles");
   }
 
   private updateAccount(): Observable<Account> {

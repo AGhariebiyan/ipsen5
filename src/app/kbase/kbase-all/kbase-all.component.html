@@ -1,0 +1,16 @@
+<ActionBar title="Knowledge Base">
+    <ActionItem icon="font://&#xf007;" class="fas" ios.position="right" [nsRouterLink]="['/profile']" pageTransition="slideBottom"></ActionItem>
+</ActionBar>
+
+<ScrollView scrollBarIndicatorVisible="false">
+    <StackLayout>
+        <Label class="extraText" text="Alle artikelen"></Label>
+        <StackLayout>
+            <StackLayout class="articleBorder" *ngFor="let article of (articles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
+                <Label class="articleText articleTitle" [text]="article.title" textWrap="true" style="margin: 0; color: #111111"></Label>
+                <TextView class="articleText" [text]="article.content | shorten" editable="false"></TextView>
+                <Label class="articleText newsExtra" text="Lees meer >" style="color: blue" [nsRouterLink]="['../news-detail/' + article.id]" verticalAlignment="bottom"></Label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

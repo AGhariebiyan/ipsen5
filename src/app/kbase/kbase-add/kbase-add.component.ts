@@ -81,4 +81,10 @@ export class KbaseAddComponent implements OnInit {
     this.kbaseService.makePostRequest(body);
   }
 
+  // Voor in de actionbar om terug te navigeren.
+  goBack() {
+    console.log("Going back!");
+    this.routerExtensions.back();
+  }
+
 }

@@ -17,7 +17,7 @@
                         <Label [text]="account.email" class="email-value"></Label>
                         <Label *ngIf="account.verifiedEmail" text="&#xf00c;" class="fas verified-email"></Label>
                     </StackLayout>
-                    <StackLayout orientation="horizontal" class="role group">
+                    <StackLayout orientation="horizontal" class="role group" (tap)="changeRole(account)">
                         <label text="ROLE" class="type content"></label>
                         <Label [text]="account.role.displayName" class="value content"></Label>
                     </StackLayout>

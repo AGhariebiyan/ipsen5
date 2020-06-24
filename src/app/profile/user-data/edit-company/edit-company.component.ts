@@ -116,7 +116,7 @@ export class EditCompanyComponent implements OnInit {
         "Het verwijderen van een bedrijf kan niet ongedaan worden gemaakt!\n Alle werknemers worden verwijderd.").then((accept: boolean) => {
           if (accept) {
             this.companyService.deleteCompany(id).subscribe((data) => {
-                this.dialogService.showConfirm("Bedrijf verwijderd", "Het bedrijf is verwijderd");
+                this.dialogService.showDialog("Bedrijf verwijderd", "Het bedrijf is verwijderd");
                 this.routerExtensions.back();
             }, (error) => {
                 this.dialogService.showAlert("Mislukt", "Het is niet gelukt het bedrijf te verwijdern");

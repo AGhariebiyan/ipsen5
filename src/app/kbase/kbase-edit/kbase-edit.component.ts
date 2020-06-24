@@ -57,6 +57,7 @@ export class KbaseEditComponent implements OnInit {
     });
   }
 
+  // Actionbar
   onBarLoaded($event) {
     const bar: ActionBar = this.page.getViewById<ActionBar>("bar");
     const navigationBar = bar.nativeView;
@@ -66,6 +67,7 @@ export class KbaseEditComponent implements OnInit {
     }
   }
 
+  // Dialoog venster om artikel op te wijzigen.
   displayConfirmDialogSave() {
     const options = {
       title: "Weet u zeker dat u het artikel wilt wijzigen?",
@@ -75,8 +77,10 @@ export class KbaseEditComponent implements OnInit {
     confirm(options).then((result: boolean) => {
       if (result === true
           && this.form.get("articleTitle").value !== ""
-          && this.form.get("articleTitle").value !== null && this.form.get("articleDescription").value !== ""
+          && this.form.get("articleTitle").value !== null
+          && this.form.get("articleDescription").value !== ""
           && this.form.get("articleDescription").value !== null) {
+
         this.onSubmit();
         this.routerExtensions.back();
         this.routerExtensions.back();
@@ -137,4 +141,9 @@ export class KbaseEditComponent implements OnInit {
     this.routerExtensions.back();
   }
 
+  // Voor in de actionbar om terug te navigeren.
+  goBack() {
+    console.log("Going back!");
+    this.routerExtensions.back();
+  }
 }
