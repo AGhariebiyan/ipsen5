@@ -73,6 +73,7 @@ const routes: Routes = [
     },
     {
         path: "loggedin",
+        // data: { roles: ["admin", "member", "board-member", "non-member"] },
         loadChildren: () => import("~/app/logged-in/logged-in.module").then((m) => m.LoggedInModule)
     }
 ];
