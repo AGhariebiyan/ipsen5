@@ -4,7 +4,7 @@
 </ActionBar>
 
 <StackLayout>
-    <Image class="profilePicture" [src]="profilePicture"></Image>
+    <Image class="profilePicture" [src]="imageService.getUserImageUrl(account.image?.id)"></Image>
     <Label class="newspostAuthor" [text]="firstName  + ' ' + middleName + ' ' + lastName" horizontalAlignment="center"></Label>
     <Label class="newspostDate" [text]="date | date : 'longDate'" horizontalAlignment="center"></Label>
 
