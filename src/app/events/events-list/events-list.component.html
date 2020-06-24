@@ -1,6 +1,7 @@
 <!-- <lg-main-action-bar [titleText]="sectionTitle"></lg-main-action-bar> -->
 <ActionBar title="Evenementen">
     <ActionItem *ngIf="isPrivileged" (tap)="addEventPressed()" ios.systemIcon="4" android.systemIcon="ic_menu_add" ios.position="right"></ActionItem>
+    <ActionItem icon="font://&#xf007;" class="fas" ios.position="right" [nsRouterLink]="['/profile']" pageTransition="slideBottom"></ActionItem>
 </ActionBar>
 <StackLayout>
     <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectionChanged()"></SegmentedBar>

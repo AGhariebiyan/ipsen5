@@ -29,6 +29,19 @@ export class AccountService {
     this.account$.next(this.account);
   }
 
+  hasRole(roles: string[]) {
+    if (this.account === null) {
+      return false;
+    }
+    for (const role of roles) {
+      if (this.account.role.internalName === role) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   subscriptionUser(): Observable<Account> {
     return this.account$;
     }
