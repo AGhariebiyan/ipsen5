@@ -8,6 +8,7 @@ StackLayout {
     width: 90%;
     /*height: 100%;*/
     display: inline-block;
+    margin-top: 2%;
 }
 
 .newsText {
@@ -61,5 +62,9 @@ Image {
 TextView {
     background-color: transparent;
     border-color: transparent;
+}
+
+seg{
+    margin-top: 10%;
 }
 

@@ -6,6 +6,7 @@ import { EventsListComponent } from "./events-list/events-list.component";
 import { EventDetailComponent } from "~/app/events/event-detail/event-detail.component";
 import { EventEditComponent } from "~/app/events/event-edit/event-edit.component";
 import { NewEventComponent } from "./new-event/new-event.component";
+import { RoleGuard } from "~/app/services/role.guard";
 
 const routes: Routes = [
     {
@@ -23,10 +24,14 @@ const routes: Routes = [
     },
     {
         path: "edit",
+        canActivate: [RoleGuard],
+        data: { roles: ["admin", "board-member"] },
         component: EventEditComponent
     },
     {
         path: "new",
+        canActivate: [RoleGuard],
+        data: { roles: ["admin", "board-member"] },
         component: NewEventComponent
     }
 ];

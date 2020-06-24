@@ -29,8 +29,8 @@ export class NewsAddComponent implements OnInit {
 
     this.form = new FormGroup({
       newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      // userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
     });
   }
 
@@ -43,6 +43,7 @@ export class NewsAddComponent implements OnInit {
     }
   }
 
+  // Wordt niet meer gebruikt
   displayActionDialog() {
     const options = {
       title: "Gebruiker",
@@ -69,7 +70,7 @@ export class NewsAddComponent implements OnInit {
     const newsDescription = this.form.get('newsDescription').value;
 
     const newsItem = new NewsItem(newsTitle, newsDescription, new Date(), false,
-        true, this.userId, true);
+        true, this.accountService.account.id, true);
 
     const body = JSON.stringify(newsItem);
 
@@ -88,7 +89,11 @@ export class NewsAddComponent implements OnInit {
       const newsTitle = this.form.get("newsTitle").value;
       const newsDescription = this.form.get("newsDescription").value;
 
-      if (result === true && newsTitle !== "" && newsDescription !== "" && this.userType !== "") {
+      if (result === true
+          && this.form.get("newsTitle").value !== ""
+          && this.form.get("newsTitle").value !== null
+          && this.form.get("newsDescription").value !== ""
+          && this.form.get("newsDescription").value !== null) {
         this.onSubmit();
         this.routerExtensions.back();
       } else {
@@ -100,5 +105,11 @@ export class NewsAddComponent implements OnInit {
         });
       }
     });
+  }
+
+  // Voor in de actionbar om terug te navigeren.
+  goBack() {
+    console.log("Going back!");
+    this.routerExtensions.back();
   }
 }
