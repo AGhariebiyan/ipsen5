@@ -1,1 +1,13 @@
-/* Add mobile styles for the component here.  */
+.searchRow {
+    padding: 20;
+}
+
+.domain {
+    margin-left: 10;
+}
+
+.header {
+    margin-left: 20 ;
+    padding: 20 0;
+    color: #999;
+}

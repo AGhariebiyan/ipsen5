@@ -30,6 +30,7 @@ import { EditCompanyComponent } from './profile/user-data/edit-company/edit-comp
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { CreateCompanyComponent } from './profile/user-data/create-company/create-company.component';
 import { CommonModule } from "@angular/common";
+import { RegisterJobComponent } from './profile/user-data/register-job/register-job.component';
 import { UserListComponent } from "./admin/user-list/user-list.component";
 @NgModule({
     providers: [
@@ -73,7 +74,8 @@ import { UserListComponent } from "./admin/user-list/user-list.component";
         EditCompanyComponent,
         UserProfileComponent,
         CreateCompanyComponent,
-        UserListComponent
+        UserListComponent,
+        RegisterJobComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

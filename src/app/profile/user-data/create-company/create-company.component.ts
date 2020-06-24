@@ -115,9 +115,6 @@ export class CreateCompanyComponent implements OnInit {
                 });
             });
         });
-
-
-
     }
 
     private processConfirmation() {

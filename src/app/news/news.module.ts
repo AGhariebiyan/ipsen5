@@ -21,7 +21,6 @@ import { ShortenPipe } from "~/app/news/news-pipe/shorten.pipe";
         NewsEditComponent,
         ActionBarNewsComponent,
         NewsDetailComponent,
-        ShortenPipe
     ],
     imports: [
         NativeScriptCommonModule,
@@ -31,7 +30,6 @@ import { ShortenPipe } from "~/app/news/news-pipe/shorten.pipe";
         CommonModule
     ],
     exports: [
-        ShortenPipe
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

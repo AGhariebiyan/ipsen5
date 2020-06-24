@@ -56,6 +56,7 @@ export class RegisterComponent implements OnInit {
         }
 
         // Register the user.
+
         const x = this.registerService.register(this.email, this.password, this.firstName, this.lastName, this.middleName)
             .subscribe((data) => {
                 console.log(data);
@@ -67,10 +68,11 @@ export class RegisterComponent implements OnInit {
                 this.clearAllFields();
                 this.router.navigate(["start", "login"]);
             }, (error) => {
+                console.log(error)
                 if (error.error.error === "Email already exists") {
                     this.clearEmailFields();
                     this.clearPasswordFields();
-                    this.showDialog("Email adres al gebruikt    ", "Dit email adres is al in gebruik");
+                    this.showDialog("Email adres al gebruikt", "Dit email adres is al in gebruik");
                 }
             }
         );

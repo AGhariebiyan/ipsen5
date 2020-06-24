@@ -38,12 +38,16 @@ export class RoleGuard implements CanActivate {
 
         // Check if the account in the service has the roles
         if (!!this.accountService.account) {
+            console.log("account has been set")
             const allowed = roles.filter((role) => role === this.accountService.account.role.internalName).length > 0;
             if (!allowed) {
                 this.showDenial();
             }
 
             return of(allowed);
+        }
+        else {
+            
         }
 
 

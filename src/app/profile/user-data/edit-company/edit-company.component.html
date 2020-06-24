@@ -44,6 +44,13 @@
             <Button [text]="'Verwijder bedrijf'" (tap)="deleteCompany(worksAt.company.id)"></Button>
         </FlexBoxLayout>
 
+        <Label text="Link aanvragen:" *ngIf="worksAt.role.canEditCompany && jobrequests != undefined && jobrequests.length > 0" class="job-requests-label"></Label>
+        <ListView [items]="jobrequests" *ngIf="worksAt.role.canEditCompany" class="job-requests">
+            <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
+                <button [text]="getName(event)" (tap)="handleRequest(event)" class="job-request-button"></button>
+            </ng-template>
+        </ListView>
+
 
     </StackLayout>
 </ScrollView>
