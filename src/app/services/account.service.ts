@@ -16,7 +16,7 @@ import { WorksAt } from "~/app/models/WorksAt.model";
 })
 export class AccountService {
 
-
+  endpoint = "/accounts/"
 
   account: Account;
   account$ = new Subject<Account>();
@@ -31,7 +31,7 @@ export class AccountService {
   // });
 
 
-  constructor(private http: HttpClient, private httpService: HttpService, private router: RouterExtensions) {
+  constructor(private httpService: HttpService, private router: RouterExtensions) {
   }
 
   updateObservable(account: Account) {
@@ -91,8 +91,7 @@ export class AccountService {
 
   getUser(id: string): Observable<Account> {
     // console.log("/api/accounts/" + id);
-
-    return this.httpService.getDataWithArgs("/accounts/", id);
+    return this.httpService.getDataWithArgs(this.endpoint, id);
   }
 
   removeJobFromList(companyId: string) {
@@ -104,8 +103,12 @@ export class AccountService {
     this.setUser(this.account);
   }
 
+  getAllAccounts(): Observable<Account[]> {
+    return this.httpService.getData<Account[]>(this.endpoint);
+  }
+
   private updateAccount(): Observable<Account> {
-    return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(
+    return this.httpService.putData<Account>(this.endpoint + this.account.id, this.account, this.httpService.jsonHeader).pipe(
         tap(() => {
           this.updateObservable(this.account);
         })

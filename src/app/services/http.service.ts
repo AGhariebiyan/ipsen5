@@ -31,8 +31,8 @@ export class HttpService {
 
   }
 
-  putData(endpoint: string, body: any, headers: HttpHeaders) {
-    return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
+  putData<T>(endpoint: string, body: any, headers: HttpHeaders) {
+    return this.http.put<T>(this.apiLocation + endpoint, body, {headers: headers});
   }
 
   deleteData(endpoint: string) {

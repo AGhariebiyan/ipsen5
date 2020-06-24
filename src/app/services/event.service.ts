@@ -42,7 +42,7 @@ export class EventService {
     })
   }
 
-  private getEventsInternal(): Observable<EventResponse[]> {
+  getEventsInternal(): Observable<EventResponse[]> {
     return this.http.getData<EventResponse[]>(this.endpoint)
   }
 
