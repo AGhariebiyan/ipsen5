@@ -1,1 +1,20 @@
 /* Add mobile styles for the component here.  */
+.company-logo {
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 90%;
+    max-heigt: 50%;
+}
+
+.company-info {
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 20em;
+}
+
+.register-button {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5em;
+    width: 90%;
+}
