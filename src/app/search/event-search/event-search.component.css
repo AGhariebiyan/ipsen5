@@ -1,0 +1,8 @@
+/* Add mobile styles for the component here.  */
+.eventRow {
+    padding: 10 20;
+}
+
+.event-name {
+    font: bold;
+}

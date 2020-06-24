@@ -5,10 +5,8 @@
 
 <StackLayout>
     <Image class="profilePicture" [src]="imageService.getUserImageUrl(account.image?.id)"></Image>
-    <Label class="newspostAuthor" [text]="firstName  + ' ' + middleName + ' ' + lastName" horizontalAlignment="center"></Label>
+    <Label class="newspostAuthor" [text]="firstName  + ' ' + middleName + ' ' + lastName" horizontalAlignment="center" textWrap="true" textAlignment="center"></Label>
     <Label class="newspostDate" [text]="date | date : 'longDate'" horizontalAlignment="center"></Label>
-
     <Label class="newspostTitle" [text]="articleTitle" horizontalAlignment="center"></Label>
     <TextView class="newspostDescription" [text]="articleContent" horizontalAlignment="center" editable="false"></TextView>
-
 </StackLayout>

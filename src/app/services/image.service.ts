@@ -83,7 +83,7 @@ export class ImageService {
         });
     }
 
-    getCompanyImageUrl(id: string) {
+    getCompanyImageUrl(id: string): string {
         if (id !== null) {
             return environment.apiUrl + "/api/images/" + id;
         } else {

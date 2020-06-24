@@ -1,0 +1,14 @@
+<ActionBar title="Knowledge Base"></ActionBar>
+<StackLayout>
+    <SearchBar id="searchBar" hint="Naam" (textChange)="textDidChange($event)"></SearchBar>
+    <ListView [items]="articles$ | async" height="100%">
+        <ng-template let-article="item" let-i="index" let-odd="odd" let-even="even">
+            <FlexBoxLayout justifyContent="space-between" class="kbaseRow" (tap)="articleTapped(article.id)">
+                <StackLayout orientation="horizontal">
+                    <Label [text]="article.title" class="domain"></Label>
+                </StackLayout>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </ng-template>
+    </ListView>
+</StackLayout>

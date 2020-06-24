@@ -1,2 +1,16 @@
-<ns-custom-action-bar titleText="Zoeken"></ns-custom-action-bar>
-<Button text="search works!" class="btn btn-primary"></Button>
+<ActionBar title="Zoeken"></ActionBar>
+
+<StackLayout>
+    <Label text="Zoek op" class="header"></Label>
+    <ListView [items]="searchDomains" height="100%">
+        <ng-template let-domain="item" let-i="index" let-odd="odd" let-even="even">
+            <FlexBoxLayout justifyContent="space-between" class="searchRow" [nsRouterLink]="domain.link">
+                <StackLayout orientation="horizontal">
+                    <Label text="&#xf002;" class="fas icon"></Label>
+                    <Label [text]="domain.domainName" class="domain"></Label>
+                </StackLayout>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </ng-template>
+    </ListView>
+</StackLayout>

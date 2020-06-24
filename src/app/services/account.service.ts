@@ -29,6 +29,10 @@ export class AccountService {
     this.account$.next(this.account);
   }
 
+  getAllAccounts(): Observable<Account[]> {
+    return this.httpService.getData<Account[]>("/accounts/");
+  }
+
   hasRole(roles: string[]) {
     if (this.account === null) {
       return false;

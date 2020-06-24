@@ -1,0 +1,9 @@
+/* Add mobile styles for the component here.  */
+.userRow {
+    padding: 10 20;
+}
+
+.imgRounded {
+    border-radius: 50%;
+    margin-right: 10;
+}
