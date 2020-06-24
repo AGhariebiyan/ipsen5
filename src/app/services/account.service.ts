@@ -11,6 +11,13 @@ import { HttpService } from "~/app/services/http.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
 import { WorksAt } from "~/app/models/WorksAt.model";
 
+export class AccountPassword{
+    constructor(
+        private id: string,
+        private password: string
+    ) {}
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -32,7 +39,7 @@ export class AccountService {
     return this.account$;
     }
 
-    deleteAccount(id: string): Observable<Account> {
+    deleteAccount(id: string): Observable<any> {
 
         return this.httpService.deleteData<Account>("/accounts/" + id);
     }
@@ -70,8 +77,13 @@ export class AccountService {
     return this.updateAccount();
   }
 
-  updatePassword(password: string) {
-    // Todo fill in
+    updatePassword(password: string): Observable<Account> {
+      if (!this.account) {
+          return null;
+      }
+        return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id + "/password",
+            new AccountPassword(this.account.id, password)
+        );
   }
 
   setUser(account: Account) {
