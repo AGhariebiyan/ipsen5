@@ -51,24 +51,29 @@ const routes: Routes = [
             { path: "edit-email", component: EditEmailComponent },
             { path: "edit-companies", component: EditCompaniesComponent },
             { path: "edit-companies/:id", component: EditCompanyComponent },
-            {path: "create-company", component: CreateCompanyComponent }
+            {
+                path: "create-company",
+                component: CreateCompanyComponent,
+                canActivate: [RoleGuard],
+                data: { roles: ["member", "admin", "board-member"] }
+            }
         ]
     },
 
     {
         path: "admin",
         component: UserListComponent,
-        data: { roles: ["admin"] }
+        canActivate: [RoleGuard],
+        data: { roles: ["admin", "board-member"] }
     },
 
     {
         path: "userprofile/:id",
-        component: UserProfileComponent,
+        component: UserProfileComponent
     },
     {
         path: "loggedin",
-        canActivate: [RoleGuard],
-        data: {roles: ["member", "admin"]},
+        // data: { roles: ["admin", "member", "board-member", "non-member"] },
         loadChildren: () => import("~/app/logged-in/logged-in.module").then((m) => m.LoggedInModule)
     }
 ];

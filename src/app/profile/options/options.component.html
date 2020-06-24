@@ -26,7 +26,7 @@
         </StackLayout>
 
 
-        <StackLayout class="group">
+        <StackLayout class="group" *ngIf="accountService.hasRole(['member', 'board-member', 'admin'])">
             <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['edit-companies']">
                 <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
                 <Label text="Mijn Bedrijven" textWrap="true"></Label>
@@ -34,13 +34,9 @@
             </FlexBoxLayout>
         </StackLayout>
 
-        <StackLayout class="group">
-            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['edit-email']">
-                <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
-                <Label text="Wijzig email-addres" textWrap="true"></Label>
-                <Label text="&#xf054;" class="fas icon"></Label>
-            </FlexBoxLayout>
 
+
+        <StackLayout class="group">
             <FlexBoxLayout justifyContent="space-between" class="row"  [nsRouterLink]="['edit-password']">
                 <Label  text="&#xf4ff;" class="fas icon indicator-icon"></Label>
                 <Label text="Wijzig wachtwoord" textWrap="true"></Label>

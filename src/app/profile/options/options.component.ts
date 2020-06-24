@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ImageAsset } from "@nativescript/core/image-asset/image-asset";
 import { ImageService, UploadResponse, UploadStatus } from "~/app/services/image.service";
 import { DialogService } from "~/app/services/dialog.service";
+import { AccountService } from "~/app/services/account.service";
 
 @Component({
   selector: "ns-options",
@@ -11,7 +12,8 @@ import { DialogService } from "~/app/services/dialog.service";
 export class OptionsComponent implements OnInit {
 
   constructor(private imageService: ImageService,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private accountService: AccountService) { }
 
   ngOnInit(): void {
   }
