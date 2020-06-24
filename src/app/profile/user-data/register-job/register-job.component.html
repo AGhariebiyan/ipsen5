@@ -1,0 +1,19 @@
+<RadDataForm [source]="jobRequest" name="form">
+    <TKEntityProperty tkDataFormProperty name="id" hidden="true"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="title" displayName="Titel: "></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="description" displayName="Omschrijving:">
+        <TKPropertyEditor tkEntityPropertyEditor type="MultilineText"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="canEditCompany" displayName="Mag bedrijf bewerken ">
+        <TKPropertyEditor tkEntityPropertyEditor type="switch"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="company" displayName="Bedrijf: " hidden="true">
+    </TKEntityProperty>
+</RadDataForm>
+
+<Button text="Aanvragen" (tap)="this.confirm()" class="register-button"></Button>
+
+<Label text="Bedrijf: " class="company-info"></Label>
+<Label [text]="jobRequest.company.name" class="company-info"></Label>
+<Label [text]="jobRequest.company.address" class="company-info"></Label>
+<Image [src]="imageService.getCompanyImageUrl(_jobRequest.company.image?.id)" class="company-logo"></Image>

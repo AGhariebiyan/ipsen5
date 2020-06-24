@@ -3,9 +3,10 @@
     <ActionItem [disabled]="inProgress" (tap)="confirm()" text="Aanmaken" ios.position="right"></ActionItem>
 </ActionBar>
 <RadDataForm name="form" [source]="company" #newCompanyForm>
-    <TKEntityProperty tkDataFormProperty name="image" displayName="Afbeelding:" index="0" required="false" hidden="true">
+    <TKEntityProperty tkDataFormProperty name="image" displayName="Afbeelding:" required="false" hidden="true">
     </TKEntityProperty>
-    <TKEntityProperty tkDataFormProperty name="active" displayName="Active:" index="1" required="false" hidden="true"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="address" displayName="Adress:"></TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="active" displayName="Active:" required="false" hidden="true"></TKEntityProperty>
 </RadDataForm>
 <Button text="Kies afbeelding" class="image-selector" (tap)="selectImage()"></Button>
 <Label *ngIf="imageSet" text="Voorbeeld afbeelding:" class="preview-label"></Label>

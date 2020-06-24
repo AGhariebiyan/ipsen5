@@ -4,6 +4,8 @@ import { ImageService } from "~/app/services/image.service";
 import { DialogService } from "~/app/services/dialog.service";
 import { CompanyService } from "~/app/services/company.service";
 import { Company } from "~/app/models/Company.model";
+import { RouterExtensions } from '@nativescript/angular';
+import { NavigationExtras } from "@angular/router";
 
 @Component({
   selector: 'ns-edit-companies',
@@ -16,17 +18,17 @@ export class EditCompaniesComponent implements OnInit {
   constructor(private accountService: AccountService,
               private imageService: ImageService,
               private dialogService: DialogService,
-              private companyService: CompanyService) { }
+              private companyService: CompanyService,
+              private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
 
   }
 
   addCompany() {
-    this.companyService.getCompanies().then(companies => {
+    this.companyService.getCompaniesForRegistration().then(companies => {
       this.companies = companies;
       let companyNames = [];
-      console.log(companies);
 
       if(companies.length == 0) {
         this.dialogService.showAlert("Let op!", "We konden geen bedrijven vinden, probeer het later opnieuw");
@@ -49,6 +51,23 @@ export class EditCompaniesComponent implements OnInit {
 
   private processResult(result: string) {
 
+      let company = this.findCompany(result);
+      if(company != null) {
+          let navigateExtras: NavigationExtras = {
+              queryParams: {
+                  company: JSON.stringify(company)
+              }
+          };
+          this.routerExtensions.navigate(['mydata/register-job'], navigateExtras);
+      }
+
   }
 
+  private findCompany(result): Company {
+      for(let company of this.companies) {
+        if(company.name === result) {
+            return company;
+        }
+      }
+  }
 }

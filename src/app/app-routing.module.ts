@@ -19,6 +19,7 @@ import { EditCompaniesComponent } from "./profile/user-data/edit-companies/edit-
 import { EditCompanyComponent } from "./profile/user-data/edit-company/edit-company.component";
 import { CreateCompanyComponent } from "~/app/profile/user-data/create-company/create-company.component";
 import { UserListComponent } from "./admin/user-list/user-list.component";
+import { RegisterJobComponent } from "~/app/profile/user-data/register-job/register-job.component";
 
 const routes: Routes = [
 
@@ -55,8 +56,9 @@ const routes: Routes = [
                 path: "create-company",
                 component: CreateCompanyComponent,
                 canActivate: [RoleGuard],
-                data: { roles: ["member", "admin", "board-member"] }
-            }
+                data: { roles: ["member", "admin", "board-member"] },
+            },
+            {path: "register-job", component: RegisterJobComponent}
         ]
     },
 

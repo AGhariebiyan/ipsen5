@@ -23,6 +23,7 @@ export class EditCompanyComponent implements OnInit {
   worksAt: WorksAt;
   editingRole: boolean = false;
   editingCompany: boolean = false;
+  jobrequests: WorksAt[];
 
   constructor(private route: ActivatedRoute,
               private companyService: CompanyService,
@@ -35,6 +36,9 @@ export class EditCompanyComponent implements OnInit {
       this.worksAt = this.companyService.getWorksAt(params.id);
       this.createRoleForm();
       this.createCompanyForm();
+    }).unsubscribe();
+    this.companyService.getJobRequests(this.worksAt.company.id).then(result => {
+      this.jobrequests = result;
     });
 
   }
@@ -120,4 +124,48 @@ export class EditCompanyComponent implements OnInit {
           }
     });
   }
+
+    acceptRequest(request) {
+      this.companyService.acceptWorksAt(request).subscribe(() => {
+        this.dialogService.showDialog("Accepteren", "De aanvraag is geaccepteerd.");
+        this.jobrequests.splice(request);
+      }, () => {
+        this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.");
+      });
+    }
+
+    getName(request) {
+        return request.account.firstName + " " + request.account.middleName + " " + request.account.lastName;
+    }
+
+  getCanEdit(request) {
+    if(request.role.canEditCompany) {
+      return "Mag aanpassen bedrijf aanpassen";
+    } else {
+      return "";
+    }
+  }
+
+  denyRequest(request) {
+    this.companyService.denyWorksAt(request).subscribe(() => {
+      this.dialogService.showDialog("Weigeren", "De aanvraag is geweigerd.");
+      this.jobrequests.splice(request);
+    }, () => {
+      this.dialogService.showAlert("Let op!", "Er ging iets mis, probeer het later opnieuw.");
+    });
+  }
+
+  handleRequest(request) {
+    let message = this.getName(request) + "heeft een aanvraag gedaan om met dit bedrijf gelinkt te worden. \n" +
+        "Wilt u deze accepteren? \n \n" + "Rol: " + request.role.title + "\n" + "Omschrijving: " +
+        request.role.description + "\n" + this.getCanEdit(request);
+    this.dialogService.showConfirm("Aanvraag link", message).then(result => {
+      if(result) {
+        this.acceptRequest(request);
+      } else {
+        this.denyRequest(request);
+      }
+    });
+  }
+
 }
