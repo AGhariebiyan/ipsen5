@@ -50,10 +50,9 @@ export class EditCompaniesComponent implements OnInit {
   }
 
   private processResult(result: string) {
-      if(result == null || result.trim() === "") {
-          return;
-      } else {
-          let company = this.findCompany(result);
+
+      let company = this.findCompany(result);
+      if(company != null) {
           let navigateExtras: NavigationExtras = {
               queryParams: {
                   company: JSON.stringify(company)
@@ -61,6 +60,7 @@ export class EditCompaniesComponent implements OnInit {
           };
           this.routerExtensions.navigate(['mydata/register-job'], navigateExtras);
       }
+
   }
 
   private findCompany(result): Company {
