@@ -21,11 +21,11 @@ export class NewsService {
         return this.http.getData(this.endpoint);
     }
     
-    getFeaturedItems(featured: boolean): Observable<NewsItem[]> {
+    getFeaturedItems(): Observable<NewsItem[]> {
         const allNews = this.getItems();
 
         return allNews.pipe(map((result) => {
-            return result.filter((newsItem) => newsItem.featured === featured);
+            return result.filter((newsItem) => newsItem.featured === true);
 
         }));
         

@@ -1,0 +1,14 @@
+<ActionBar title="Nieuwsberichten"></ActionBar>
+<StackLayout>
+    <SearchBar id="searchBar" hint="Naam" (textChange)="textDidChange($event)"></SearchBar>
+    <ListView [items]="news$ | async" height="100%">
+        <ng-template let-news="item" let-i="index" let-odd="odd" let-even="even">
+            <FlexBoxLayout justifyContent="space-between" class="newsRow" (tap)="newsTapped(news.id)">
+                <StackLayout orientation="vertical">
+                    <Label [text]="news.title" class="event-name"></Label>
+                </StackLayout>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </ng-template>
+    </ListView>
+</StackLayout>

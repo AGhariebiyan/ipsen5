@@ -1,18 +1,57 @@
 <ScrollView height="100%" class="view">
     <StackLayout class="group">
-        <image [src]="imageService.getImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
 
-        <FlexBoxLayout *ngIf="!editing" flexDirection="column" alignItems="center">
-            <Label [text]="worksAt.company.name" class="company-title"></Label>
+        <image [src]="imageService.getCompanyImageUrl(worksAt.company.image?.id)" (tap)="editImage()" class="company-image"></image>
+
+        <!-- Bewerk bedrijffoto knop -->
+        <FlexBoxLayout flexDirection="column" alignItems="center">
+            <Button *ngIf="worksAt.role.canEditCompany" text="Bewerk bedrijfsfoto" type="button" (tap)="editImage()"></Button>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout *ngIf="!editingCompany && !editingRole" flexDirection="column" alignItems="center">
             <Label [text]="worksAt.role.title" class="company-job-title"></Label>
+            <Label [text]="worksAt.company.name" class="company-title"></Label>
         </FlexBoxLayout>
-        <FlexBoxLayout [formGroup]="form" *ngIf="editing" flexDirection="column" alignItems="center">
-            <Button *ngIf="worksAt.role.canEdit" text="Bewerk bedrijfsfoto" type="button" (tap)="editImage()"></Button>
-            <TextField *ngIf="worksAt.role.canEdit" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
+
+        <!-- Bewerk role knop -->
+        <FlexBoxLayout [formGroup]="roleForm" *ngIf="editingRole" flexDirection="column" alignItems="center">
+            <Label [text]="'Bewerk Rol:'"></Label>
             <TextField hint="Baan" editable="true" width="80%" formControlName="jobDescription"></TextField>
+            <FlexBoxLayout flexDirecton="row">
+                <Button *ngIf="editingRole" text="Opslaan" (tap)="saveRole()" [isEnabled]="roleForm.valid || worksAt.role.title !== roleForm.value.jobDescription"></Button>
+                <Button *ngIf="editingRole" text="Cancel" (tap)="toggleEditRole()"></Button>
+            </FlexBoxLayout>
+
         </FlexBoxLayout>
-        <Button *ngIf="editing" text="Opslaan" (tap)="save()" [disabled]="form.invalid"></Button>
-        <Button *ngIf="!editing" text="&#xf4ff; Bewerk Gegevens" class="fas icon" (tap)="toggleEdit()"></Button>
+
+        <!-- Bewerk Bedrijf knop -->
+        <FlexBoxLayout [formGroup]="companyForm" *ngIf="editingCompany" flexDirection="column" alignItems="center">
+            <Label [text]="'Bewerk Bedrijfsnaam:'"></Label>
+            <TextField *ngIf="worksAt.role.canEditCompany" hint="Bedrijsfnaam " editable="true" width="80%" formControlName="companyName"></TextField>
+            <FlexBoxLayout flexDirecton="row">
+                <Button *ngIf="editingCompany" text="Opslaan" (tap)="saveCompany()" [isEnabled]="companyForm.valid && worksAt.company.name !== companyForm.value.companyName"></Button>
+                <Button *ngIf="editingCompany" text="Cancel" (tap)="toggleEditCompany()"></Button>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+
+        <FlexBoxLayout [formGroup]="companyForm" *ngIf="!editingCompany && !editingRole" flexDirection="row" alignItems="center">
+            <Button  text="&#xf4ff; Verander titel." class="fas icon" (tap)="toggleEditRole()"></Button>
+            <Button *ngIf="worksAt.role.canEditCompany" text="&#xf4ff; Verander Bedrijfsnaam" class="fas icon" (tap)="toggleEditCompany()"></Button>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout flexDirection="column" alignItems="center" *ngIf="worksAt.role.canEditCompany && !editingRole && !editingCompany">
+            <Button [text]="'Verwijder bedrijf'" (tap)="deleteCompany(worksAt.company.id)"></Button>
+        </FlexBoxLayout>
+
+        <Label text="Link aanvragen:" *ngIf="worksAt.role.canEditCompany && jobrequests != undefined && jobrequests.length > 0" class="job-requests-label"></Label>
+        <ListView [items]="jobrequests" *ngIf="worksAt.role.canEditCompany" class="job-requests">
+            <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
+                <button [text]="getName(event)" (tap)="handleRequest(event)" class="job-request-button"></button>
+            </ng-template>
+        </ListView>
+
+
     </StackLayout>
 </ScrollView>
 

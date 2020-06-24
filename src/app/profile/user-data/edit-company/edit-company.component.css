@@ -15,3 +15,26 @@
 .company-title {
     font-size: 30em;
 }
+
+.job-requests {
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 10em;
+    height: 40%;
+}
+
+.job-request {
+    background-color: gray;
+    border-radius: 5em;
+}
+
+.job-requests-label {
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 5em;
+}
+
+.job-request-button {
+    display: flex;
+
+}

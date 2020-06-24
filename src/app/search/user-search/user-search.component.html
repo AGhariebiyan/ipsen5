@@ -1,0 +1,15 @@
+<ActionBar title="Leden"></ActionBar>
+<StackLayout>
+    <SearchBar id="searchBar" hint="Naam" (textChange)="textDidChange($event)"></SearchBar>
+    <ListView [items]="accounts$ | async" height="100%">
+        <ng-template let-account="item" let-i="index" let-odd="odd" let-even="even">
+            <FlexBoxLayout justifyContent="space-between" class="userRow" (tap)="profileTapped(account.id)">
+                <StackLayout orientation="horizontal">
+                    <Image [src]="userImageString(account.image?.id)" height="44" class="imgRounded"></Image>
+                    <Label [text]="account.firstName + ' ' + account.lastName" class="domain"></Label>
+                </StackLayout>
+                <Label text="&#xf05a;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </ng-template>
+    </ListView>
+</StackLayout>

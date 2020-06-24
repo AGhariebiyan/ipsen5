@@ -9,6 +9,7 @@ import { Account } from "~/app/models/Account.model";
 import { Image } from "~/app/models/image.model";
 import { environment } from "~/environments/environment.tns";
 import { RouterExtensions } from '@nativescript/angular/router/router.module';
+import { ImageService } from "~/app/services/image.service";
 
 @Component({
   selector: 'ns-news-detail',
@@ -16,6 +17,8 @@ import { RouterExtensions } from '@nativescript/angular/router/router.module';
   styleUrls: ['./news-detail.component.css']
 })
 export class NewsDetailComponent implements OnInit {
+
+  account: Account;
 
   //Newspost
   newsId = this.activatedRoute.snapshot.params.newsId;
@@ -28,6 +31,7 @@ export class NewsDetailComponent implements OnInit {
   accountId: string;
   companyId: string;
   featured: boolean;
+  loggedInUserId: string;
 
   firstName: string;
   middleName: string;
@@ -39,9 +43,13 @@ export class NewsDetailComponent implements OnInit {
       private accountService: AccountService,
       private page: Page,
       private activatedRoute: ActivatedRoute,
-      private router: RouterExtensions) { }
+      private router: RouterExtensions,
+      private imageService: ImageService,
+      private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
+    this.account = this.accountService.account;
+    this.loggedInUserId = this.accountService.account.id;
     this.getNewsItem();
   }
 
@@ -79,7 +87,9 @@ export class NewsDetailComponent implements OnInit {
     });
   }
 
-  back() {
-    this.router.back();
+  // Voor in de actionbar om terug te navigeren.
+  goBack() {
+    console.log("Going back!");
+    this.routerExtensions.back();
   }
 }

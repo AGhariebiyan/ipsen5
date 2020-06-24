@@ -1,7 +1,21 @@
-<ns-custom-action-bar titleText="Nieuws"></ns-custom-action-bar>
-<StackLayout>
-    <Button text="artikel toevoegen" nsRouterLink="../kbase-add" class="btn btn-primary"></Button>
-    <Button *ngFor="let article of (articles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]"></Button>
-</StackLayout>
+<ActionBar title="Knowledge Base">
+    <ActionItem icon="font://&#xf007;" class="fas" ios.position="right" [nsRouterLink]="['/profile']" pageTransition="slideBottom"></ActionItem>
+    <ActionItem icon="font://&#xf500;" class="fas" ios.position="right" [nsRouterLink]="['/userprofile/'+ 5]" pageTransition="slideBottom"></ActionItem>
+</ActionBar>
 
-<!--[nsRouterLink]="['../news-detail/' + newsitem.id]"-->
+<ScrollView scrollBarIndicatorVisible="false">
+    <StackLayout>
+        <SearchBar hint="Zoeken" (clear)="onClear()" (submit)="searchKbase($event) "></SearchBar>
+        <Label class="topText" text="Uitgelichte artikelen"></Label>
+        <StackLayout>
+            <StackLayout class="articleBorder" *ngFor="let article of (featuredArticles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
+                <Label class="articleText articleTitle" [text]="article.title" textWrap="true" style="margin: 0"></Label>
+                <TextView class="articleText" [text]="article.content | slice:0:20" editable="false"></TextView>
+                <Label class="articleText extraText" text="Lees meer >" [nsRouterLink]="['../kbase-detail/' + article.id]" verticalAlignment="bottom"></Label>
+            </StackLayout>
+            <Label text="Alle artikelen >" nsRouterLink="../kbase-all" class="btn btn-primary"></Label>
+        </StackLayout>
+        <Label text=" ⨁ Voeg eigen contributie toe" nsRouterLink="../kbase-add" class="btn btn-primary"></Label>
+    </StackLayout>
+</ScrollView>
+

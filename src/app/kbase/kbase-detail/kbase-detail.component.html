@@ -1,14 +1,12 @@
 <ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
-    <ActionItem [nsRouterLink]="['../../kbase-edit/' + articleId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+    <ActionItem *ngIf="loggedInUserId === accountId" [nsRouterLink]="['../../kbase-edit/' + articleId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
 </ActionBar>
 
 <StackLayout>
-    <Image class="profilePicture" [src]="profilePicture"></Image>
-    <Label class="newspostAuthor" [text]="firstName  + ' ' + middleName + ' ' + lastName" horizontalAlignment="center"></Label>
+    <Image class="profilePicture" [src]="imageService.getUserImageUrl(account.image?.id)"></Image>
+    <Label class="newspostAuthor" [text]="firstName  + ' ' + middleName + ' ' + lastName" horizontalAlignment="center" textWrap="true" textAlignment="center"></Label>
     <Label class="newspostDate" [text]="date | date : 'longDate'" horizontalAlignment="center"></Label>
-
     <Label class="newspostTitle" [text]="articleTitle" horizontalAlignment="center"></Label>
     <TextView class="newspostDescription" [text]="articleContent" horizontalAlignment="center" editable="false"></TextView>
-
 </StackLayout>

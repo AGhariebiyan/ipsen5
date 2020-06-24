@@ -12,6 +12,7 @@ import { KbaseService } from "../services/kbase.service";
 import { NewsService } from "../services/news.service";
 import { catchError } from "rxjs/operators";
 import { ObservableInput } from "rxjs";
+import { ImageService } from "~/app/services/image.service";
 
 @Component({
   selector: "ns-profile",
@@ -34,7 +35,8 @@ export class UserProfileComponent implements OnInit {
         private kbaseService: KbaseService,
         private routerExtensions: RouterExtensions,
         private route: ActivatedRoute,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private imageService: ImageService
     ) {
 
   }
@@ -53,18 +55,19 @@ export class UserProfileComponent implements OnInit {
     }
 
     getJobName() {
-        if (this.userAccount.jobs.length === 0) {
-            return "Geen bedrijf";
-        } else {
-            this.userAccount.jobs[0].company.name;
-        }
+        return  this.userAccount.jobs.length === 0 ? "Geen Bedrijf" : this.userAccount.jobs[0].company.name;
+        // if (this.userAccount.jobs.length === 0) {
+        //     return "Geen bedrijf";
+        // } else {
+        //     return this.userAccount.jobs[0].company.name;
+        // }
     }
 
     getJobFunction() {
         if (this.userAccount.jobs.length === 0) {
             return "Geen functies";
         } else {
-            this.userAccount.jobs[0].role;
+            return this.userAccount.jobs[0].role.title;
         }
     }
 
@@ -89,12 +92,11 @@ export class UserProfileComponent implements OnInit {
     }
 
     goBack() {
-        this.routerExtensions.navigate(['loggedin/default']);
+        this.routerExtensions.back();
     }
 
     handleError(error: any, item: any): ObservableInput<any> {
         const dialogs = require("tns-core-modules/ui/dialogs");
-
         if (error.status === "404") { return; }
         dialogs.alert({
             title: "Something went wrong",

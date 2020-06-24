@@ -42,7 +42,7 @@ export class EventService {
     })
   }
 
-  private getEventsInternal(): Observable<EventResponse[]> {
+  getEventsInternal(): Observable<EventResponse[]> {
     return this.http.getData<EventResponse[]>(this.endpoint)
   }
 
@@ -58,7 +58,8 @@ export class EventService {
 
   private getEventsForCurrentUserInternal(): Observable<EventResponse[]> {
     const participation$ = this.participantService.getAllParticipations();
-    const allEvents$ = this.getEventsInternal();
+    const allEvents$ = this.getEventsInternal()
+    
     return forkJoin([participation$, allEvents$]).pipe(
       map(result => {
         // All Events
@@ -96,8 +97,8 @@ export class EventService {
 
   updateEvent(event: Event): Promise<void> {
     return new Promise<void>((accept, reject) => {
-        this.http.putData(this.endpoint + "/" + event.id, event, this.http.jsonHeader).subscribe( result => {
-            let emitEvent = JSON.stringify(result);
+        this.http.putData(this.endpoint + "/" + event.id, event, this.http.jsonHeader).subscribe( () => {
+            let emitEvent = JSON.stringify(event);
             this.changedEvent.emit(JSON.parse(emitEvent));
             accept();
         }, () => {

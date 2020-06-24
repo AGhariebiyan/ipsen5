@@ -17,14 +17,16 @@ import { Account } from "~/app/models/Account.model";
   providers: [NewsService]
 })
 export class NewsComponent implements OnInit {
-  newsItems: Observable<NewsItem[]>;
-  featuredNewsItems: Observable<NewsItem[]>;
+
+    showableItems: NewsItem[];
+
+  newsItems: NewsItem[];
+  featuredNewsItems: NewsItem[];
   account: Observable<Account>;
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  featured: boolean = true;
+  featured: boolean = false;
   userName: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   profilePicture: string;
-
 
   constructor(private newsService: NewsService,
               private accountService: AccountService,
@@ -39,45 +41,41 @@ export class NewsComponent implements OnInit {
     this.segmentedBarItems.push(featuredTab);
     this.segmentedBarItems.push(allNews);
   }
-  ngOnInit(): void {
-    this.newsItems = this.newsService.getItems();
-    this.featuredNewsItems = this.getFeaturedNews();
-  }
+    ngOnInit(): void {
+        this.updateNews();
+    }
 
-  printHallo() {
-    console.log("hallloo");
-
-    return "hallo";
-  }
+    updateNews() {
+        this.getNews().subscribe(items => {
+            this.newsItems = items;
+            if (!this.featured) this.showableItems = this.newsItems;
+        });
+        this.getFeaturedNews().subscribe(items => {
+            this.featuredNewsItems = items;
+            if (this.featured) {
+                console.log(items)
+                this.showableItems = this.featuredNewsItems
+            };
+        })
+    }
 
   getNews() {
     return this.newsService.getItems();
   }
 
   getFeaturedNews() {
-    return this.newsService.getFeaturedItems(this.featured);
+    return this.newsService.getFeaturedItems();
   }
 
   getUserData(id: string) {
     this.accountService.getUser(id).subscribe((user) => {
-      console.log(user.firstName);
-
       this.userName.next(user.firstName);
-
     });
 
   }
 
-  selectFeatured() {
-    const newsItems = this.getNews();
-
-    this.featured = !this.featured;
-
-    if (this.featured) {
-      this.newsItems = newsItems;
-
-    } else {
-      this.newsItems = this.featuredNewsItems;
-    }
+    selectFeatured() {
+        this.featured = !this.featured
+      this.updateNews();
   }
 }

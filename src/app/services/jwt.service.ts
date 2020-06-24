@@ -18,7 +18,7 @@ export class JwtService {
   constructor(private accountService: AccountService, private http: HttpClient, private authService: AuthenticationService) {
     }
 
-  checkForJWT() {
+    checkForJWT() {
         if (this.appSettings.hasKey("JWTToken")) {
             this.updateUserFromJWT();
         }
@@ -29,13 +29,14 @@ export class JwtService {
     this.updateUserFromJWT();
   }
 
-  updateUserFromJWT() {
+    updateUserFromJWT() {
         const token = this.appSettings.getString("JWTToken");
         this.http.get(environment.apiUrl + "/api/auth/jwt/validate/" + token, {
             headers: new HttpHeaders().append("auth", "false")
         }).pipe(catchError((error) => {
             return this.handleAuthError(error)
         })).subscribe((account: { account: Account }) => {
+            console.log("request",account);
             this.accountService.setUser(account.account);
        });
 
@@ -64,7 +65,6 @@ export class JwtService {
   private handleAuthError(error: HttpErrorResponse) {
         console.log(error);
         this.authService.logout();
-
         return throwError("jwt token not validated");
     }
 }

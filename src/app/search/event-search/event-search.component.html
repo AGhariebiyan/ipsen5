@@ -1,0 +1,16 @@
+<ActionBar title="Evenementen"></ActionBar>
+<StackLayout>
+    <SearchBar id="searchBar" hint="Naam" (textChange)="textDidChange($event)"></SearchBar>
+    <ListView [items]="events$ | async" height="100%">
+        <ng-template let-event="item" let-i="index" let-odd="odd" let-even="even">
+            <FlexBoxLayout justifyContent="space-between" class="eventRow" (tap)="eventTapped(event)">
+                <StackLayout orientation="vertical">
+                    <Label [text]="event.eventName" class="event-name"></Label>
+                    <Label [text]="transformDateText(event.eventDate)" class="date"></Label>
+                    <Label [text]="event.eventLocationName" class="loc"></Label>
+                </StackLayout>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+        </ng-template>
+    </ListView>
+</StackLayout>
