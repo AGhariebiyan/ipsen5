@@ -54,8 +54,8 @@ export class UserSearchComponent implements OnInit {
 
     return this.accounts$.pipe(
       map(accounts => accounts.filter(acc => {
-        let domain = acc.firstName + " " + acc.lastName
-        return domain.includes(query)
+        let domain = (acc.firstName + " " + acc.lastName).toLowerCase()
+        return domain.includes(query.toLowerCase())
       }))
     )
   }

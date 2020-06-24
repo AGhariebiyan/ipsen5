@@ -40,7 +40,10 @@ export class KbaseSearchComponent implements OnInit {
     }
 
     return this.articles$.pipe(
-      map(articles => articles.filter(article => article.title.includes(query)))
+      map(articles => articles.filter(article => {
+        const domain = article.title.toLowerCase()
+        return domain.includes(query.toLowerCase())
+      }))
     )
   }
 

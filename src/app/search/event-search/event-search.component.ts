@@ -37,7 +37,10 @@ export class EventSearchComponent implements OnInit {
       return this.backup$;
     }
     return this.events$.pipe(
-      map(events => events.filter(event => event.eventName.includes(query)))
+      map(events => events.filter(event => {
+        const domain = event.eventName.toLowerCase()
+        return domain.includes(query.toLowerCase())
+      }))
     )
   }
 

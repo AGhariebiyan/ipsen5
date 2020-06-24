@@ -38,7 +38,10 @@ export class NewsSearchComponent implements OnInit {
     }
     
     return this.news$.pipe(
-      map((news => news.filter(item => item.title.includes(query)))
+      map((news => news.filter(item => {
+        const domain = item.title.toLowerCase()
+        return domain.includes(query.toLowerCase())
+      }))
     ))
   }
 }
