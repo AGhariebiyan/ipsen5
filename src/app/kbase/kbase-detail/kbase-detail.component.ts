@@ -5,6 +5,7 @@ import { Page } from "tns-core-modules/ui/page";
 import { ActivatedRoute } from "@angular/router";
 import { AccountService } from "~/app/services/account.service";
 import { KbaseService } from "~/app/services/kbase.service";
+import { ImageService } from "~/app/services/image.service";
 
 @Component({
   selector: 'ns-kbase-detail',
@@ -32,7 +33,8 @@ export class KbaseDetailComponent implements OnInit {
       private kbaseService: KbaseService,
       private accountService: AccountService,
       private page: Page,
-      private activatedRoute: ActivatedRoute) { }
+      private activatedRoute: ActivatedRoute,
+      private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.loggedInUserId = this.accountService.account.id;
