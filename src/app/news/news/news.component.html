@@ -6,8 +6,8 @@
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
         <SegmentedBar [items]="segmentedBarItems" selectedIndex="0" class="seg" (selectedIndexChange)="selectFeatured()"></SegmentedBar>
-        <StackLayout>
-            <StackLayout class="newsBorder" *ngFor="let newsitem of newsItems | async">
+        <StackLayout *ngFor="let newsitem of showableItems">
+            <StackLayout class="newsBorder">
                 <Label class="newsText newsTitle" [text]="newsitem.title" textWrap="true"></Label>
                 <Label class="newsText" [text]="newsitem.date | date : 'longDate'"fontSize="10"></Label>
                 <TextView class="newsText" [text]="newsitem.content | shorten" editable="false"></TextView>

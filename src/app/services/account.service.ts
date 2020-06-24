@@ -89,7 +89,6 @@ export class AccountService {
   }
 
     setUser(account: Account) {
-        console.log("account",account);
         this.updateObservable(account);
   }
 
