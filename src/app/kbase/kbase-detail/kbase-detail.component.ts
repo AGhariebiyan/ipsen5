@@ -7,7 +7,6 @@ import { AccountService } from "~/app/services/account.service";
 import { KbaseService } from "~/app/services/kbase.service";
 import { Account } from "~/app/models/Account.model";
 import { ImageService } from "~/app/services/image.service";
-import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   selector: 'ns-kbase-detail',
@@ -38,8 +37,7 @@ export class KbaseDetailComponent implements OnInit {
       private accountService: AccountService,
       private page: Page,
       private activatedRoute: ActivatedRoute,
-      private imageService: ImageService,
-      private routerExtensions: RouterExtensions) { }
+      private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.account = this.accountService.account;
@@ -78,12 +76,6 @@ export class KbaseDetailComponent implements OnInit {
       this.lastName = user.lastName;
       this.profilePicture = this.kbaseService.apiLocation + "/" + user.image.url;
     });
-  }
-
-  // Voor in de actionbar om terug te navigeren.
-  goBack() {
-    console.log("Going back!");
-    this.routerExtensions.back();
   }
 
 }
