@@ -10,28 +10,18 @@ import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpService } from "~/app/services/http.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
 import { WorksAt } from "~/app/models/WorksAt.model";
+import { PermissionRole } from "~/app/models/PermissionRole.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class AccountService {
 
-  endpoint = "/accounts/"
-
   account: Account;
   account$ = new Subject<Account>();
 
-  // account$ = new Observable<Account>((observer) => {
-  //   observer.next(this.account);
-  //   this.updateObservable =  function(newValue: Account) {
-  //     this.account = newValue;
-  //     observer.next(newValue);
-  //     console.log("updated account value");
-  //   };
-  // });
 
-
-  constructor(private httpService: HttpService, private router: RouterExtensions) {
+  constructor(private http: HttpClient, private httpService: HttpService, private router: RouterExtensions) {
   }
 
   updateObservable(account: Account) {
@@ -39,9 +29,27 @@ export class AccountService {
     this.account$.next(this.account);
   }
 
+  hasRole(roles: string[]) {
+    if (this.account === null) {
+      return false;
+    }
+    for (const role of roles) {
+      if (this.account.role.internalName === role) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   subscriptionUser(): Observable<Account> {
     return this.account$;
-  }
+    }
+
+    deleteAccount(id: string): Observable<Account> {
+
+        return this.httpService.deleteData<Account>("/accounts/" + id);
+    }
 
   checkLoginResponse(response: any): boolean {
     return response.correct;
@@ -80,8 +88,9 @@ export class AccountService {
     // Todo fill in
   }
 
-  setUser(account: Account) {
-    this.updateObservable(account);
+    setUser(account: Account) {
+        console.log("account",account);
+        this.updateObservable(account);
   }
 
   resetUser() {
@@ -91,8 +100,13 @@ export class AccountService {
 
   getUser(id: string): Observable<Account> {
     // console.log("/api/accounts/" + id);
-    return this.httpService.getDataWithArgs(this.endpoint, id);
-  }
+
+    return this.httpService.getDataWithArgs("/accounts/", id);
+    }
+
+    getAllUsersAdmin(): Observable<Account[]> {
+        return this.httpService.getData("/accounts/admin");
+    }
 
   removeJobFromList(companyId: string) {
     if (companyId === null) {
@@ -103,12 +117,16 @@ export class AccountService {
     this.setUser(this.account);
   }
 
-  getAllAccounts(): Observable<Account[]> {
-    return this.httpService.getData<Account[]>(this.endpoint);
+  setUserRole(id: string, roleId: string) {
+    return this.http.put(environment.apiUrl + "/api/accounts/" + id + "/roles/" + roleId, {});
+  }
+
+  getRoleOptions() {
+    return this.http.get<PermissionRole[]>(environment.apiUrl + "/api/accounts/roles");
   }
 
   private updateAccount(): Observable<Account> {
-    return this.httpService.putData<Account>(this.endpoint + this.account.id, this.account, this.httpService.jsonHeader).pipe(
+    return this.http.put<Account>(environment.apiUrl + "/api/accounts/" + this.account.id, this.account).pipe(
         tap(() => {
           this.updateObservable(this.account);
         })

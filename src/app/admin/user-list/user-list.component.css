@@ -1,0 +1,64 @@
+/* Add mobile styles for the component here.  */
+
+.user-image {
+    width: 50;
+    height: 50;
+    border-radius: 100;
+    margin-right: 10;
+}
+
+.delete{
+    font-size: 20em;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 16em;
+}
+
+.group{
+    display: inline-block;
+    font-size: 11em;
+}
+
+.type{
+    color: gray;
+    padding-right: 10;
+}
+
+.value{
+    color: black;
+}
+
+.user {
+    padding-left: 20px;
+    margin-top: 20;
+    padding-bottom: 5;
+    border-bottom-color: lightgray;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.options{
+    width: 40;
+    border-left-color: gray;
+    border-left-style: solid;
+    border-left-width: 1;
+}
+
+.content{
+    display: inline;
+}
+
+.role{
+    width: 40%;
+}
+
+.email{
+    width: 60%;
+    padding-right: 10;
+}
+
+.email-value{
+    padding-right: 5;
+}

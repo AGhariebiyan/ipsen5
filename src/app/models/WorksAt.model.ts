@@ -6,4 +6,11 @@ export class WorksAt {
    company: Company;
    account: Account;
    role: Role;
+
+   constructor(company, account, role) {
+      this.company = company;
+      this.account = account;
+      this.role = role;
+   }
+
 }

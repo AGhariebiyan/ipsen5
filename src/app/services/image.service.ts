@@ -62,7 +62,7 @@ export class ImageService {
                 "Content-Type": "application/octet-stream",
                 Authorization : "Bearer " + this.jwtService.getToken()
             },
-            description: "User profile picture"
+            description: "Company profile picture"
         };
 
         return this.uploadPicture(imageSrc, request, "picture");

@@ -19,15 +19,20 @@
             </FlexBoxLayout>
         </StackLayout>
 
-
-        <StackLayout class="group">
+        <StackLayout class="group" *ngIf="accountService.hasRole(['non-member'])">
             <FlexBoxLayout justifyContent="space-between" class="row">
+                <Label text="Je account is nog niet geverifieerd door het bestuur. Nog niet alle opties zijn beschikbaar" textWrap="true"></Label>
+            </FlexBoxLayout>
+        </StackLayout>
+
+        <StackLayout class="group" *ngIf="accountService.hasRole(['board-member', 'admin', 'member'])">
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['/loggedin/events']">
                 <Label  text="&#xf073;" class="fas icon indicator-icon"></Label>
                 <Label text="Ingeschreven Evenementen" textWrap="true"></Label>
                 <Label text="&#xf054;" class="fas icon"></Label>
             </FlexBoxLayout>
 
-            <FlexBoxLayout justifyContent="space-between" class="row">
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['/loggedin/kbase']">
                 <Label  text="&#xf15c;" class="fas icon indicator-icon"></Label>
                 <Label text="KBase contributies" textWrap="true"></Label>
                 <Label text="&#xf054;" class="fas icon"></Label>
@@ -36,43 +41,55 @@
 
 
 
+        <!-- Removed because no implementation -->
+<!--        <StackLayout class="group">-->
+<!--            <FlexBoxLayout justifyContent="space-between" class="row">-->
+<!--                <Label  text="&#xf05a;" class="fas icon indicator-icon"></Label>-->
+<!--                <Label text="Over deze app" textWrap="true"></Label>-->
+<!--                <Label text="&#xf054;" class="fas icon"></Label>-->
+<!--            </FlexBoxLayout>-->
+
+<!--            <FlexBoxLayout justifyContent="space-between" class="row">-->
+<!--                <Label  text="&#xf05a;" class="fas icon indicator-icon"></Label>-->
+<!--                <Label text="Over Lugus" textWrap="true"></Label>-->
+<!--                <Label text="&#xf054;" class="fas icon"></Label>-->
+<!--            </FlexBoxLayout>-->
+
+<!--            <FlexBoxLayout justifyContent="space-between" class="row">-->
+<!--                <Label  text="&#xf3e0;" class="fas icon indicator-icon"></Label>-->
+<!--                <Label text="Partners van Lugus" textWrap="true"></Label>-->
+<!--                <Label text="&#xf054;" class="fas icon"></Label>-->
+<!--            </FlexBoxLayout>-->
+
+<!--            <FlexBoxLayout justifyContent="space-between" class="row">-->
+<!--                <Label  text="&#xf0c0;" class="fas icon indicator-icon"></Label>-->
+<!--                <Label text="Raad van Bestuur" textWrap="true"></Label>-->
+<!--                <Label text="&#xf054;" class="fas icon"></Label>-->
+<!--            </FlexBoxLayout>-->
+<!--        </StackLayout>-->
 
         <StackLayout class="group">
-            <FlexBoxLayout justifyContent="space-between" class="row">
-                <Label  text="&#xf05a;" class="fas icon indicator-icon"></Label>
-                <Label text="Over deze app" textWrap="true"></Label>
-                <Label text="&#xf054;" class="fas icon"></Label>
-            </FlexBoxLayout>
 
-            <FlexBoxLayout justifyContent="space-between" class="row">
-                <Label  text="&#xf05a;" class="fas icon indicator-icon"></Label>
-                <Label text="Over Lugus" textWrap="true"></Label>
-                <Label text="&#xf054;" class="fas icon"></Label>
-            </FlexBoxLayout>
-
-            <FlexBoxLayout justifyContent="space-between" class="row">
-                <Label  text="&#xf3e0;" class="fas icon indicator-icon"></Label>
-                <Label text="Partners van Lugus" textWrap="true"></Label>
-                <Label text="&#xf054;" class="fas icon"></Label>
-            </FlexBoxLayout>
-
-            <FlexBoxLayout justifyContent="space-between" class="row">
-                <Label  text="&#xf0c0;" class="fas icon indicator-icon"></Label>
-                <Label text="Raad van Bestuur" textWrap="true"></Label>
-                <Label text="&#xf054;" class="fas icon"></Label>
-            </FlexBoxLayout>
-        </StackLayout>
-
-        <StackLayout class="group">
-            <FlexBoxLayout justifyContent="space-between" class="row">
+            <FlexBoxLayout *ngIf="accountService.hasRole(['board-member', 'admin'])" justifyContent="space-between" class="row" [nsRouterLink]="['/loggedin/new']">
                 <Label  text="&#xf271;" class="fas icon indicator-icon"></Label>
                 <Label text="Evenement aanmaken" textWrap="true"></Label>
                 <Label text="&#xf054;" class="fas icon"></Label>
             </FlexBoxLayout>
+            <FlexBoxLayout *ngIf="accountService.hasRole(['board-member', 'admin'])" justifyContent="space-between" class="row" [nsRouterLink]="['/admin']">
+                <Label  text="&#xf271;" class="fas icon indicator-icon"></Label>
+                <Label text="Gebruikers" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
 
-            <FlexBoxLayout justifyContent="space-between" class="row">
+            <FlexBoxLayout *ngIf="accountService.hasRole(['member', 'board-member', 'admin'])" justifyContent="space-between" class="row" [nsRouterLink]="['/loggedin/news-add']">
                 <Label  text="&#xf067;" class="fas icon indicator-icon"></Label>
                 <Label text="Nieuwsbericht plaatsen" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout *ngIf="accountService.hasRole(['board-member', 'admin', 'member'])" justifyContent="space-between" class="row" [nsRouterLink]="['../mydata/create-company']">
+                <Label  text="&#xf067;" class="fas icon indicator-icon"></Label>
+                <Label text="Bedrijf registreren" textWrap="true"></Label>
                 <Label text="&#xf054;" class="fas icon"></Label>
             </FlexBoxLayout>
         </StackLayout>

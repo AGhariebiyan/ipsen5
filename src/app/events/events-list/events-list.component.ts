@@ -1,52 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Event } from '~/app/models/event.model';
 import { SegmentedBarItem, Page } from 'tns-core-modules/ui'
 import { EventService } from '~/app/services/event.service';
-import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject, forkJoin, Subscription } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EventResponse } from '~/app/models/event-response.model';
 import { AccountService } from '~/app/services/account.service';
+import { Account } from "~/app/models/Account.model";
 
 @Component({
   selector: 'ns-events-list',
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.css']
 })
-export class EventsListComponent implements OnInit {
+export class EventsListComponent implements OnInit, OnDestroy {
   sectionTitle = "Evenementen"
   segmentedBarItems: Array<SegmentedBarItem> = [];
-  isPrivileged = this.accountsService.account.role.internalName == "admin" || this.accountsService.account.role.internalName == "board-member";
+  isPrivileged = false;
   events$: BehaviorSubject<EventResponse[]>
   myEvents$: BehaviorSubject<EventResponse[]>
   displayingallEvents: boolean = false;
-  
+  private accountSub: Subscription = Subscription.EMPTY;
   months = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AUG", "SEP", "OKT", "NOV", "DEC"]
 
   constructor(
-    private es: EventService, 
-    private router: RouterExtensions, 
+    private es: EventService,
+    private router: RouterExtensions,
     private activeRoute: ActivatedRoute,
     private accountsService: AccountService
-    ) 
+    )
     {
     const allEventsTab = new SegmentedBarItem()
-    allEventsTab.title = "Alle Evenementen"
-    const myEventsTab = new SegmentedBarItem()
-    myEventsTab.title = "Voor Aangemeld"
-    this.segmentedBarItems.push(allEventsTab)
-    this.segmentedBarItems.push(myEventsTab)
+    allEventsTab.title = "Alle Evenementen";
+    const myEventsTab = new SegmentedBarItem();
+    myEventsTab.title = "Voor Aangemeld";
+    this.segmentedBarItems.push(allEventsTab);
+    this.segmentedBarItems.push(myEventsTab);
   }
 
   ngOnInit(): void {
     this.events$ = this.es.events$;
-    this.es.getEvents()
+    this.es.getEvents();
 
-    this.myEvents$ = this.es.myEvents$
-    this.es.getUserEvents()
+    this.myEvents$ = this.es.myEvents$;
+    this.es.getUserEvents();
+
+    this.accountSub = this.accountsService.account$.subscribe((account: Account) => {
+      if (account !== null) {
+        this.isPrivileged = this.accountsService.hasRole(['admin', 'board-member']);
+      }
+    });
+
   }
-  
-    /**
+
+  /**
      * @author Waly Kerkeboom
      *
      * Changes the boolean value that determines
@@ -117,5 +125,9 @@ export class EventsListComponent implements OnInit {
 
   addEventPressed() {
     this.router.navigate(['../new'], {relativeTo: this.activeRoute});
+  }
+
+  ngOnDestroy(): void {
+    this.accountSub.unsubscribe();
   }
 }

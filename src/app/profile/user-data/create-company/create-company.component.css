@@ -1,0 +1,19 @@
+/* Add mobile styles for the component here.  */
+.image-selector {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10em;
+}
+
+.preview-label {
+    margin-left: 5%;
+    margin-top: 10em;
+    font-size: 15em;
+}
+
+.preview-image {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5em;
+    width: 90%;
+}
