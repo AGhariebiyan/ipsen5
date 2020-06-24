@@ -10,8 +10,8 @@
         <StackLayout>
             <StackLayout class="articleBorder" *ngFor="let article of (featuredArticles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
                 <Label class="articleText articleTitle" [text]="article.title" textWrap="true" style="margin: 0"></Label>
-                <TextView class="articleText" [text]="article.content | shorten" editable="false"></TextView>
-                <Label class="articleText extraText" text="Lees meer >" [nsRouterLink]="['../news-detail/' + article.id]" verticalAlignment="bottom"></Label>
+                <TextView class="articleText" [text]="article.content | slice:0:20" editable="false"></TextView>
+                <Label class="articleText extraText" text="Lees meer >" [nsRouterLink]="['../kbase-detail/' + article.id]" verticalAlignment="bottom"></Label>
             </StackLayout>
             <Label text="Alle artikelen >" nsRouterLink="../kbase-all" class="btn btn-primary"></Label>
         </StackLayout>

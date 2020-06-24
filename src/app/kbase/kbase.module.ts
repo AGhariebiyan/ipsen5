@@ -23,7 +23,6 @@ import { KbaseAllComponent } from './kbase-all/kbase-all.component';
         KbaseRoutingModule,
         SharedModule,
         CommonModule,
-        NewsModule
     ],
   schemas: [NO_ERRORS_SCHEMA]
 })

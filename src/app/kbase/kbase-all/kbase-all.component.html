@@ -8,7 +8,7 @@
         <StackLayout>
             <StackLayout class="articleBorder" *ngFor="let article of (articles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
                 <Label class="articleText articleTitle" [text]="article.title" textWrap="true" style="margin: 0; color: #111111"></Label>
-                <TextView class="articleText" [text]="article.content | shorten" editable="false"></TextView>
+                <TextView class="articleText" [text]="article.content | slice:0:20" editable="false"></TextView>
                 <Label class="articleText newsExtra" text="Lees meer >" style="color: blue" [nsRouterLink]="['../news-detail/' + article.id]" verticalAlignment="bottom"></Label>
             </StackLayout>
         </StackLayout>

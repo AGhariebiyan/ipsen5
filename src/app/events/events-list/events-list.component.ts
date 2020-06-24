@@ -74,6 +74,7 @@ export class EventsListComponent implements OnInit, OnDestroy {
      * @param selectedEvent
      */
   openDetails(selectedEvent: EventResponse) {
+      console.log("OpenDetails")
       this.myEvents$.subscribe(events => {
         if(events.length == 0) {
           this.navigate(selectedEvent, false);
