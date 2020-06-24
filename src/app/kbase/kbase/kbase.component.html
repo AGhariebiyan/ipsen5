@@ -3,10 +3,12 @@
     <ActionItem icon="font://&#xf500;" class="fas" ios.position="right" [nsRouterLink]="['/userprofile/'+ 5]" pageTransition="slideBottom"></ActionItem>
 </ActionBar>
 
+
+
 <ScrollView scrollBarIndicatorVisible="false">
     <StackLayout>
         <SearchBar hint="Zoeken" (clear)="onClear()" (submit)="searchKbase($event) "></SearchBar>
-        <Label class="topText" text="Uitgelichte artikelen"></Label>
+        <Label class="topText" text="Meest recente artikelen"></Label>
         <StackLayout>
             <StackLayout class="articleBorder" *ngFor="let article of (featuredArticles | async)" [text]="article.title" [nsRouterLink]="['../kbase-detail/' + article.id]">
                 <Label class="articleText articleTitle" [text]="article.title" textWrap="true" style="margin: 0"></Label>
