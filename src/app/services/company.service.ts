@@ -79,7 +79,6 @@ export class CompanyService {
     }
 
     private updateJobs(result) {
-        console.log(result);
         this.accountService.account.jobs.push(result);
         this.accountService.updateObservable(this.accountService.account);
     }
@@ -101,5 +100,23 @@ export class CompanyService {
         let role = new Role(jobRequest.title, jobRequest.description, jobRequest.canEditCompany);
         let worksAt = new WorksAt(jobRequest.company, account, role, false);
         return this.http.postData<JobRequest>("/accounts/" +  account.id + "/jobs", worksAt, this.http.jsonHeader);
+    }
+
+    getJobRequests(id: string): Promise<WorksAt[]> {
+        return new Promise<WorksAt[]>((accept, reject) => {
+            this.http.getData<WorksAt[]>("/accounts/" +  id + "/jobrequests").subscribe(result => {
+                accept(result);
+            }, error => {
+                reject(error);
+            });
+        })
+    }
+
+    denyWorksAt(request: WorksAt) {
+        return this.http.deleteData("/accounts/jobs/" + request.id);
+    }
+
+    acceptWorksAt(request: WorksAt) {
+        return this.http.putData("/accounts/jobs/" + request.id, request, this.http.jsonHeader);
     }
 }

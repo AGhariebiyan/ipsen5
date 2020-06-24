@@ -50,13 +50,17 @@ export class EditCompaniesComponent implements OnInit {
   }
 
   private processResult(result: string) {
-      let company = this.findCompany(result);
-      let navigateExtras: NavigationExtras = {
-          queryParams: {
-          company: JSON.stringify(company)
-        }
-      };
-      this.routerExtensions.navigate(['mydata/register-job'], navigateExtras);
+      if(result == null || result.trim() === "") {
+          return;
+      } else {
+          let company = this.findCompany(result);
+          let navigateExtras: NavigationExtras = {
+              queryParams: {
+                  company: JSON.stringify(company)
+              }
+          };
+          this.routerExtensions.navigate(['mydata/register-job'], navigateExtras);
+      }
   }
 
   private findCompany(result): Company {
