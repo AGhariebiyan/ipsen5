@@ -88,8 +88,9 @@ export class AccountService {
     // Todo fill in
   }
 
-  setUser(account: Account) {
-    this.updateObservable(account);
+    setUser(account: Account) {
+        console.log("account",account);
+        this.updateObservable(account);
   }
 
   resetUser() {

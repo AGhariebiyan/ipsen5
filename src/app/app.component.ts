@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
             } else if (!this.loggedIn && this.wasLoggedIn) {
                 this.wasLoggedIn = false;
                 this.router.navigate(["start"]);
+                return;
             }
         });
 
