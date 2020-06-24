@@ -6,6 +6,10 @@ import { NewsItem } from "~/app/models/NewsItem.model";
 import { AccountService } from "~/app/services/account.service";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from "nativescript-angular/router";
+import { ActionBar } from "tns-core-modules/ui/action-bar";
+import { isIOS } from "tns-core-modules/platform";
+import { ActivatedRoute } from "@angular/router";
+import { Page } from "tns-core-modules/ui/page";
 
 @Component({
   selector: 'ns-news-add',
@@ -19,16 +23,27 @@ export class NewsAddComponent implements OnInit {
   form: FormGroup;
   constructor(private newsService: NewsService,
               private accountService: AccountService,
+              private page: Page,
               private routerExtensions: RouterExtensions) { }
   ngOnInit(): void {
 
     this.form = new FormGroup({
       newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      // userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
     });
   }
 
+  onBarLoaded($event) {
+    let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
+    let navigationBar = bar.nativeView;
+
+    if (isIOS) {
+      navigationBar.prefersLargeTitles = false;
+    }
+  }
+
+  // Wordt niet meer gebruikt
   displayActionDialog() {
     const options = {
       title: "Gebruiker",
@@ -55,7 +70,7 @@ export class NewsAddComponent implements OnInit {
     const newsDescription = this.form.get('newsDescription').value;
 
     const newsItem = new NewsItem(newsTitle, newsDescription, new Date(), false,
-        true, this.userId, true);
+        true, this.accountService.account.id, true);
 
     const body = JSON.stringify(newsItem);
 
@@ -64,7 +79,7 @@ export class NewsAddComponent implements OnInit {
   }
 
   // Dialoog voor de controle van de gebruiker voor het wijzigen.
-  displayConfirmDialogSave() {
+  displayConfirmAdd() {
     const options = {
       title: "Weet u zeker dat u dit bericht wilt toevoegen?",
       okButtonText: "Toevoegen",
@@ -74,7 +89,11 @@ export class NewsAddComponent implements OnInit {
       const newsTitle = this.form.get("newsTitle").value;
       const newsDescription = this.form.get("newsDescription").value;
 
-      if (result === true && newsTitle !== "" && newsDescription !== "" && this.userType !== "") {
+      if (result === true
+          && this.form.get("newsTitle").value !== ""
+          && this.form.get("newsTitle").value !== null
+          && this.form.get("newsDescription").value !== ""
+          && this.form.get("newsDescription").value !== null) {
         this.onSubmit();
         this.routerExtensions.back();
       } else {
@@ -86,5 +105,11 @@ export class NewsAddComponent implements OnInit {
         });
       }
     });
+  }
+
+  // Voor in de actionbar om terug te navigeren.
+  goBack() {
+    console.log("Going back!");
+    this.routerExtensions.back();
   }
 }

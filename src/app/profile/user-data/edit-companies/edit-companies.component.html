@@ -15,4 +15,5 @@
     <FlexBoxLayout  justifyContent="space-between" alignItems="center" class="row" *ngIf="this.accountService.account.jobs.length === 0">
         <Label [text]="'Je staat niet ingeschreven voor een bedrijf.'"></Label>
     </FlexBoxLayout>
+    <Button text="Meld je aan bij een bedrijf" class="add-company" (tap)="addCompany()"></Button>
 </StackLayout>

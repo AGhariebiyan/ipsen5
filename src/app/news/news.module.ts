@@ -15,22 +15,25 @@ import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { ShortenPipe } from "~/app/news/news-pipe/shorten.pipe";
 
 @NgModule({
-  declarations: [
-      NewsComponent,
-      NewsAddComponent,
-      NewsEditComponent,
-      ActionBarNewsComponent,
-      NewsDetailComponent,
-      ShortenPipe
-  ],
-  imports: [
+    declarations: [
+        NewsComponent,
+        NewsAddComponent,
+        NewsEditComponent,
+        ActionBarNewsComponent,
+        NewsDetailComponent,
+        ShortenPipe
+    ],
+    imports: [
         NativeScriptCommonModule,
         NewsRoutingModule,
         NativeScriptFormsModule,
         ReactiveFormsModule,
         CommonModule
     ],
-  schemas: [NO_ERRORS_SCHEMA]
+    exports: [
+        ShortenPipe
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 
 export class NewsModule { }

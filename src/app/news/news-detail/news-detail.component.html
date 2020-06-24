@@ -1,10 +1,10 @@
 <ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="back()"></NavigationButton>
-    <ActionItem [nsRouterLink]="['../../news-edit/' + newsId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+    <ActionItem *ngIf="loggedInUserId === accountId" [nsRouterLink]="['../../news-edit/' + newsId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
 </ActionBar>
 
 <StackLayout>
-    <Image class="profilePicture" [src]="profilePicture"></Image>
+    <Image class="profilePicture" [src]="imageService.getUserImageUrl(account.image?.id)"></Image>
     <Label class="newspostAuthor" [text]="firstName  + ' ' + middleName + ' ' + lastName" horizontalAlignment="center"></Label>
     <Label class="newspostDate" [text]="date | date : 'longDate'" horizontalAlignment="center"></Label>
 

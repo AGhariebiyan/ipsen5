@@ -6,7 +6,7 @@
         <StackLayout class="information">
             <!--     User object-->
             <StackLayout class="picture-container">
-                <Image [src]="userAccount.image ? baseUrl + userAccount.image.url : placeholder " class="user-image"></Image>
+                <Image [src]="imageService.getUserImageUrl(this.userAccount.image?.id)" class="user-image"></Image>
 
             </StackLayout>
             <StackLayout class="name-container">
