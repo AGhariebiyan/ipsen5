@@ -6,6 +6,7 @@ import { map } from "rxjs/internal/operators";
 import { DialogService } from "~/app/services/dialog.service";
 import { JwtService } from "~/app/services/jwt.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
+import { AuthenticationService } from "~/app/services/authentication.service";
 
 @Injectable({
     providedIn: "root"
@@ -19,25 +20,27 @@ export class RoleGuard implements CanActivate {
     constructor(private accountService: AccountService,
                 private dialogService: DialogService,
                 private jwtService: JwtService,
-                private router: Router) {
+                private router: Router,
+                private routerExtension: RouterExtensions,
+                private authService: AuthenticationService) {
 
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | UrlTree {
         const roles = route.data.roles as Array<string>;
-
+        console.log("Checking Roles: ", roles);
         // Check if the route contains roles.
         if (roles === null || roles[0] === null) {
-            this.dialogService.showDialog(this.title, this.message);
+            //this.showDenial();
 
-            return of(false);
+            return of(true);
         }
 
         // Check if the account in the service has the roles
         if (!!this.accountService.account) {
             const allowed = roles.filter((role) => role === this.accountService.account.role.internalName).length > 0;
             if (!allowed) {
-                this.dialogService.showDialog(this.title, this.message);
+                this.showDenial();
             }
 
             return of(allowed);
@@ -55,10 +58,22 @@ export class RoleGuard implements CanActivate {
         return this.accountService.account$.pipe(map((account) => {
             const allowed = roles.filter((role) => role === account.role.internalName).length > 0;
             if (!allowed) {
-                this.dialogService.showDialog(this.title, this.message);
+                this.showDenial();
             }
+
             return allowed;
         }));
+    }
+
+    private showDenial() {
+        this.dialogService.showActions(this.title, this.message, ["Log uit", "Ga terug"]).then((actionResult: string) => {
+            switch (actionResult) {
+                case "Log uit":
+                    this.authService.logout();
+                case "Ga terug":
+                    this.routerExtension.back();
+            }
+        });
     }
 
 }
