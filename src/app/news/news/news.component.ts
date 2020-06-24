@@ -25,6 +25,7 @@ export class NewsComponent implements OnInit {
   userName: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   profilePicture: string;
 
+
   constructor(private newsService: NewsService,
               private accountService: AccountService,
               private routerExtensions: RouterExtensions) {

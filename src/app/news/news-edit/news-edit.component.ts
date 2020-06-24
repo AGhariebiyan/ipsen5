@@ -46,12 +46,11 @@ export class NewsEditComponent implements OnInit {
 
     this.form = new FormGroup({
       newsTitle: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
-      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
-      // userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
+      newsDescription: new FormControl(null, { updateOn: 'change', validators: [Validators.required]}),
+      userType: new FormControl(null, { updateOn: 'change', validators: [Validators.required]})
     });
   }
 
-  //News item ophalen
   getNewsItem() {
     this.newsService.getItem(this.newsId).subscribe((newsItem) => {
       this.newsPostId = newsItem.id;
@@ -62,10 +61,10 @@ export class NewsEditComponent implements OnInit {
       this.accountId = newsItem.accountId;
       // this.companyId = newsItem.company;
       this.featured = newsItem.featured;
+
     });
   }
 
-  // Actionbar
   onBarLoaded($event) {
     let bar: ActionBar = this.page.getViewById<ActionBar>("bar");
     let navigationBar = bar.nativeView;
@@ -87,7 +86,8 @@ export class NewsEditComponent implements OnInit {
           && this.form.get("newsTitle").value !== ""
           && this.form.get("newsTitle").value !== null
           && this.form.get("newsDescription").value !== ""
-          && this.form.get("newsDescription").value !== null) {
+          && this.form.get("newsDescription").value !== null
+          && this.userType !== "") {
         this.onSubmit();
         this.routerExtensions.back();
         this.routerExtensions.back();
@@ -117,7 +117,7 @@ export class NewsEditComponent implements OnInit {
       Date: this.date,
       Deleted: newsitem.deleted,
       Published: newsitem.published,
-      AccountId: newsitem.accountId,
+      AccountId: this.userId,
       // CompanyId: newsitem.company,
       Featured: newsitem.featured
     };
@@ -128,7 +128,6 @@ export class NewsEditComponent implements OnInit {
   }
 
   // Dialoog venster voor het selecteren van type.
-  // Niet meer in gebruik.
   displayActionDialog() {
     const options = {
       title: "Plaatsen als:",
@@ -160,7 +159,7 @@ export class NewsEditComponent implements OnInit {
     };
 
     confirm(options).then((result: boolean) => {
-      if (result === true) {
+      if (result === true){
         this.deleteNewsPost();
       } else {
         console.log("niet verwijderd");
@@ -169,14 +168,12 @@ export class NewsEditComponent implements OnInit {
     });
   }
 
-  // Verwijderen bericht
   deleteNewsPost() {
     this.newsService.deleteNewspost(this.newsId);
     this.routerExtensions.back();
     this.routerExtensions.back();
   }
 
-  // Voor in de actionbar om terug te navigeren.
   goBack() {
       console.log("Going back!");
       this.routerExtensions.back();
