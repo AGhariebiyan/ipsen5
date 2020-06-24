@@ -64,7 +64,7 @@ const routes: Routes = [
         path: "admin",
         component: UserListComponent,
         canActivate: [RoleGuard],
-        data: { roles: ["admin", "member"] }
+        data: { roles: ["admin", "board-member"] }
     },
 
     {

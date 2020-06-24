@@ -48,7 +48,7 @@ export class EventsListComponent implements OnInit, OnDestroy {
 
     this.accountSub = this.accountsService.account$.subscribe((account: Account) => {
       if (account !== null) {
-        this.isPrivileged = this.accountsService.account.role.internalName === "admin" || this.accountsService.account.role.internalName === "board-member";
+        this.isPrivileged = this.accountsService.hasRole(['admin', 'board-member']);
       }
     });
 

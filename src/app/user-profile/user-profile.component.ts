@@ -97,7 +97,7 @@ export class UserProfileComponent implements OnInit {
 
     handleError(error: any, item: any): ObservableInput<any> {
         const dialogs = require("tns-core-modules/ui/dialogs");
-        if (error.status == "404") { return; }
+        if (error.status === "404") { return; }
         dialogs.alert({
             title: "Something went wrong",
             message: "We were unable to get data from the server",

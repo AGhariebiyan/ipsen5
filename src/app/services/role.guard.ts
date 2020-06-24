@@ -66,12 +66,10 @@ export class RoleGuard implements CanActivate {
     }
 
     private showDenial() {
-        this.dialogService.showActions(this.title, this.message, ["Log uit", "Ga terug"]).then((actionResult: string) => {
+        this.dialogService.showActions(this.title, this.message, ["Log uit"]).then((actionResult: string) => {
             switch (actionResult) {
                 case "Log uit":
                     this.authService.logout();
-                case "Ga terug":
-                    this.routerExtension.back();
             }
         });
     }
