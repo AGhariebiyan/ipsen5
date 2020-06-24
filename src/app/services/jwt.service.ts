@@ -65,7 +65,6 @@ export class JwtService {
   private handleAuthError(error: HttpErrorResponse) {
         console.log(error);
         this.authService.logout();
-
         return throwError("jwt token not validated");
     }
 }
