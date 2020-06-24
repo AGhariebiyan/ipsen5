@@ -1,5 +1,5 @@
 <ActionBar  title="bericht wijzigen" id="bar" (loaded)="onBarLoaded($event)">
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
     <ActionItem *ngIf="loggedInUserId === accountId" [nsRouterLink]="['../../kbase-edit/' + articleId]" tap="onEdit" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
 </ActionBar>
 
