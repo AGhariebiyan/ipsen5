@@ -24,11 +24,29 @@ export class KbaseService {
         return this.http.getData(this.endpoint);
     }
 
+    getFeaturedItems(): Observable<KBase[]> {
+        const allNews = this.getItems();
+
+        return allNews.pipe(map((result) => {
+            return result.filter((kbase) => kbase.published === true);
+
+        }));
+    }
+
+    getSearchedItems(query: string): Observable<KBase[]> {
+        const allNews = this.getItems();
+
+        return allNews.pipe(map((result) => {
+            return result.filter((kbase) => kbase.title === query);
+
+        }));
+    }
+
     getItem(id: string): Observable<KBase> {
         return this.http.getDataWithArgs(this.endpointItem, id);
     }
 
-    getItemsByUser(id:string): Observable<KBase[]> {
+    getItemsByUser(id: string): Observable<KBase[]> {
         return this.http.getDataWithArgs(this.endpointItem + "user/", id);
     }
 

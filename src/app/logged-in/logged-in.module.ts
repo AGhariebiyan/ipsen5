@@ -8,10 +8,11 @@ import { EventsModule } from "~/app/events/events.module";
 import { SearchModule } from "~/app/search/search.module";
 import { KbaseModule } from "~/app/kbase/kbase.module";
 import { CommonModule } from "@angular/common";
+import { UserListComponent } from "../admin/user-list/user-list.component";
 
 @NgModule({
   declarations: [
-      LoggedInComponent
+        LoggedInComponent
   ],
   imports: [
       LoggedInRoutingModule,
@@ -19,8 +20,7 @@ import { CommonModule } from "@angular/common";
       NewsModule,
       EventsModule,
       SearchModule,
-      KbaseModule
-  ],
+      KbaseModule  ],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class LoggedInModule { }

@@ -8,6 +8,8 @@ import { ImageAsset } from "@nativescript/core/image-asset/image-asset";
 import { DialogService } from "~/app/services/dialog.service";
 import { Image } from "~/app/models/image.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Company } from "~/app/models/Company.model";
+import { compareNumbers } from "@angular/compiler-cli/src/diagnostics/typescript_version";
 
 @Component({
   selector: "ns-edit-company",
@@ -16,9 +18,11 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class EditCompanyComponent implements OnInit {
 
-  form: FormGroup;
+  roleForm: FormGroup;
+  companyForm: FormGroup;
   worksAt: WorksAt;
-  editing: boolean;
+  editingRole: boolean = false;
+  editingCompany: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private companyService: CompanyService,
@@ -29,20 +33,25 @@ export class EditCompanyComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.worksAt = this.companyService.getWorksAt(params.id);
-      this.createForm();
+      this.createRoleForm();
+      this.createCompanyForm();
     });
 
   }
 
-  createForm(){
-    this.form = new FormGroup({
-      companyName: new FormControl(this.worksAt.company.name, [
-        Validators.required
-      ]),
+  createRoleForm() {
+    this.roleForm = new FormGroup({
       jobDescription: new FormControl(this.worksAt.role.title)
     });
   }
 
+  createCompanyForm() {
+    this.companyForm = new FormGroup({
+      companyName: new FormControl(this.worksAt.company.name, [
+        Validators.required
+      ])
+    });
+  }
 
   editImage() {
     this.imageService.selectSingleImage().then((imageAsset: ImageAsset) => {
@@ -64,19 +73,51 @@ export class EditCompanyComponent implements OnInit {
     });
   }
 
-  toggleEdit() {
-    this.editing = !this.editing;
+  toggleEditRole() {
+    this.editingRole = !this.editingRole;
+  }
+
+  toggleEditCompany() {
+    this.editingCompany = !this.editingCompany;
+    console.log("Changed editing company to: ", this.editingCompany);
   }
 
   goBack() {
     this.routerExtensions.back();
   }
 
-  save() {
-    this.worksAt.role.title = this.form.value.jobDescription;
+  saveRole() {
+    this.worksAt.role.title = this.roleForm.value.jobDescription;
     this.companyService.updateJobDescription(this.worksAt).subscribe(() => {
       this.dialogService.showDialog("Succesvol bijgewerkt", "Succesvol bijgewerkt");
-      this.editing = false;
+      this.editingRole = false;
+      this.editingCompany = false;
+    });
+  }
+
+  saveCompany() {
+    const company: Company = this.worksAt.company;
+    company.name = this.companyForm.value.companyName;
+    this.companyService.updateCompany(company).subscribe(() => {
+      this.dialogService.showDialog("Succesvol bijgewerkt", "Succesvol bijgewerkt");
+      this.editingRole = false;
+      this.editingCompany = false;
+    }, (error) => {
+      this.dialogService.showDialog("Something went wrong", error);
+    });
+  }
+
+  deleteCompany(id: string) {
+    this.dialogService.showConfirm("Weet je zeker",
+        "Het verwijderen van een bedrijf kan niet ongedaan worden gemaakt!\n Alle werknemers worden verwijderd.").then((accept: boolean) => {
+          if (accept) {
+            this.companyService.deleteCompany(id).subscribe((data) => {
+                this.dialogService.showDialog("Bedrijf verwijderd", "Het bedrijf is verwijderd");
+                this.routerExtensions.back();
+            }, (error) => {
+                this.dialogService.showAlert("Mislukt", "Het is niet gelukt het bedrijf te verwijdern");
+            });
+          }
     });
   }
 }

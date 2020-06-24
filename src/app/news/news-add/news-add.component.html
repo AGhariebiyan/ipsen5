@@ -1,4 +1,6 @@
-<ns-action-bar-news titleText="Nieuws" (onSave)="displayConfirmDialogSave()"></ns-action-bar-news>
+<ActionBar  title="Bericht toevoegen" id="bar" (loaded)="onBarLoaded($event)">
+    <ActionItem (tap)="displayConfirmAdd()" tap="onSave" ios.systemIcon="3" android.systemIcon="ic_menu_add" ios.position="right"></ActionItem>
+</ActionBar>
 <StackLayout [formGroup]="form">
 <!--    <Button text="Toevoegen" class="btn btn-primary" (tap)="displayConfirmDialogSave()"></Button>-->
     <TextField

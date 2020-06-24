@@ -17,6 +17,8 @@ import { EditEmailComponent } from "~/app/profile/user-data/edit-email/edit-emai
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { EditCompaniesComponent } from "./profile/user-data/edit-companies/edit-companies.component";
 import { EditCompanyComponent } from "./profile/user-data/edit-company/edit-company.component";
+import { CreateCompanyComponent } from "~/app/profile/user-data/create-company/create-company.component";
+import { UserListComponent } from "./admin/user-list/user-list.component";
 
 const routes: Routes = [
 
@@ -48,8 +50,15 @@ const routes: Routes = [
             {path: "edit-password", component: EditPasswordComponent},
             { path: "edit-email", component: EditEmailComponent },
             { path: "edit-companies", component: EditCompaniesComponent },
-            { path: "edit-companies/:id", component: EditCompanyComponent }
+            { path: "edit-companies/:id", component: EditCompanyComponent },
+            {path: "create-company", component: CreateCompanyComponent }
         ]
+    },
+
+    {
+        path: "admin",
+        component: UserListComponent,
+        data: { roles: ["admin"] }
     },
 
     {

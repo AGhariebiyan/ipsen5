@@ -6,7 +6,7 @@
         <!--     User object-->
         <StackLayout class="group">
             <FlexBoxLayout  justifyContent="space-between" class="row" alignItems="center" [nsRouterLink]="['../mydata']" >
-                <Image [src]="account.image?.url ? baseUrl + account.image.url : placeholder" class="user-image"></Image>
+                <Image [src]="imageService.getUserImageUrl(account.image?.id)" class="user-image"></Image>
                 <StackLayout>
                     <Label [text]="
                     this.account.firstName + ' ' +
@@ -73,6 +73,12 @@
             <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['/loggedin/news-add']">
                 <Label  text="&#xf067;" class="fas icon indicator-icon"></Label>
                 <Label text="Nieuwsbericht plaatsen" textWrap="true"></Label>
+                <Label text="&#xf054;" class="fas icon"></Label>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout justifyContent="space-between" class="row" [nsRouterLink]="['../mydata/create-company']">
+                <Label  text="&#xf067;" class="fas icon indicator-icon"></Label>
+                <Label text="Bedrijf registreren" textWrap="true"></Label>
                 <Label text="&#xf054;" class="fas icon"></Label>
             </FlexBoxLayout>
         </StackLayout>

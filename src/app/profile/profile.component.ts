@@ -5,6 +5,7 @@ import { AccountService } from "~/app/services/account.service";
 import { Account } from "~/app/models/Account.model";
 import { environment } from "~/environments/environment.tns";
 import { AuthenticationService } from "~/app/services/authentication.service";
+import { ImageService } from "~/app/services/image.service";
 
 export interface ClickItem {
   icon: string;
@@ -21,11 +22,11 @@ export class ProfileComponent implements OnInit {
 
   account: Account;
   baseUrl = environment.apiUrl + "/";
-  placeholder = "https://randomuser.me/api/portraits/men/78.jpg";
 
   constructor(private routerExtensions: RouterExtensions,
               private accountService: AccountService,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService,
+              private imageService: ImageService) {
 
   }
 

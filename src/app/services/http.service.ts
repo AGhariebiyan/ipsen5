@@ -26,16 +26,16 @@ export class HttpService {
     return this.http.get<T>(this.apiLocation + endpoint + args);
   }
 
-  postData(endpoint: string, body: any, headers: HttpHeaders) {
-    return this.http.post(this.apiLocation + endpoint, body, {headers: headers});
-
+  postData<T>(endpoint: string, body: any, headers: HttpHeaders): Observable<T> {
+    return this.http.post<T>(this.apiLocation + endpoint, body, {headers: headers});
   }
+
 
   putData(endpoint: string, body: any, headers: HttpHeaders) {
     return this.http.put(this.apiLocation + endpoint, body, {headers: headers});
   }
 
-  deleteData(endpoint: string) {
-    return this.http.delete(this.apiLocation + endpoint);
+    deleteData<T>(endpoint: string): Observable<T> {
+    return this.http.delete<T>(this.apiLocation + endpoint);
   }
 }

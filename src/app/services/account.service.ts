@@ -9,22 +9,16 @@ import { catchError, map, tap } from "rxjs/internal/operators";
 import { NewsItem } from "~/app/models/NewsItem.model";
 import { HttpService } from "~/app/services/http.service";
 import { RouterExtensions } from "@nativescript/angular/router/router.module";
+import { WorksAt } from "~/app/models/WorksAt.model";
+import { PermissionRole } from "~/app/models/PermissionRole.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class AccountService {
-  account: Account;
 
+  account: Account;
   account$ = new Subject<Account>();
-  // account$ = new Observable<Account>((observer) => {
-  //   observer.next(this.account);
-  //   this.updateObservable =  function(newValue: Account) {
-  //     this.account = newValue;
-  //     observer.next(newValue);
-  //     console.log("updated account value");
-  //   };
-  // });
 
 
   constructor(private http: HttpClient, private httpService: HttpService, private router: RouterExtensions) {
@@ -37,7 +31,12 @@ export class AccountService {
 
   subscriptionUser(): Observable<Account> {
     return this.account$;
-  }
+    }
+
+    deleteAccount(id: string): Observable<Account> {
+
+        return this.httpService.deleteData<Account>("/accounts/" + id);
+    }
 
   checkLoginResponse(response: any): boolean {
     return response.correct;
@@ -82,13 +81,34 @@ export class AccountService {
 
   resetUser() {
     this.setUser(null);
-    this.router.navigate(["start"], {clearHistory: true})
+    this.router.navigate(["start"], {clearHistory: true});
   }
 
   getUser(id: string): Observable<Account> {
     // console.log("/api/accounts/" + id);
 
     return this.httpService.getDataWithArgs("/accounts/", id);
+    }
+
+    getAllUsersAdmin(): Observable<Account[]> {
+        return this.httpService.getData("/accounts/admin");
+    }
+
+  removeJobFromList(companyId: string) {
+    if (companyId === null) {
+      return;
+    }
+    const jobs: WorksAt[] = this.account.jobs.filter(j => j.company.id !== companyId);
+    this.account.jobs = jobs;
+    this.setUser(this.account);
+  }
+
+  setUserRole(id: string, roleId: string) {
+    return this.http.put(environment.apiUrl + "/api/accounts/" + id + "/roles/" + roleId, {});
+  }
+
+  getRoleOptions() {
+    return this.http.get<PermissionRole[]>(environment.apiUrl + "/api/accounts/roles");
   }
 
   private updateAccount(): Observable<Account> {
